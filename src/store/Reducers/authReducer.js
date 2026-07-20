@@ -159,6 +159,21 @@ export const profile_info_add = createAsyncThunk(
     )
     // end method 
 
+    /// Forgot Password method
+
+    export const forgot_password = createAsyncThunk(
+        'auth/forgot_password',
+        async(info ,{rejectWithValue, fulfillWithValue}) => {
+            try {
+                const {data} = await api.post('/seller-forgot-password',info,{withCredentials: true})
+                return fulfillWithValue(data.message)
+            } catch (error) {
+                return rejectWithValue(error.response.data.message)
+            }
+        }
+    )
+    // end method 
+
  
 export const authReducer = createSlice({
     name: 'auth',
@@ -174,6 +189,7 @@ export const authReducer = createSlice({
 
         messageClear : (state,_) => {
             state.errorMessage = ""
+            state.successMessage = ""
         }
 
     },
@@ -254,6 +270,20 @@ export const authReducer = createSlice({
             state.errorMessage = action.payload;
         }) 
         .addCase(change_password.fulfilled, (state,action) => {
+            state.loader = false;
+            state.successMessage = action.payload 
+        })
+
+        /// Forgot Password
+        .addCase(forgot_password.pending, (state) => {
+            state.loader = true;
+            state.errorMessage = null;
+        })
+        .addCase(forgot_password.rejected, (state,action) => {
+            state.loader = false;
+            state.errorMessage = action.payload;
+        }) 
+        .addCase(forgot_password.fulfilled, (state,action) => {
             state.loader = false;
             state.successMessage = action.payload 
         });

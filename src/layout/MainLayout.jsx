@@ -31,11 +31,11 @@ const MainLayout = () => {
     const [showSidebar, setShowSidebar] = useState(false)
 
     return ( 
-        <div className='bg-white w-full min-h-screen'>
+        <div className='bg-[#0f172a] w-full min-h-screen'>
             <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
             <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 
-           <div className='ml-0 lg:ml-[260px] pt-[95px] transition-all'>
+           <div className='ml-0 lg:ml-[260px] pt-[95px] px-3 lg:px-7 pb-10 transition-all'>
            <Outlet/>
            </div>
         </div>
