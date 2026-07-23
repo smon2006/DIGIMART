@@ -39,7 +39,6 @@ const PaymentRequest = () => {
         }
     },[successMessage,errorMessage])
      
-
     const Row = ({ index, style }) => {
         return (
         <div style={style} className='flex text-sm text-white font-medium'>
@@ -57,10 +56,6 @@ const PaymentRequest = () => {
             </div>
         )
     }
-
-
-
-
 
     return (
 <div className='px-2 lg:px-7 pt-5'>

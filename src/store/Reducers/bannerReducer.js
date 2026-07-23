@@ -14,9 +14,6 @@ export const add_banner = createAsyncThunk(
     }
 )
 
-  // End Method 
-
-
   export const get_banner = createAsyncThunk(
     'banner/get_banner',
     async(productId ,{rejectWithValue, fulfillWithValue}) => { 
@@ -29,8 +26,6 @@ export const add_banner = createAsyncThunk(
         }
     }
 )
-
-  // End Method 
 
   export const update_banner = createAsyncThunk(
     'banner/update_banner',
@@ -45,9 +40,6 @@ export const add_banner = createAsyncThunk(
     }
 )
 
-  // End Method 
- 
- 
 export const bannerReducer = createSlice({
     name: 'banner',
     initialState:{
@@ -98,7 +90,6 @@ export const bannerReducer = createSlice({
             state.banner = payload.banner; 
         })
         
-
     }
 
 })

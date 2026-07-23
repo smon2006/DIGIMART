@@ -77,7 +77,6 @@ const AdminLogin = () => {
             <input onChange={inputHandle} value={state.password}  className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="password" name='password' placeholder='••••••••' id='password' required />
         </div>
 
-
         <button disabled={loader ? true : false}  className='bg-[#2563EB] hover:bg-[#1d4ed8] w-full shadow-md shadow-blue-600/30 transition-colors text-white font-semibold rounded-lg px-7 py-2.5 mb-1'>
             {
                loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Login'

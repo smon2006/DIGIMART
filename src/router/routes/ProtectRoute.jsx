@@ -39,8 +39,6 @@ const ProtectRoute = ({route,children}) => {
                }
             } 
 
-
-            
         } else {
             if (route.ability === 'seller') {
                 return <Suspense fallback={null} >{children}</Suspense>
@@ -50,8 +48,6 @@ const ProtectRoute = ({route,children}) => {
         return <Navigate to='/login' replace />
     }
  
-
-    
 };
 
 export default ProtectRoute;

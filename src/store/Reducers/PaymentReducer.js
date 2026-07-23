@@ -8,14 +8,12 @@ export const get_seller_payment_details = createAsyncThunk(
             const {data} = await api.get(`/payment/seller-payment-details/${sellerId} `,{withCredentials: true})  
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 ) 
-  // End Method 
-
-
+  
 export const send_withdrowal_request = createAsyncThunk(
     'payment/send_withdrowal_request',
     async( info,{rejectWithValue, fulfillWithValue}) => { 
@@ -23,13 +21,12 @@ export const send_withdrowal_request = createAsyncThunk(
             const {data} = await api.post(`/payment/withdrowal-request`,info,{withCredentials: true})  
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 ) 
-  // End Method 
-
+  
   export const get_payment_request = createAsyncThunk(
     'payment/get_payment_request',
     async(_,{rejectWithValue, fulfillWithValue}) => { 
@@ -37,13 +34,12 @@ export const send_withdrowal_request = createAsyncThunk(
             const {data} = await api.get(`/payment/request`,{withCredentials: true})  
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 ) 
-  // End Method 
-
+  
   export const confirm_payment_request = createAsyncThunk(
     'payment/confirm_payment_request',
     async(paymentId ,{rejectWithValue, fulfillWithValue}) => { 
@@ -51,16 +47,12 @@ export const send_withdrowal_request = createAsyncThunk(
             const {data} = await api.post(`/payment/request-confirm`,{paymentId},{withCredentials: true})  
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 ) 
-  // End Method 
-
- 
-
- 
+  
 export const PaymentReducer = createSlice({
     name: 'payment',
     initialState:{
@@ -127,7 +119,6 @@ export const PaymentReducer = createSlice({
             state.pendingWithdrows = temp  
         })
        
-
     }
 
 })

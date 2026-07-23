@@ -29,9 +29,6 @@ const EditProduct = () => {
         dispatch(get_product(productId))
     }, [productId])
 
-
-     
-
     const [state, setState] = useState({
         name: "",
         description: '',
@@ -69,7 +66,6 @@ const EditProduct = () => {
  
     const [imageShow, setImageShow] = useState([])
 
-  
     const changeImage = (img, files) => {
         if (files.length > 0) {
            dispatch(product_image_update({
@@ -80,8 +76,6 @@ const EditProduct = () => {
         }
        
     }
-
-   
 
     useEffect(() => {
         setState({
@@ -102,8 +96,6 @@ const EditProduct = () => {
         }
     },[categorys])
 
-
-
     useEffect(() => {
 
         if (successMessage) {
@@ -115,7 +107,6 @@ const EditProduct = () => {
             dispatch(messageClear())
         } 
     },[successMessage,errorMessage])
-
 
     const update = (e) => {
         e.preventDefault()
@@ -132,8 +123,6 @@ const EditProduct = () => {
         dispatch(update_product(obj))
 
     }
- 
-
  
     return (
         <div className='px-2 lg:px-7 pt-5'>
@@ -156,7 +145,6 @@ const EditProduct = () => {
             </div>   
 
         </div>
-
 
         <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#E2E8F0]'>
             <div className='flex flex-col w-full gap-1 relative'>
@@ -188,7 +176,6 @@ const EditProduct = () => {
             </div>   
 
         </div>
-
 
         <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#E2E8F0]'>
             <div className='flex flex-col w-full gap-1'>
@@ -229,8 +216,6 @@ const EditProduct = () => {
             </button>
 
             </div>
-
-
 
     </form>
 </div>

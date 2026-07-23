@@ -46,11 +46,7 @@ const Register = () => {
             dispatch(messageClear())
         }
         
-
     },[successMessage,errorMessage])
-
-    
-
 
     return (
         <div className='min-w-screen min-h-screen bg-slate-50 flex justify-center items-center px-4' >
@@ -65,7 +61,6 @@ const Register = () => {
             <input onChange={inputHandle} value={state.name} className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="text" name='name' placeholder='Full name' id='name' required />
 
         </div>
-
 
         <div className='flex flex-col w-full gap-1.5 mb-4'>
             <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="email">Email</label>
@@ -111,7 +106,6 @@ const Register = () => {
              </div>
 
         </div>
-
 
     </form>
  

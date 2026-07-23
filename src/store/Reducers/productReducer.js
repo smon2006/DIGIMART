@@ -7,16 +7,14 @@ export const add_product = createAsyncThunk(
         
         try { 
             const {data} = await api.post('/product-add',product,{withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-
-// End Method 
 
 export const get_products = createAsyncThunk(
     'product/get_products',
@@ -28,16 +26,26 @@ export const get_products = createAsyncThunk(
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
 
-  // End Method 
+export const get_discount_products = createAsyncThunk(
+    'product/get_discount_products',
+    async({ parPage,page,searchValue },{rejectWithValue, fulfillWithValue}) => {
 
+        try {
 
-  
+            const {data} = await api.get(`/discount-products-get?page=${page}&&searchValue=${searchValue}&&parPage=${parPage}`,{withCredentials: true})
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
 export const get_product = createAsyncThunk(
     'product/get_product',
     async( productId ,{rejectWithValue, fulfillWithValue}) => {
@@ -48,16 +56,12 @@ export const get_product = createAsyncThunk(
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
 
-  // End Method 
-
-
-  
 export const update_product = createAsyncThunk(
     'product/update_product',
     async( product ,{rejectWithValue, fulfillWithValue}) => {
@@ -68,14 +72,11 @@ export const update_product = createAsyncThunk(
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-
-  // End Method 
-
 
   export const product_image_update = createAsyncThunk(
     'product/product_image_update',
@@ -91,18 +92,26 @@ export const update_product = createAsyncThunk(
             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
 
-  // End Method 
+  export const delete_product = createAsyncThunk(
+    'product/delete_product',
+    async( productId ,{rejectWithValue, fulfillWithValue}) => {
 
+        try {
 
+            const {data} = await api.delete(`/product-delete/${productId}`,{withCredentials: true})
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
 
-
- 
 export const productReducer = createSlice({
     name: 'product',
     initialState:{
@@ -111,12 +120,15 @@ export const productReducer = createSlice({
         loader: false,
         products : [], 
         product : '',
-        totalProduct: 0
+        totalProduct: 0,
+        discountProducts : [],
+        totalDiscountProduct: 0
     },
     reducers : {
 
         messageClear : (state,_) => {
             state.errorMessage = ""
+            state.successMessage = ""
         }
 
     },
@@ -140,6 +152,10 @@ export const productReducer = createSlice({
             state.products = payload.products;
              
         })
+        .addCase(get_discount_products.fulfilled, (state, { payload }) => {
+            state.totalDiscountProduct = payload.totalProduct;
+            state.discountProducts = payload.products;
+        })
         .addCase(get_product.fulfilled, (state, { payload }) => {
             state.product = payload.product;  
         })
@@ -162,8 +178,21 @@ export const productReducer = createSlice({
             state.product = payload.product 
             state.successMessage = payload.message  
         })
- 
 
+        .addCase(delete_product.pending, (state, { payload }) => {
+            state.loader = true;
+        })
+        .addCase(delete_product.rejected, (state, { payload }) => {
+            state.loader = false;
+            state.errorMessage = payload.error
+        })
+        .addCase(delete_product.fulfilled, (state, { payload, meta }) => {
+            state.loader = false;
+            state.successMessage = payload.message
+            state.products = state.products.filter(p => p._id !== meta.arg)
+            state.totalProduct = state.totalProduct - 1
+        })
+ 
     }
 
 })

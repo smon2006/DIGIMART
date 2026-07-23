@@ -12,7 +12,6 @@ export const get_admin_dashboard_data = createAsyncThunk(
         }
     }
 )
-// End method
 
 export const get_seller_dashboard_data = createAsyncThunk(
     'dashboard/get_seller_dashboard_data',
@@ -25,10 +24,7 @@ export const get_seller_dashboard_data = createAsyncThunk(
         }
     }
 )
-// End method
 
-
-  
 export const dashboardReducer = createSlice({
     name: 'dashboard',
     initialState:{

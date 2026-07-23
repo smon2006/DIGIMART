@@ -21,7 +21,6 @@ const Profile = () => {
     const dispatch = useDispatch()
     const { userInfo,loader,successMessage,errorMessage } = useSelector(state => state.auth)
   
-
     useEffect(() => {
 
         if (successMessage) {
@@ -51,7 +50,6 @@ const Profile = () => {
         dispatch(profile_info_add(state))
     }
 
-    //////// Change Password 
     const [passwordData, setPasswordData] = useState({
         email: "",
         old_password: "",
@@ -81,9 +79,6 @@ const Profile = () => {
         } 
     },[successMessage,errorMessage,dispatch])
 
-
-
-
     return (
         <div className='px-2 lg:px-7 py-5'>
 <div className='w-full flex flex-wrap'>
@@ -101,7 +96,6 @@ const Profile = () => {
 
                         </div>
                     }
-
 
                     </label> : <label className='flex justify-center items-center flex-col h-[150px] w-[200px] cursor-pointer border border-dashed hover:border-red-500 border-[#E2E8F0] relative' htmlFor="img">
                     <span><FaImages /> </span>
@@ -149,7 +143,6 @@ const Profile = () => {
                 </div> 
             </div> 
         </div>
-
 
         <div className='px-0 md:px-5 py-2'>
             {
@@ -202,24 +195,15 @@ const Profile = () => {
             </div> 
             }
 
-
         </div>
-
-
-
-
-
 
         </div> 
     </div>
-
-
 
     <div className='w-full md:w-6/12'>
         <div className='w-full pl-0 md:pl-7 mt-6 md:mt-0'>
         <div className='bg-[#334155] rounded-md text-[#E2E8F0] p-4'>
         <h1 className='text-[#E2E8F0] text-lg mb-3 font-semibold'>Change Password</h1>
-        
         
         <form  onSubmit={handlePasswordChange} >
              <div className='flex flex-col w-full gap-1 mb-2'>
@@ -239,7 +223,6 @@ const Profile = () => {
                  value={passwordData.new_password} onChange={pinputHandle} placeholder='New Password' />
             </div>   
  
-
             <button disabled={loader} className='bg-red-500  hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2'>
             {loader ? "Loading.." : "Save Changes"}
             </button>
@@ -251,9 +234,6 @@ const Profile = () => {
         </div>
 
     </div>
-
-
-
 
 </div>
             

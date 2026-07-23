@@ -4,7 +4,6 @@ import { get_admin_message, get_seller_message, get_sellers, send_message_seller
 
 import {socket} from '../../utils/utils'
 
-
 const SellerToAdmin = () => {
     const scrollRef = useRef()
     const dispatch = useDispatch()
@@ -51,8 +50,6 @@ const SellerToAdmin = () => {
         <div className='w-full bg-[#334155] px-4 py-4 rounded-md h-[calc(100vh-140px)]'>
         <div className='flex w-full h-full relative'>
     
-    
-
     <div className='w-full md:pl-4'>
         <div className='flex justify-between items-center'>
             <div className='flex justify-start items-center gap-3'>
@@ -104,8 +101,6 @@ const SellerToAdmin = () => {
         })
     }
         
- 
-
             </div> 
         </div>
 
@@ -114,9 +109,6 @@ const SellerToAdmin = () => {
             <button className='shadow-lg bg-[#06b6d4] hover:shadow-cyan-500/50 text-semibold w-[75px] h-[35px] rounded-md text-white flex justify-center items-center'>Send</button>
 
         </form>
-
-
-
 
     </div>  
 

@@ -16,7 +16,6 @@ const Sellers = () => {
 
     const {sellers,totalSeller } = useSelector(state => state.seller)
 
-
     useEffect(() => {
         const obj = {
             parPage: parseInt(parPage),
@@ -28,7 +27,7 @@ const Sellers = () => {
  
     return (
         <div className='px-2 lg:px-7 pt-5'>
-             <h1 className='text-[20px] font-bold mb-3'>Seller </h1>
+             <h1 className='text-[#E2E8F0] text-[20px] font-bold mb-3'>Seller </h1>
              <div className='w-full p-4 bg-[#334155] rounded-md'>
             
              <div className='flex justify-between items-center'>
@@ -83,7 +82,6 @@ const Sellers = () => {
             </tr> )
             }
 
-            
         </tbody> 
     </table> 
     </div>  
@@ -100,12 +98,6 @@ const Sellers = () => {
      </div> : ""
    }
     
-
-
-
-
-
-
              </div>
             
         </div>

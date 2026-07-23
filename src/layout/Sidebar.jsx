@@ -19,7 +19,6 @@ const Sidebar = ({showSidebar, setShowSidebar}) => {
         setAllNav(navs)
     },[role])
 
-
     return (
         <div>
             <div onClick={()=> setShowSidebar(false)} className={`fixed duration-200 ${!showSidebar ? 'invisible opacity-0' : 'visible opacity-100'} w-screen h-screen bg-slate-900/50 backdrop-blur-sm top-0 left-0 z-40 transition-opacity`} >

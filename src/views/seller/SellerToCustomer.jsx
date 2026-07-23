@@ -78,7 +78,6 @@ const SellerToCustomer = () => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth'})
     },[messages])
 
-
     return (
     <div className='px-2 lg:px-7 py-5'>
         <div className='w-full bg-[#334155] px-4 py-4 rounded-md h-[calc(100vh-140px)]'>
@@ -90,7 +89,6 @@ const SellerToCustomer = () => {
         <h2>Customers</h2>
         <span onClick={() => setShow(!show)} className='block cursor-pointer md:hidden'><IoMdClose /> </span>
        </div>
-
 
         {
             customers.map((c,i) => <Link key={i} to={`/seller/dashboard/chat-customer/${c.fdId}`} className={`h-[60px] flex justify-start gap-2 items-center text-white px-2 py-2 rounded-md cursor-pointer bg-[#475569] `}>
@@ -108,13 +106,6 @@ const SellerToCustomer = () => {
            </Link>  )
         }
        
-
-
-      
-
- 
- 
-
         </div> 
     </div>
 
@@ -175,11 +166,6 @@ const SellerToCustomer = () => {
         </div>
     }
 
- 
-
-
-             
-
             </div> 
         </div>
 
@@ -188,9 +174,6 @@ const SellerToCustomer = () => {
             <button className='shadow-lg bg-[#06b6d4] hover:shadow-cyan-500/50 text-semibold w-[75px] h-[35px] rounded-md text-white flex justify-center items-center'>Send</button>
 
         </form>
-
-
-
 
     </div>  
 

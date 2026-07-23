@@ -29,11 +29,10 @@ const Orders = () => {
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
-            <h1 className='text-[#000000] font-semibold text-lg mb-3'>Orders</h1>
+            <h1 className='text-[#E2E8F0] font-semibold text-lg mb-3'>Orders</h1>
 
          <div className='w-full p-4 bg-[#334155] rounded-md'> 
          <Search setParPage={setParPage} setSearchValue={setSearchValue} searchValue={searchValue} />
-
 
          <div className='relative overflow-x-auto mt-5'>
     <table className='w-full text-sm text-left text-[#E2E8F0]'>
@@ -69,7 +68,6 @@ const Orders = () => {
             </tr> )
             }
 
-            
         </tbody> 
     </table> 
     </div>  
@@ -86,10 +84,6 @@ const Orders = () => {
         </div>
     }
 
-    
-
-
-           
          </div>
         </div>
     );

@@ -28,7 +28,7 @@ const SellerRequest = () => {
     return (
         <div className='px-2 lg:px-7 pt-5'>
             
-      <h1 className='text-[20px] font-bold mb-3'>  Seller Request </h1>
+      <h1 className='text-[#E2E8F0] text-[20px] font-bold mb-3'>  Seller Request </h1>
              
              <div className='w-full p-4 bg-[#334155] rounded-md'>
             
@@ -59,7 +59,6 @@ const SellerRequest = () => {
                <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
                     <span>{d.status}</span> </td>
                  
-                 
                 <td scope='row' className='py-2 px-4 font-medium whitespace-nowrap'>
                     <div className='flex justify-start items-center gap-4'>
                     <Link to={`/admin/dashboard/seller/details/${d._id}`} className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye /> </Link> 
@@ -70,7 +69,6 @@ const SellerRequest = () => {
             </tr> )
             }
 
-            
         </tbody> 
     </table> 
     </div>  
@@ -84,11 +82,6 @@ const SellerRequest = () => {
             showItem = {3}
         />
         </div>
-
-
-
-
-
 
              </div>
             

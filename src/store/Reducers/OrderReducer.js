@@ -15,8 +15,6 @@ export const get_admin_orders = createAsyncThunk(
     }
 )
 
-  // End Method  
- 
   export const get_admin_order = createAsyncThunk(
     'orders/get_admin_order',
     async( orderId ,{rejectWithValue, fulfillWithValue}) => { 
@@ -28,8 +26,7 @@ export const get_admin_orders = createAsyncThunk(
         }
     }
 ) 
-  // End Method  
-
+  
   export const admin_order_status_update = createAsyncThunk(
     'orders/admin_order_status_update',
     async( {orderId,info} ,{rejectWithValue, fulfillWithValue}) => { 
@@ -41,8 +38,7 @@ export const get_admin_orders = createAsyncThunk(
         }
     }
 ) 
-  // End Method  
-
+  
   export const get_seller_orders = createAsyncThunk(
     'orders/get_seller_orders',
     async({ parPage,page,searchValue,sellerId },{rejectWithValue, fulfillWithValue}) => { 
@@ -54,9 +50,7 @@ export const get_admin_orders = createAsyncThunk(
         }
     }
 ) 
-  // End Method 
-
-
+  
   export const get_seller_order = createAsyncThunk(
     'orders/get_seller_order',
     async( orderId ,{rejectWithValue, fulfillWithValue}) => { 
@@ -68,8 +62,7 @@ export const get_admin_orders = createAsyncThunk(
         }
     }
 ) 
-  // End Method  
-
+  
   export const seller_order_status_update = createAsyncThunk(
     'orders/seller_order_status_update',
     async( {orderId,info} ,{rejectWithValue, fulfillWithValue}) => { 
@@ -81,9 +74,7 @@ export const get_admin_orders = createAsyncThunk(
         }
     }
 ) 
-  // End Method  
-
- 
+  
 export const OrderReducer = createSlice({
     name: 'order',
     initialState:{
@@ -133,7 +124,6 @@ export const OrderReducer = createSlice({
             state.successMessage = payload.message; 
         })
  
-
     }
 
 })

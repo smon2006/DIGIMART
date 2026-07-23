@@ -1,7 +1,6 @@
 import React from 'react';
 import { MdOutlineKeyboardDoubleArrowLeft,MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 
-
 const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
 
     let totalPage = Math.ceil(totalItem / parPage)
@@ -48,7 +47,6 @@ const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
 
         </ul>
     )
-
 
 };
 

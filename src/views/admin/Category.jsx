@@ -16,8 +16,6 @@ const Category = () => {
     const dispatch = useDispatch()
     const {loader,successMessage,errorMessage,categorys} = useSelector(state=> state.category)
 
-
-
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
     const [parPage, setParPage] = useState(5)
@@ -33,7 +31,6 @@ const Category = () => {
 
     })
 
-
     const imageHandle = (e) => {
         let files = e.target.files 
         if (files.length > 0) {
@@ -44,7 +41,6 @@ const Category = () => {
             })
         }
     }
-
 
     const addOrUpdateCategory = (e) => {
         e.preventDefault()
@@ -75,7 +71,6 @@ const Category = () => {
             dispatch(messageClear())
         }
         
-
     },[successMessage,errorMessage,dispatch])
    
     useEffect(() => {
@@ -88,7 +83,6 @@ const Category = () => {
 
     },[searchValue, currentPage,parPage])
 
-  /// Handle Edit Button 
     const handleEdit = (category) => {
         setState({
             name: category.name,
@@ -114,9 +108,6 @@ const Category = () => {
             <button onClick={() => setShow(true)} className='bg-[#2563EB] hover:bg-[#1d4ed8] shadow-md shadow-blue-600/30 px-4 py-2 cursor-pointer text-white rounded-lg text-sm font-semibold transition-colors'>Add</button>
 
         </div>
-
-
-
 
             <div className='flex flex-wrap w-full gap-5'>
                 <div className='w-full lg:w-7/12'>
@@ -154,7 +145,6 @@ const Category = () => {
             </tr> )
             }
 
-            
         </tbody> 
     </table> 
     </div>  
@@ -168,8 +158,6 @@ const Category = () => {
             showItem = {3}
         />
         </div>
-
-
 
                 </div>
 
@@ -186,7 +174,6 @@ const Category = () => {
             <IoMdCloseCircle /> 
             </div>
             </div>
-
 
             <form onSubmit={addOrUpdateCategory}>
                 <div className='flex flex-col w-full gap-1.5 mb-4'>
@@ -216,7 +203,6 @@ const Category = () => {
 
                  </div>
 
-                 
             </form>
 
         </div>

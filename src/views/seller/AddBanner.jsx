@@ -1,138 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import { FaRegImage } from "react-icons/fa";
-import { PropagateLoader } from 'react-spinners';
-import { overrideStyle } from '../../utils/utils';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'; 
+import Search from '../components/Search';
+import { Link } from 'react-router-dom';
+import Pagination from '../Pagination'; 
+import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { add_banner,get_banner,messageClear, update_banner } from '../../store/Reducers/bannerReducer';
-import toast from 'react-hot-toast';
+import { get_seller_orders } from '../../store/Reducers/OrderReducer';
 
-const AddBanner = () => {
-    
-    const {productId} = useParams()
+const Orders = () => {
+
     const dispatch = useDispatch()
 
-    const { loader,successMessage,errorMessage,banner } = useSelector(state => state.banner)
+    const {myOrders,totalOrder } = useSelector(state => state.order)
+    const {userInfo } = useSelector(state => state.auth)
 
-    const [imageShow, setImageShow] = useState('')
-    const [image, setImage] = useState('')
-
-    useEffect(() => {
-        if (successMessage) {
-            toast.success(successMessage)
-            dispatch(messageClear())
-        }
-        if (errorMessage) {
-            toast.error(errorMessage)
-            dispatch(messageClear())
-        }
-    },[successMessage,errorMessage])
-
-    const imageHandle = (e) => {
-        const files = e.target.files 
-        const length = files.length
-
-        if (length > 0) {
-            setImage(files[0])
-            setImageShow(URL.createObjectURL(files[0]))
-        } 
-    }
-
-    const add = (e) => {
-        e.preventDefault()
-        const formData = new FormData()
-        formData.append('productId',productId)
-        formData.append('mainban',image)
-        dispatch(add_banner(formData))
-    }
-
-    const update = (e) => {
-        e.preventDefault()
-        const formData = new FormData()
-        formData.append('mainban',image)
-        dispatch(update_banner({info:formData,bannerId: banner._id}))
-    }
+    const [currentPage, setCurrentPage] = useState(1)
+    const [searchValue, setSearchValue] = useState('')
+    const [parPage, setParPage] = useState(5)
 
     useEffect(() => {
-        dispatch(get_banner(productId))
-    },[productId])
+        const obj = {
+            parPage: parseInt(parPage),
+            page: parseInt(currentPage),
+            searchValue,
+            sellerId: userInfo._id
+        }
+        dispatch(get_seller_orders(obj))
+    },[searchValue,currentPage,parPage])
 
     return (
-    <div className='px-2 lg:px-7 pt-5'>
-        <h1 className='text-[#000000] font-semibold text-lg mb-3'>Add Banner</h1> 
-        <div className='w-full p-4 bg-[#334155] rounded-md'> 
-        <p className='text-sm text-slate-300 mb-4 bg-slate-700/60 border border-slate-600 rounded-md px-3 py-2'>
-            This banner will be shown on the storefront home slider and will link customers to this product&apos;s category page.
-        </p>
-        
+        <div className='px-2 lg:px-7 pt-5'>
+            <h1 className='text-[#E2E8F0] font-semibold text-lg mb-3'>Orders</h1>
 
-        {
-            !banner && <div>
-                <form onSubmit={add}>
-         <div className='mb-4'>
-            <label className='flex justify-center items-center flex-col h-[180px] cursor-pointer border border-dashed hover:border-red-500 w-full text-white' htmlFor="image">
-                <span className='text-4xl'><FaRegImage /></span>
-                <span>Select Banner Image </span>
-            </label>
-            <input required onChange={imageHandle} className='hidden' type="file" id='image' />
-            </div>
+         <div className='w-full p-4 bg-[#334155] rounded-md'> 
+         <Search setParPage={setParPage} setSearchValue={setSearchValue} searchValue={searchValue} />
 
+         <div className='relative overflow-x-auto mt-5'>
+    <table className='w-full text-sm text-left text-[#E2E8F0]'>
+        <thead className='text-sm text-[#E2E8F0] uppercase border-b border-slate-700'>
+        <tr>
+             
+            <th scope='col' className='py-3 px-4'>Order Id</th>
+            <th scope='col' className='py-3 px-4'>Price</th>
+            <th scope='col' className='py-3 px-4'>Payment Status</th>
+            <th scope='col' className='py-3 px-4'>Order Status</th> 
+            <th scope='col' className='py-3 px-4'>Date</th>
+            <th scope='col' className='py-3 px-4'>Action</th> 
+        </tr>
+        </thead>
+
+        <tbody>
             {
-                imageShow && <div className='mb-4'>
-                    <img className='w-full h-[300px]' src={imageShow} alt="" />
-                </div>
+                myOrders.map((d, i) => <tr key={i}>
+                 
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>#{d._id}</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>₹{d.price}</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.payment_status} </td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.delivery_status}</td> 
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.date}</td> 
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
+                    <div className='flex justify-start items-center gap-4'>
+                   
+                    <Link to={`/seller/dashboard/order/details/${d._id}`} className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye/> </Link>
+                   
+                    </div>
+                    
+                    </td>
+            </tr> )
             }
 
-            <button disabled={loader ? true : false}  className='bg-red-500 w-[280px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
-            {
-               loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Add Banner'
-            } 
-            </button>
+        </tbody> 
+    </table> 
+    </div>  
 
-        </form> 
+    {
+        totalOrder <= parPage ? "" : <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+        <Pagination 
+            pageNumber = {currentPage}
+            setPageNumber = {setCurrentPage}
+            totalItem = {totalOrder}
+            parPage = {parPage}
+            showItem = {3}
+        />
+        </div>
+    }
 
-            </div>
-        }
-
-        {
-            banner && <div>
-                {
-                    <div className='mb-4'>
-                    <img className='w-full h-[300px]' src={banner.banner} alt="" />
-                </div>
-                }
-
-<form onSubmit={update}>
-         <div className='mb-4'>
-            <label className='flex justify-center items-center flex-col h-[180px] cursor-pointer border border-dashed hover:border-red-500 w-full text-white' htmlFor="image">
-                <span className='text-4xl'><FaRegImage /></span>
-                <span>Select Banner Image </span>
-            </label>
-            <input required onChange={imageHandle} className='hidden' type="file" id='image' />
-            </div>
-
-            {
-                imageShow && <div className='mb-4'>
-                    <img className='w-full h-[300px]' src={imageShow} alt="" />
-                </div>
-            }
-
-            <button disabled={loader ? true : false}  className='bg-red-500 w-[280px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
-            {
-               loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Update Banner'
-            } 
-            </button>
-
-        </form> 
-
-            </div>
-        }
- 
-       
-        
-        </div> 
-    </div>
+         </div>
+        </div>
     );
 };
 
-export default AddBanner;
+export default Orders;

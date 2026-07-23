@@ -9,7 +9,6 @@ export const getRoutes = () => {
        r.element = <ProtectRoute route={r} >{r.element}</ProtectRoute>
     })
 
-
     return {
         path : '/',
         element : <MainLayout />,

@@ -13,7 +13,6 @@ const Success = () => {
 
     const {loader,successMessage,errorMessage} = useSelector(state => state.seller)
 
-
     const queryParams = new URLSearchParams(window.location.search)
     const activeCode = queryParams.get('activeCode')
 
@@ -37,7 +36,6 @@ const Success = () => {
                     <button onClick={redirect} className='px-5 py-2 bg-green-700 rounded-sm text-white'>Back to Dashboard</button>
                 </>
             }
-
 
         </div>
     );

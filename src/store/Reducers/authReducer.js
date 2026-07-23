@@ -9,15 +9,14 @@ export const admin_login = createAsyncThunk(
         try {
             const {data} = await api.post('/admin-login',info,{withCredentials: true})
             localStorage.setItem('accessToken',data.token)
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-
 
 export const seller_login = createAsyncThunk(
     'auth/seller_login',
@@ -29,7 +28,7 @@ export const seller_login = createAsyncThunk(
             localStorage.setItem('accessToken',data.token) 
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
@@ -41,15 +40,14 @@ export const get_user_info = createAsyncThunk(
           
         try {
             const {data} = await api.get('/get-user',{withCredentials: true})
-            // console.log(data)            
+            
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-
 
 export const profile_image_upload = createAsyncThunk(
     'auth/profile_image_upload',
@@ -57,15 +55,14 @@ export const profile_image_upload = createAsyncThunk(
           
         try {
             const {data} = await api.post('/profile-image-upload',image,{withCredentials: true})
-            // console.log(data)            
+            
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-// end method 
 
 export const seller_register = createAsyncThunk(
     'auth/seller_register',
@@ -74,16 +71,14 @@ export const seller_register = createAsyncThunk(
             console.log(info)
             const {data} = await api.post('/seller-register',info,{withCredentials: true})
             localStorage.setItem('accessToken',data.token)
-            //  console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-
-// end method 
 
 export const profile_info_add = createAsyncThunk(
     'auth/profile_info_add',
@@ -92,14 +87,11 @@ export const profile_info_add = createAsyncThunk(
             const {data} = await api.post('/profile-info-add',info,{withCredentials: true}) 
             return fulfillWithValue(data)
         } catch (error) {
-            // console.log(error.response.data)
+            
             return rejectWithValue(error.response.data)
         }
     }
 )
-// end method 
-
-
 
     const returnRole = (token) => {
         if (token) {
@@ -117,8 +109,6 @@ export const profile_info_add = createAsyncThunk(
         }
     }
 
-    // end Method 
-
     export const logout = createAsyncThunk(
         'auth/logout',
         async({navigate,role},{rejectWithValue, fulfillWithValue}) => {
@@ -133,15 +123,11 @@ export const profile_info_add = createAsyncThunk(
                 }
                 return fulfillWithValue(data)
             } catch (error) {
-                // console.log(error.response.data)
+                
                 return rejectWithValue(error.response.data)
             }
         }
     )
-
-        // end Method 
-
-    /// Chanage Password method
 
     export const change_password = createAsyncThunk(
         'auth/change_password',
@@ -149,18 +135,15 @@ export const profile_info_add = createAsyncThunk(
               
             try {
                 const {data} = await api.post('/change-password',info,{withCredentials: true})
-                // console.log(data)            
+                
                 return fulfillWithValue(data.message)
             } catch (error) {
-                // console.log(error.response.data)
+                
                 return rejectWithValue(error.response.data.message)
             }
         }
     )
-    // end method 
-
-    /// Forgot Password method
-
+    
     export const forgot_password = createAsyncThunk(
         'auth/forgot_password',
         async(info ,{rejectWithValue, fulfillWithValue}) => {
@@ -172,9 +155,7 @@ export const profile_info_add = createAsyncThunk(
             }
         }
     )
-    // end method 
-
- 
+    
 export const authReducer = createSlice({
     name: 'auth',
     initialState:{
@@ -260,7 +241,6 @@ export const authReducer = createSlice({
             state.successMessage = payload.message
         })
 
-        /// change Password
         .addCase(change_password.pending, (state) => {
             state.loader = true;
             state.errorMessage = null;
@@ -274,7 +254,6 @@ export const authReducer = createSlice({
             state.successMessage = action.payload 
         })
 
-        /// Forgot Password
         .addCase(forgot_password.pending, (state) => {
             state.loader = true;
             state.errorMessage = null;
@@ -287,7 +266,6 @@ export const authReducer = createSlice({
             state.loader = false;
             state.successMessage = action.payload 
         });
-
 
     }
 

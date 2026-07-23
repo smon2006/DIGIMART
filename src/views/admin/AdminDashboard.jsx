@@ -15,8 +15,6 @@ const AdminDashboard = () => {
     const {totalSale,totalOrder,totalProduct,totalSeller,recentOrder,recentMessage} = useSelector(state=> state.dashboard)
     const {userInfo} = useSelector(state=> state.auth)
 
-
-
     useEffect(() => {
         dispatch(get_admin_dashboard_data())
     }, [])
@@ -149,17 +147,13 @@ const AdminDashboard = () => {
             </li>)
                }
 
-
-
             </ol>
 
         </div>
 
-
             </div>
         </div>
         </div>
-
 
         <div className='w-full p-5 bg-white rounded-xl border border-slate-100 shadow-sm mt-6'>
             <div className='flex justify-between items-center'>
@@ -191,7 +185,6 @@ const AdminDashboard = () => {
             </tr> )
             }
 
-
         </tbody>
 
     </table>
@@ -200,10 +193,6 @@ const AdminDashboard = () => {
 
         </div>
 
-
-
-
-             
         </div>
     );
 };

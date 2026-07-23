@@ -11,8 +11,7 @@ function App() {
     const { token } = useSelector(state => state.auth)
 
     const [allRoutes, setAllRoutes] = useState([...publicRoutes])
-    // console.log(allRoutes)
-
+    
     useEffect(() => {
         const routes = getRoutes()
         setAllRoutes([...allRoutes,routes])
@@ -24,7 +23,6 @@ function App() {
         }
 
     },[token])
-
 
     return <Router allRoutes={allRoutes} /> 
 }

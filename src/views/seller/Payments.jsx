@@ -23,7 +23,6 @@ const Payments = () => {
 
     const [amount,setAmount] = useState(0)
 
-
     const sendRequest = (e) => {
         e.preventDefault()
         if (availableAmount - amount > 10) {
@@ -33,8 +32,6 @@ const Payments = () => {
             toast.error('Insufficient Balance')
         }
     }
- 
-
  
     const Row = ({ index, style }) => {
         return (
@@ -48,7 +45,6 @@ const Payments = () => {
             </div>
         )
     }
-
 
     const Rows = ({ index, style }) => {
         return (
@@ -78,7 +74,6 @@ const Payments = () => {
         }
     },[successMessage,errorMessage])
 
-
     return (
         <div className='px-2 md:px-7 py-5'>
            <div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-7 mb-5'>
@@ -94,7 +89,6 @@ const Payments = () => {
                     </div> 
                 </div>
 
-
                 <div className='flex justify-between items-center p-5 bg-[#DBEAFE] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#5c5a5a]'>
                         <h2 className='text-2xl font-bold'>₹{availableAmount}</h2>
@@ -106,7 +100,6 @@ const Payments = () => {
                     </div> 
                 </div>
 
-
                 <div className='flex justify-between items-center p-5 bg-[#e9feea] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#5c5a5a]'>
                         <h2 className='text-2xl font-bold'>₹{withdrowAmount}</h2>
@@ -117,7 +110,6 @@ const Payments = () => {
                     <MdCurrencyExchange  className='text-[#fae8e8] shadow-lg' /> 
                     </div> 
                 </div>
-
 
                 <div className='flex justify-between items-center p-5 bg-[#DBEAFE] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#5c5a5a]'>
@@ -173,9 +165,6 @@ const Payments = () => {
                 </div> 
             </div>
 
-
-
-
             <div className='bg-[#334155] text-[#E2E8F0] rounded-md p-5'>
                 
                 <div>
@@ -205,11 +194,6 @@ const Payments = () => {
             </div> 
                 </div> 
             </div>
-
-
-
-
-            
 
         </div>   
 

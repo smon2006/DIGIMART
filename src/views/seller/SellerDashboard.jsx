@@ -14,8 +14,6 @@ const SellerDashboard = () => {
     const {totalSale,totalOrder,totalProduct,totalPendingOrder,recentOrder,recentMessage} = useSelector(state=> state.dashboard)
     const {userInfo} = useSelector(state=> state.auth)
 
-
-
     useEffect(() => {
         dispatch(get_seller_dashboard_data())
     }, [])
@@ -112,15 +110,12 @@ const SellerDashboard = () => {
                 }
             </div>
 
-
-
         <div className='w-full flex flex-wrap mt-6'>
             <div className='w-full lg:w-7/12 lg:pr-3'>
                 <div className='w-full bg-white p-5 rounded-xl border border-slate-100 shadow-sm'>
             <Chart options={state.options} series={state.series} type='bar' height={350} />
                 </div>
             </div>
-
 
         <div className='w-full lg:w-5/12 lg:pl-3 mt-6 lg:mt-0'>
             <div className='w-full bg-white p-5 rounded-xl border border-slate-100 shadow-sm h-full'>
@@ -151,17 +146,13 @@ const SellerDashboard = () => {
     </li>)
         }
 
-
-
             </ol>
 
         </div>
 
-
             </div>
         </div>
         </div>
-
 
         <div className='w-full p-5 bg-white rounded-xl border border-slate-100 shadow-sm mt-6'>
             <div className='flex justify-between items-center'>
@@ -193,7 +184,6 @@ const SellerDashboard = () => {
             </tr> )
             }
 
-
         </tbody>
 
     </table>
@@ -202,10 +192,6 @@ const SellerDashboard = () => {
 
         </div>
 
-
-
-
-             
         </div>
     );
 };

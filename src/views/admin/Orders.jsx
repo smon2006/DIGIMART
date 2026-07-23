@@ -25,7 +25,6 @@ const Orders = () => {
         dispatch(get_admin_orders(obj))
     },[searchValue,currentPage,parPage])
 
- 
     return (
         <div className='px-2 lg:px-7 pt-5'>
             <div className='w-full p-4 bg-[#334155] rounded-md'>
@@ -37,7 +36,6 @@ const Orders = () => {
                     </select>
                     <input onChange={e => setSearchValue(e.target.value)} value={searchValue} className='px-4 py-2 focus:border-blue-600 outline-none bg-[#475569] border border-[#64748B] rounded-md text-[#E2E8F0]' type="text" placeholder='search' /> 
                 </div>
-
 
         <div className='relative mt-5 overflow-x-auto'>
             <div className='w-full text-sm text-left [#E2E8F0]'>
@@ -68,7 +66,6 @@ const Orders = () => {
             </div> 
             </div> 
             
-            
               <div className={show === o._id ? 'block border-b border-slate-700 bg-[#475569]' : 'hidden'}>
                    
             {
@@ -83,10 +80,6 @@ const Orders = () => {
                     </div>  
                 </div> )
         }
-
- 
- 
- 
 
             </div> 
         </div>
@@ -103,9 +96,6 @@ const Orders = () => {
                 </div>
             }
                     
-
-
-
             </div> 
         </div>
     );

@@ -9,14 +9,12 @@ const DeactiveSellers = () => {
 
     const dispatch = useDispatch()
 
-
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
     const [parPage, setParPage] = useState(5)
     const [show, setShow] =  useState(false)
 
     const {sellers,totalSeller } = useSelector(state => state.seller)
-
 
     useEffect(() => {
         const obj = {
@@ -27,11 +25,10 @@ const DeactiveSellers = () => {
         dispatch(get_deactive_sellers(obj))
     },[searchValue,currentPage,parPage])
 
-
     return (
         <div className='px-2 lg:px-7 pt-5'>
             
-      <h1 className='text-[20px] font-bold mb-3'>Deactive Seller </h1>
+      <h1 className='text-[#E2E8F0] text-[20px] font-bold mb-3'>Deactive Seller </h1>
              
              <div className='w-full p-4 bg-[#334155] rounded-md'>
             
@@ -87,7 +84,6 @@ const DeactiveSellers = () => {
             </tr> )
             }
 
-            
         </tbody> 
     </table> 
     </div>  
@@ -101,11 +97,6 @@ const DeactiveSellers = () => {
             showItem = {3}
         />
         </div>
-
-
-
-
-
 
              </div>
             

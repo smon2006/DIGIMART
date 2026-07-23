@@ -7,15 +7,13 @@ export const get_customers = createAsyncThunk(
         
         try {
             const {data} = await api.get(`/chat/seller/get-customers/${sellerId}` ,{withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
-
 
 export const get_customer_message = createAsyncThunk(
     'chat/get_customer_message',
@@ -23,14 +21,13 @@ export const get_customer_message = createAsyncThunk(
         
         try {
             const {data} = await api.get(`/chat/seller/get-customer-message/${customerId}` ,{withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
 
 export const send_message = createAsyncThunk(
     'chat/send_message',
@@ -38,14 +35,13 @@ export const send_message = createAsyncThunk(
         
         try {
             const {data} = await api.post(`/chat/seller/send-message-to-customer`,info ,{withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
 
 export const get_sellers = createAsyncThunk(
     'chat/get_sellers',
@@ -53,15 +49,13 @@ export const get_sellers = createAsyncThunk(
         
         try {
             const {data} = await api.get(`/chat/admin/get-sellers` ,{withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
-
 
 export const send_message_seller_admin = createAsyncThunk(
     'chat/send_message_seller_admin',
@@ -69,15 +63,13 @@ export const send_message_seller_admin = createAsyncThunk(
         
         try {
             const {data} = await api.post(`/chat/message-send-seller-admin`, info, {withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
-
 
 export const get_admin_message = createAsyncThunk(
     'chat/get_admin_message',
@@ -85,15 +77,13 @@ export const get_admin_message = createAsyncThunk(
         
         try {
             const {data} = await api.get(`/chat/get-admin-messages/${receverId}`, {withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
-
 
 export const get_seller_message = createAsyncThunk(
     'chat/get_seller_message',
@@ -101,17 +91,14 @@ export const get_seller_message = createAsyncThunk(
         
         try {
             const {data} = await api.get(`/chat/get-seller-messages`, {withCredentials: true}) 
-            // console.log(data)
+            
             return fulfillWithValue(data)
         } catch (error) { 
             return rejectWithValue(error.response.data)
         }
     }
 )
-// End Method 
 
- 
- 
 export const chatReducer = createSlice({
     name: 'chat',
     initialState:{

@@ -31,7 +31,6 @@ const Header = ({showSidebar, setShowSidebar}) => {
 
         </div>
 
-
           </div>
         </div>
     );

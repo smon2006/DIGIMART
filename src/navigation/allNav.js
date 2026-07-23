@@ -133,6 +133,4 @@ export const allNav = [
         path: '/seller/dashboard/profile'
     }
 
-
-
 ]

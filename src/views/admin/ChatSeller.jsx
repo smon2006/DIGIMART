@@ -71,7 +71,6 @@ const ChatSeller = () => {
         scrollRef.current?.scrollIntoView({ behavior: 'smooth'})
     },[seller_admin_message])
 
-
     return (
     <div className='px-2 lg:px-7 py-5'>
         <div className='w-full bg-[#334155] px-4 py-4 rounded-md h-[calc(100vh-140px)]'>
@@ -104,10 +103,6 @@ const ChatSeller = () => {
            )
         }
        
-
- 
- 
-
         </div> 
     </div>
 
@@ -169,7 +164,6 @@ const ChatSeller = () => {
                 </div>
             }
                 
- 
             </div> 
         </div>
 
@@ -178,9 +172,6 @@ const ChatSeller = () => {
             <button disabled={sellerId ? false : true} className='shadow-lg bg-[#06b6d4] hover:shadow-cyan-500/50 text-semibold w-[75px] h-[35px] rounded-md text-white flex justify-center items-center'>Send</button>
 
         </form>
-
-
-
 
     </div>  
 

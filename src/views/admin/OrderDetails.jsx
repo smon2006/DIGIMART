@@ -19,8 +19,6 @@ const OrderDetails = () => {
         dispatch(get_admin_order(orderId))
     },[orderId])
 
-   
-
     const status_update = (e) => {
         dispatch(admin_order_status_update({orderId, info: {status: e.target.value} }))
         setStatus(e.target.value)
@@ -91,12 +89,8 @@ const OrderDetails = () => {
     </div> )
     }    
                     
-                   
                 </div>
                 </div>  
-
- 
-
 
                     </div>
                 </div> 
@@ -105,7 +99,6 @@ const OrderDetails = () => {
         <div className='pl-3'>
             <div className='mt-4 flex flex-col bg-[#475569] rounded-md p-4'>
                
-
             {
                 order?.suborder?.map((o,i) => <div key={i + 20} className='text-[#E2E8F0] mt-2'>
                 <div className='flex justify-start items-center gap-3'>
@@ -128,26 +121,15 @@ const OrderDetails = () => {
                 </div> )
                 }
                
-
             </div>)
             }   
-
- 
-
 
             </div>
 
         </div>
         </div>            
 
-
-
-
-
-
-
             </div>
-
 
         </div>   
         </div> 

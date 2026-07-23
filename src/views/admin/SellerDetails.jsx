@@ -24,7 +24,6 @@ const SellerDetails = () => {
         })) 
     }
 
-
     useEffect(() => { 
         if (successMessage) {
             toast.success(successMessage)
@@ -40,7 +39,7 @@ const SellerDetails = () => {
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
-      <h1 className='text-[20px] font-bold mb-3'>  Seller Details </h1>
+      <h1 className='text-[#E2E8F0] text-[20px] font-bold mb-3'>  Seller Details </h1>
       <div className='w-full p-4 bg-[#334155] rounded-md'>
 
         <div className='w-full flex flex-wrap text-[#E2E8F0]'>
@@ -86,7 +85,6 @@ const SellerDetails = () => {
          </div> 
             </div>
 
-
             <div className='w-4/12'>
                 <div className='px-0 md:px-5 py-2'>
                     <div className='py-2 text-lg'>
@@ -112,13 +110,11 @@ const SellerDetails = () => {
             <span>{seller?.shopInfo?.sub_district} </span> 
         </div>
         
-
     </div> 
          </div> 
             </div>
  
         </div> 
-
 
         <div> 
             <form onSubmit={submit} >
@@ -133,12 +129,6 @@ const SellerDetails = () => {
                 </div>
             </form>
         </div>
-
-
-
-
-
-
 
         </div> 
         </div>

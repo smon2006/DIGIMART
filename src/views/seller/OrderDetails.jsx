@@ -16,7 +16,6 @@ const OrderDetails = () => {
         setStatus(order?.delivery_status)
     },[order])
 
-
     useEffect(() => {
         dispatch(get_seller_order(orderId))
     },[orderId])
@@ -89,17 +88,10 @@ const OrderDetails = () => {
             </div>   )
          }
             
-
- 
-
-
                     </div>
                 </div> 
  
-
-
             </div>
-
 
         </div>   
         </div> 

@@ -44,9 +44,7 @@ const Login = () => {
             dispatch(messageClear())
         }
         
-
     },[successMessage,errorMessage])
-
 
     return (
         <div className='min-w-screen min-h-screen bg-slate-50 flex justify-center items-center px-4' >
@@ -69,7 +67,6 @@ const Login = () => {
             <Link className='text-xs font-semibold text-[#2563EB] hover:underline self-end mt-1' to="/forgot-password">Forgot password?</Link>
         </div>
   
-
         <button disabled={loader ? true : false}  className='bg-[#2563EB] hover:bg-[#1d4ed8] w-full shadow-md shadow-blue-600/30 transition-colors text-white font-semibold rounded-lg px-7 py-2.5 mb-4'>
             {
                loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Sign In'
@@ -98,7 +95,6 @@ const Login = () => {
              </div>
 
         </div>
-
 
     </form>
  
