@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
-import { FaGoogle } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils';
@@ -46,66 +44,53 @@ const Register = () => {
             dispatch(messageClear())
         }
         
+
     },[successMessage,errorMessage])
 
+    
+
+
     return (
-        <div className='min-w-screen min-h-screen bg-slate-50 flex justify-center items-center px-4' >
-          <div className='w-full max-w-[380px]'>
-            <div className='bg-white p-8 rounded-2xl border border-slate-100 shadow-xl'>
-                <h2 className='text-lg font-bold text-slate-800'>Become a Seller</h2>
-                <p className='text-sm text-slate-400 mt-1 mb-6'>Create your shop account</p>
+        <div className='min-w-screen min-h-screen bg-[#E2E8F0] flex justify-center items-center' >
+          <div className='w-[350px] text-[#ffffff] p-2'>
+            <div className='bg-[#334155] p-4 rounded-md'>
+                <h2 className='text-xl mb-3 font-bold'>Welcome to Ecommerce</h2>
+                <p className='text-sm mb-3 font-medium'>Please register your account</p>
 
     <form onSubmit={submit}>
-        <div className='flex flex-col w-full gap-1.5 mb-4'>
-            <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="name">Name</label>
-            <input onChange={inputHandle} value={state.name} className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="text" name='name' placeholder='Full name' id='name' required />
+        <div className='flex flex-col w-full gap-1 mb-3'>
+            <label htmlFor="name">Name</label>
+            <input onChange={inputHandle} value={state.name} className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="text" name='name' placeholder='Name' id='name' required />
 
         </div>
 
-        <div className='flex flex-col w-full gap-1.5 mb-4'>
-            <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="email">Email</label>
-            <input onChange={inputHandle} value={state.email} className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="email" name='email' placeholder='you@example.com' id='email' required />
+
+        <div className='flex flex-col w-full gap-1 mb-3'>
+            <label htmlFor="email">Email</label>
+            <input onChange={inputHandle} value={state.email} className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="email" name='email' placeholder='Email' id='email' required />
 
         </div>
 
-        <div className='flex flex-col w-full gap-1.5 mb-4'>
-            <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="password">Password</label>
-            <input onChange={inputHandle} value={state.password} className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="password" name='password' placeholder='••••••••' id='password' required />
+        <div className='flex flex-col w-full gap-1 mb-3'>
+            <label htmlFor="password">Password</label>
+            <input onChange={inputHandle} value={state.password} className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="password" name='password' placeholder='Password' id='password' required />
         </div>
 
-        <div className='flex items-center w-full gap-2.5 mb-5'>
-            <input className='w-4 h-4 text-[#2563EB] overflow-hidden bg-slate-100 rounded border-slate-300 focus:ring-[#2563EB]' type="checkbox" name="checkbox" id="checkbox" />
-            <label className='text-xs text-slate-500' htmlFor="checkbox">I agree to the privacy policy & terms</label> 
+        <div className='flex items-center w-full gap-3 mb-3'>
+            <input className='w-4 h-4 text-blue-600 overflow-hidden bg-gray-200 rounded border-gray-300 focus:ring-blue-500' type="checkbox" name="checkbox" id="checkbox" />
+            <label htmlFor="checkbox"> I agree to privacy policy & treams</label> 
         </div>
 
-        <button disabled={loader ? true : false}  className='bg-[#2563EB] hover:bg-[#1d4ed8] w-full shadow-md shadow-blue-600/30 transition-colors text-white font-semibold rounded-lg px-7 py-2.5 mb-4'>
+        <button disabled={loader ? true : false}  className='bg-slate-800 w-full hover:shadow-blue-300/ hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
             {
                loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Sign Up'
             } 
             </button>
 
-        <div className='flex items-center mb-4 gap-3 justify-center text-sm text-slate-500'>
-            <p>Already have an account? <Link className='font-semibold text-[#2563EB] hover:underline' to="/login">Sign In</Link> </p> 
+        <div className='flex items-center mb-3 gap-3 justify-center'>
+            <p>Already Have an account ? <Link className='font-bold' to="/login">Sign In</Link> </p> 
         </div>
 
-        <div className='w-full flex justify-center items-center mb-4'>
-            <div className='w-[45%] bg-slate-200 h-[1px]'></div>
-            <div className='w-[10%] flex justify-center items-center'>
-                <span className='pb-0.5 text-xs text-slate-400'>Or</span>
-            </div>
-            <div className='w-[45%] bg-slate-200 h-[1px] '></div>
-        </div>
-
-        <div className='flex justify-center items-center gap-3'>
-            <div className='w-[135px] h-[38px] flex rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 shadow-sm justify-center cursor-pointer items-center overflow-hidden text-red-500 transition-colors'>
-            <span><FaGoogle /></span>
-             </div>
-
-             <div className='w-[135px] h-[38px] flex rounded-lg bg-slate-50 border border-slate-200 hover:bg-slate-100 shadow-sm justify-center cursor-pointer items-center overflow-hidden text-blue-600 transition-colors'>
-            <span><FaFacebook /></span>
-             </div>
-
-        </div>
 
     </form>
  
