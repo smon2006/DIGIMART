@@ -89,13 +89,13 @@ const Login = () => {
         <p>Don't Have An Account ? <Link className='text-[#2563EB] font-semibold hover:underline' to='/register'> Register</Link> </p>
     </div> 
 
-     <a target='_blank' href="http://localhost:3001/login">
+     <a target='_blank' href={`${process.env.REACT_APP_SELLER_URL || 'https://digimart-seller.vercel.app'}/login`}>
      <div className='px-8 w-full py-2.5 mt-4 bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 rounded-lg flex justify-center items-center gap-2 mb-3 text-sm font-medium'>
             Login As a Seller
      </div>
      </a>
  
-     <a target='_blank' href="http://localhost:3001/register">
+     <a target='_blank' href={`${process.env.REACT_APP_SELLER_URL || 'https://digimart-seller.vercel.app'}/register`}>
      <div className='px-8 w-full py-2.5 bg-slate-100 hover:bg-slate-200 transition-colors text-slate-600 rounded-lg flex justify-center items-center gap-2 mb-3 text-sm font-medium'>
             Register As a Seller
      </div>
