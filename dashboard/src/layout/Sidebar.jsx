@@ -4,7 +4,7 @@ import { getNav } from '../navigation/index';
 import { BiLogOutCircle } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../store/Reducers/authReducer';
-import logo from '../assets/logo.png'
+import logo from '../assets/digimart-logo-outlined.png'
 
 const Sidebar = ({showSidebar, setShowSidebar}) => {
 
@@ -26,7 +26,7 @@ const Sidebar = ({showSidebar, setShowSidebar}) => {
 
     <div className={`w-[260px] fixed bg-white z-50 top-0 h-screen shadow-2xl border-r border-slate-200 transition-all flex flex-col ${showSidebar ? 'left-0' : '-left-[260px] lg:left-0'} `}>
         <div className='h-[70px] flex justify-center items-center border-b border-slate-100 shrink-0'>
-            <Link to='/' className='w-[160px] h-[44px] flex items-center justify-center'>
+            <Link to='/' className='w-[190px] h-[56px] flex items-center justify-center'>
                 <img className='w-full h-full object-contain' src={logo} alt="logo" />
             </Link>
         </div>

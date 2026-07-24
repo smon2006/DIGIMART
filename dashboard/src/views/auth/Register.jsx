@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import digimartLogo from '../../assets/digimart-logo.png';
 import { overrideStyle } from '../../utils/utils';
 import { seller_register,messageClear } from '../../store/Reducers/authReducer';
 import toast from 'react-hot-toast';
@@ -13,6 +15,8 @@ const Register = () => {
     const dispatch = useDispatch()
 
     const {loader,successMessage,errorMessage} = useSelector(state=>state.auth)
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const [state, setState] = useState({
         name: "",
@@ -54,7 +58,10 @@ const Register = () => {
         <div className='min-w-screen min-h-screen bg-[#E2E8F0] flex justify-center items-center' >
           <div className='w-[350px] text-[#ffffff] p-2'>
             <div className='bg-[#334155] p-4 rounded-md'>
-                <h2 className='text-xl mb-3 font-bold'>Welcome to Ecommerce</h2>
+                <div className='flex items-center gap-2 mb-3'>
+                    <span className='text-xl font-bold leading-none'>Welcome to</span>
+                    <img src={digimartLogo} alt="DIGIMART" className='h-9 object-contain relative top-[1px]' />
+                </div>
                 <p className='text-sm mb-3 font-medium'>Please register your account</p>
 
     <form onSubmit={submit}>
@@ -73,7 +80,12 @@ const Register = () => {
 
         <div className='flex flex-col w-full gap-1 mb-3'>
             <label htmlFor="password">Password</label>
-            <input onChange={inputHandle} value={state.password} className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="password" name='password' placeholder='Password' id='password' required />
+            <div className='relative flex items-center'>
+                <input onChange={inputHandle} value={state.password} className='px-3 py-2 w-full outline-none border border-slate-400 bg-transparent rounded-md pr-10' type={showPassword ? 'text' : 'password'} name='password' placeholder='Password' id='password' required />
+                <button type='button' onClick={() => setShowPassword(!showPassword)} className='absolute right-3 text-slate-300 hover:text-white'>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
         </div>
 
         <div className='flex items-center w-full gap-3 mb-3'>
