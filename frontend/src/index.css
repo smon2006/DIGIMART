@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(to bottom, rgba(51, 65, 85, 0.45), rgba(51, 65, 85, 0.15) 50%, transparent 100%), #ffffff;
+  min-height: 100vh;
+}
+
+.react-multi-carousel-arrow,
+.react-multiple-carousel__arrow {
+  z-index: 10 !important;
+}
