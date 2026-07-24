@@ -123,8 +123,13 @@ export const profile_info_add = createAsyncThunk(
                 }
                 return fulfillWithValue(data)
             } catch (error) {
-                
-                return rejectWithValue(error.response.data)
+                localStorage.removeItem('accessToken')
+                if (role === 'admin') {
+                    navigate('/admin/login')
+                } else {
+                    navigate('/login')
+                }
+                return rejectWithValue(error.response ? error.response.data : { error: 'Logout failed' })
             }
         }
     )

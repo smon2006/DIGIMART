@@ -12,6 +12,6 @@ router.post('/profile-info-add',authMiddleware, authControllers.profile_info_add
 router.post('/change-password',authMiddleware, authControllers.change_password)
 router.post('/seller-forgot-password',authControllers.forgot_password)
 
-router.get('/logout',authMiddleware, authControllers.logout)
+router.get('/logout', authControllers.logout)
 
 module.exports = router
