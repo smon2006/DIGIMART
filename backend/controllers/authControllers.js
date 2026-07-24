@@ -23,7 +23,9 @@ class authControllers{
                         role : admin.role
                     })
                     res.cookie('accessToken',token,{
-                        expires : new Date(Date.now() + 7*24*60*60*1000 )
+                        expires : new Date(Date.now() + 7*24*60*60*1000 ),
+                        sameSite: "none",
+                        secure: true
                     })
                     responseReturn(res,200,{token,message: "Login Success"})
                 } else {
@@ -55,7 +57,9 @@ class authControllers{
                         role : seller.role
                     })
                     res.cookie('accessToken',token,{
-                        expires : new Date(Date.now() + 7*24*60*60*1000 )
+                        expires : new Date(Date.now() + 7*24*60*60*1000 ),
+                        sameSite: "none",
+                        secure: true
                     })
                     responseReturn(res,200,{token,message: "Login Success"})
                 } else {
@@ -92,7 +96,9 @@ class authControllers{
 
                const token = await createToken({ id : seller.id, role: seller.role })
                res.cookie('accessToken',token, {
-                expires : new Date(Date.now() + 7*24*60*60*1000 )
+                expires : new Date(Date.now() + 7*24*60*60*1000 ),
+                sameSite: "none",
+                secure: true
                })
 
                responseReturn(res,201,{token,message: 'Register Success'})
@@ -178,7 +184,9 @@ class authControllers{
     try {
         res.cookie('accessToken',null,{
             expires : new Date(Date.now()),
-            httpOnly: true
+            httpOnly: true,
+            sameSite: "none",
+            secure: true
         })
         responseReturn(res, 200,{ message : 'logout Success' })
     } catch (error) {
