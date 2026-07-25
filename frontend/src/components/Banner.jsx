@@ -108,7 +108,7 @@ const Banner = () => {
                     autoPlaySpeed={4500}
                     infinite={true}
                     arrows={true}
-                    showDots={true}
+                    showDots={false}
                     customRightArrow={<CustomRightArrow />}
                     customLeftArrow={<CustomLeftArrow />}
                     responsive={responsive}

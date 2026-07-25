@@ -20,13 +20,12 @@ const Home = () => {
         <div className='w-full'>
             <Header />
             <Banner/>
-            <div className='bg-white h-8 md-lg:h-6' />
             <Categorys />
             <div className='py-[45px]'>
             <FeatureProducts products={products} />
             </div>
            
-            <div className='py-16'>
+            <div className='py-16 bg-[#E6F8FB]'>
                 <div className='w-[85%] flex flex-wrap mx-auto'>
                     <div className='grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7'>
             <div className='overflow-hidden'>

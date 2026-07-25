@@ -41,7 +41,7 @@ const Categorys = () => {
     }
 
     return (
-        <div className='w-full py-14'>
+        <div className='w-full py-14 bg-[#E6F8FB]'>
         <div className='w-[87%] mx-auto relative'>
             <div className='w-full'>
             <div className='text-center flex justify-center items-center flex-col text-3xl text-slate-700 font-bold relative pb-[40px]'>
