@@ -2,7 +2,7 @@ const formidable = require("formidable")
 const { responseReturn } = require("../../utiles/response")
 const cloudinary = require('cloudinary').v2
 const productModel = require('../../models/productModel')
-
+ 
 class productController{
 
     add_product = async(req,res) => {
@@ -26,8 +26,8 @@ class productController{
                 let allImageUrl = [];
 
                 if (!Array.isArray(images)) {
-                    images = [images];
-                }
+                    images = [images]; 
+                } 
 
                 for (let i = 0; i < images.length; i++) {
                     const result = await cloudinary.uploader.upload(images[i].filepath, {folder: 'products'});
@@ -45,20 +45,20 @@ class productController{
                     price: parseInt(price),
                     discount: parseInt(discount),
                     images: allImageUrl,
-                    brand: brand.trim()
+                    brand: brand.trim()  
                 })
                 responseReturn(res, 201,{ message : 'Product Added Successfully'})
-
+                
             } catch (error) {
                 responseReturn(res, 500,{ error : error.message})
             }
-
+ 
         })
-
+         
     }
 
     products_get = async (req, res) => {
-        const {page,searchValue, parPage} = req.query
+        const {page,searchValue, parPage} = req.query 
         const {id} = req;
 
        const skipPage = parseInt(parPage) * (parseInt(page) - 1)
@@ -78,17 +78,17 @@ class productController{
             } else {
                 const products = await productModel.find({ sellerId:id }).skip(skipPage).limit(parPage).sort({ createdAt: -1})
             const totalProduct = await productModel.find({ sellerId:id }).countDocuments()
-            responseReturn(res, 200,{products,totalProduct})
+            responseReturn(res, 200,{products,totalProduct}) 
             }
-
+            
         } catch (error) {
             console.log(error.message)
-        }
+        } 
 
     }
 
     discount_products_get = async (req, res) => {
-        const {page,searchValue, parPage} = req.query
+        const {page,searchValue, parPage} = req.query 
         const {id} = req;
 
        const skipPage = parseInt(parPage) * (parseInt(page) - 1)
@@ -110,12 +110,12 @@ class productController{
             } else {
                 const products = await productModel.find({ sellerId:id, discount: { $gt: 0 } }).skip(skipPage).limit(parPage).sort({ createdAt: -1})
             const totalProduct = await productModel.find({ sellerId:id, discount: { $gt: 0 } }).countDocuments()
-            responseReturn(res, 200,{products,totalProduct})
+            responseReturn(res, 200,{products,totalProduct}) 
             }
-
+            
         } catch (error) {
             console.log(error.message)
-        }
+        } 
 
     }
 
@@ -129,6 +129,16 @@ class productController{
         }
     }
 
+    delete_product = async (req, res) => {
+        const { productId } = req.params;
+        try {
+            await productModel.findByIdAndDelete(productId)
+            responseReturn(res, 200,{ message: 'Product Deleted Successfully', productId })
+        } catch (error) {
+            responseReturn(res, 500,{ error: error.message })
+        }
+    }
+    
     product_update = async (req, res) => {
         let {name, description, stock,price,category, discount,brand,productId} = req.body;
         name = name.trim()
@@ -144,7 +154,7 @@ class productController{
             responseReturn(res, 500,{ error : error.message })
         }
 
-    }
+    } 
 
   product_image_update = async(req,res) => {
     const form = formidable({ multiples: true })
@@ -169,9 +179,9 @@ class productController{
 
                 if (result) {
                     let {images} = await productModel.findById(productId)
-                    const index = images.findIndex(img => img === oldImage)
+                    const index = images.findIndex(img => img === oldImage) 
                     images[index] = result.url;
-                    await productModel.findByIdAndUpdate(productId,{images})
+                    await productModel.findByIdAndUpdate(productId,{images}) 
 
                     const product = await productModel.findById(productId)
                     responseReturn(res, 200,{product, message : 'Product Image Updated Successfully'})
@@ -187,7 +197,7 @@ class productController{
 
     })
   }
-
+  
 }
 
 module.exports = new productController()
