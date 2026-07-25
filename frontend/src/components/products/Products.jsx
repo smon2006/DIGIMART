@@ -60,7 +60,7 @@ const Products = ({title,products}) => {
             return(
                 <div key={i} className='flex flex-col justify-start gap-1'>
                {
-                p.map((pl, j) =>  <Link key={j} className='flex justify-start items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors' to='#'>
+                p.map((pl, j) =>  <Link key={j} className='flex justify-start items-center gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors' to={`/product/details/${pl.slug}`}>
                 <img className='w-[72px] h-[72px] rounded-lg border border-slate-100 object-cover shrink-0' src={pl.images[0]} alt="" />
                 <div className='flex justify-start items-start gap-1 flex-col text-slate-600 min-w-0'>
                     <h2 className='text-sm font-medium truncate w-full'>{pl.name} </h2>
