@@ -238,9 +238,9 @@ const Details = () => {
                 {
                     product.stock ? <>
         <div className='flex bg-slate-100 rounded-lg h-[48px] justify-center items-center text-base overflow-hidden'>
-            <div title="Decrease quantity" onClick={dec} className='px-5 h-full flex items-center cursor-pointer hover:bg-slate-200 transition-colors text-slate-600'><FaMinus size={12}/></div>
+            <div onClick={dec} className='px-5 h-full flex items-center cursor-pointer hover:bg-slate-200 transition-colors text-slate-600'><FaMinus size={12}/></div>
             <div className='px-5 font-semibold text-slate-700'>{quantity}</div>
-            <div title="Increase quantity" onClick={inc} className='px-5 h-full flex items-center cursor-pointer hover:bg-slate-200 transition-colors text-slate-600'><FaPlus size={12}/></div>
+            <div onClick={inc} className='px-5 h-full flex items-center cursor-pointer hover:bg-slate-200 transition-colors text-slate-600'><FaPlus size={12}/></div>
         </div>
                     <div>
                         <button onClick={add_card} className='px-8 h-[48px] cursor-pointer transition-all rounded-lg font-semibold bg-[#2563EB] hover:bg-[#1d4ed8] text-white'>Add To Cart</button>
@@ -250,7 +250,7 @@ const Details = () => {
                 }
 
                 <div>
-                    <div title="Add to Wishlist" onClick={add_wishlist} className='h-[48px] w-[48px] rounded-lg flex justify-center items-center cursor-pointer transition-all bg-slate-100 hover:bg-[#2563EB] text-slate-500 hover:text-white'>
+                    <div onClick={add_wishlist} className='h-[48px] w-[48px] rounded-lg flex justify-center items-center cursor-pointer transition-all bg-slate-100 hover:bg-[#2563EB] text-slate-500 hover:text-white'>
                     <FaHeart />
                     </div> 
                 </div> 
@@ -269,16 +269,16 @@ const Details = () => {
 
     <ul className='flex justify-start items-center gap-3'>
         <li>
-            <a title="Share on Facebook" className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaFacebookF size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaFacebookF size={13} /> </a>
         </li>
         <li>
-            <a title="Share on Twitter" className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaTwitter size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaTwitter size={13} /> </a>
         </li>
         <li>
-            <a title="Share on LinkedIn" className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaLinkedin size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaLinkedin size={13} /> </a>
         </li>
         <li>
-            <a title="Share on GitHub" className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaGithub size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#2563EB] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaGithub size={13} /> </a>
         </li>
     </ul> 
 
@@ -330,7 +330,7 @@ const Details = () => {
         {
             moreProducts.map((p,i) => {
                 return (
-        <Link key={i} className='group block rounded-xl overflow-hidden hover:bg-slate-50 transition-colors p-2'>
+        <Link key={i} to={`/product/details/${p.slug}`} className='group block rounded-xl overflow-hidden hover:bg-slate-50 transition-colors p-2'>
             <div className='relative h-[220px] rounded-lg overflow-hidden bg-slate-50'>
             <img className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500' src={ p.images[0]} alt="" /> 
             {
@@ -392,7 +392,7 @@ const Details = () => {
             return (
 
                 <SwiperSlide key={i}>
-                    <Link className='group block rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300'>
+                    <Link to={`/product/details/${p.slug}`} className='group block rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300'>
                         <div className='relative h-[240px] overflow-hidden bg-slate-50'>
                             <div className='w-full h-full'>
                     <img className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' src={p.images[0] } alt="" />
