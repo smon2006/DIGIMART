@@ -178,7 +178,7 @@ export const cardReducer = createSlice({
         .addCase(remove_wishlist.fulfilled, (state, { payload }) => { 
             state.successMessage = payload.message; 
             state.wishlist = state.wishlist.filter(p => p._id !== payload.wishlistId); 
-            state.wishlist_count = state.wishlist_count - 1
+            state.wishlist_count = state.wishlist_count > 0 ? state.wishlist_count - 1 : 0
         })
         
     }

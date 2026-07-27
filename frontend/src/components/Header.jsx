@@ -22,8 +22,9 @@ const Header = () => {
     const [searchValue, setSearchValue] = useState('')
     const [category, setCategory] = useState('')
 
-    const search = () => {
-        navigate(`/products/search?category=${category}&&value=${searchValue}`)
+    const search = (categoryOverride) => {
+        const cat = categoryOverride !== undefined ? categoryOverride : category
+        navigate(`/products/search?category=${cat}&&value=${searchValue}`)
     }
 
     const redirect_card_page = () => {
@@ -80,11 +81,11 @@ const Header = () => {
 
                     {/* Merged category + search — truly centered via the grid's equal side columns */}
                     <div className='w-full justify-self-stretch'>
-                        <div className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
+                        <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
                             <select
                                 title="Select category"
                                 value={category}
-                                onChange={(e) => setCategory(e.target.value)}
+                                onChange={(e) => { setCategory(e.target.value); search(e.target.value) }}
                                 className='h-full bg-slate-100 text-slate-700 text-xs font-semibold pl-3 pr-2 outline-none border-r border-slate-300 max-w-[130px] cursor-pointer'
                             >
                                 <option value=''>All Categories</option>
@@ -94,14 +95,15 @@ const Header = () => {
                             </select>
                             <input
                                 className='flex-grow h-full px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400 min-w-0'
+                                value={searchValue}
                                 onChange={(e)=> setSearchValue(e.target.value)}
                                 type='text'
                                 placeholder='What do you need'
                             />
-                            <button title="Search" onClick={search} className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
+                            <button type="submit" title="Search" className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
                                 <FaSearch size={15} />
                             </button>
-                        </div>
+                        </form>
                     </div>
 
                     {/* Account / Wishlist / Cart, pinned to the right */}
@@ -124,7 +126,7 @@ const Header = () => {
                             <span className='relative text-xl'>
                                 <FaHeart />
                                 {
-                                    wishlist_count !== 0 && <span className='absolute -top-2 -right-2 bg-orange-400 text-slate-900 text-[10px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center ring-2 ring-[#1e293b]'>{wishlist_count}</span>
+                                    wishlist_count > 0 && <span className='absolute -top-2 -right-2 bg-orange-400 text-slate-900 text-[10px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center ring-2 ring-[#1e293b]'>{wishlist_count}</span>
                                 }
                             </span>
                             <span className='text-[11px] font-semibold mt-0.5'>Wishlist</span>
@@ -134,7 +136,7 @@ const Header = () => {
                             <span className='relative text-xl'>
                                 <FaCartShopping />
                                 {
-                                    card_product_count !== 0 && <span className='absolute -top-2 -right-2 bg-orange-400 text-slate-900 text-[10px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center ring-2 ring-[#1e293b]'>{card_product_count}</span>
+                                    card_product_count > 0 && <span className='absolute -top-2 -right-2 bg-orange-400 text-slate-900 text-[10px] font-bold rounded-full w-[18px] h-[18px] flex items-center justify-center ring-2 ring-[#1e293b]'>{card_product_count}</span>
                                 }
                             </span>
                             <span className='text-[11px] font-semibold mt-0.5'>Cart</span>
@@ -176,11 +178,11 @@ const Header = () => {
 
                 {/* Search bar, its own full-width row on phone */}
                 <div className='hidden md-lg:block pb-3'>
-                    <div className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
+                    <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
                         <select
                             title="Select category"
                             value={category}
-                            onChange={(e) => setCategory(e.target.value)}
+                            onChange={(e) => { setCategory(e.target.value); search(e.target.value) }}
                             className='h-full bg-slate-100 text-slate-700 text-xs font-semibold pl-3 pr-2 outline-none border-r border-slate-300 max-w-[120px] cursor-pointer'
                         >
                             <option value=''>All Categories</option>
@@ -190,14 +192,15 @@ const Header = () => {
                         </select>
                         <input
                             className='flex-grow h-full px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400 min-w-0'
+                            value={searchValue}
                             onChange={(e)=> setSearchValue(e.target.value)}
                             type='text'
                             placeholder='What do you need'
                         />
-                        <button title="Search" onClick={search} className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
+                        <button type="submit" title="Search" className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
                             <FaSearch size={15} />
                         </button>
-                    </div>
+                    </form>
                 </div>
 
             </div>
@@ -247,7 +250,7 @@ const Header = () => {
                             <Link to={userInfo ? '/dashboard/my-wishlist' : '/login'} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#FBBF24] transition-colors'>
                                 <span>Wishlist</span>
                                 {
-                                    wishlist_count !== 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{wishlist_count}</span>
+                                    wishlist_count > 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{wishlist_count}</span>
                                 }
                             </Link>
                         </li>
@@ -255,7 +258,7 @@ const Header = () => {
                             <div title="Cart" onClick={redirect_card_page} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#FBBF24] transition-colors cursor-pointer'>
                                 <span>Cart</span>
                                 {
-                                    card_product_count !== 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{card_product_count}</span>
+                                    card_product_count > 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{card_product_count}</span>
                                 }
                             </div>
                         </li>

@@ -12,7 +12,7 @@ const Card = () => {
 
     const dispatch = useDispatch()
     const {userInfo} = useSelector(state => state.auth) 
-    const {card_products,successMessage,price,buy_product_item,shipping_fee,outofstock_products} = useSelector(state => state.card) 
+    const {card_products,successMessage,errorMessage,price,buy_product_item,shipping_fee,outofstock_products} = useSelector(state => state.card) 
 
     const navigate = useNavigate()  
 
@@ -37,8 +37,12 @@ const Card = () => {
             dispatch(messageClear())  
             dispatch(get_card_products(userInfo.id))
         } 
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())  
+        } 
         
-    },[successMessage])
+    },[successMessage,errorMessage])
 
     const inc = (quantity, stock, card_id) => {
         const temp = quantity + 1;
@@ -63,7 +67,7 @@ const Card = () => {
     <div className='w-[85%] lg:w-[90%] md:w-[90%] sm:w-[90%] mx-auto py-16'>
 
         {
-            card_products.length > 0 || outofstock_products > 0 ? <div className='flex flex-wrap gap-y-6'>
+            card_products.length > 0 || outofstock_products.length > 0 ? <div className='flex flex-wrap gap-y-6'>
                 <div className='w-[67%] md-lg:w-full'>
                     <div className='pr-3 md-lg:pr-0'>
                         <div className='flex flex-col gap-4'>

@@ -65,9 +65,9 @@ const Footer = () => {
                     <span className='text-slate-300 text-sm leading-relaxed'>Get email updates about your latest and shop special offers</span>
                     <div className='h-[48px] w-full bg-white rounded-full relative overflow-hidden ring-1 ring-white/10 focus-within:ring-2 focus-within:ring-[#2563EB] transition-all'>
                         <input className='h-full bg-transparent w-full pl-5 pr-[110px] outline-0 text-sm text-slate-700 placeholder:text-slate-400' type="text" placeholder='Enter Your Email' />
-                        <button title="Subscribe" className='h-[38px] absolute right-[5px] top-[5px] rounded-full bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white uppercase px-5 font-bold text-xs'>Subscribe</button>  
+                        <button title="Subscribe" className='h-[38px] absolute right-[5px] top-[5px] rounded-full bg-[#FBBF24] hover:bg-[#F59E0B] transition-colors text-slate-900 uppercase px-5 font-bold text-xs'>Subscribe</button>  
                      </div> 
-                     <ul className='flex justify-start items-center gap-3 mt-1'>
+                     <ul className='flex justify-end items-center gap-3 mt-1'>
                         <li>
                             <a title="LinkedIn" className='w-[38px] h-[38px] hover:bg-[#2563EB] hover:-translate-y-0.5 transition-all duration-200 flex justify-center items-center bg-white text-slate-700 hover:text-white rounded-full shadow-sm' href="https://www.linkedin.com/in/shrestha-mondal-cse/" target="_blank" rel="noopener noreferrer"><FaLinkedin/> </a>
                         </li>
@@ -90,7 +90,7 @@ const Footer = () => {
         <div title="Cart" onClick={() => navigate(userInfo ? '/card' : '/login') }  className='relative flex justify-center items-center cursor-pointer w-[38px] h-[38px] rounded-full bg-slate-100 hover:bg-[#FBBF24] group transition-colors'>
             <span className='text-lg text-slate-600 group-hover:text-slate-900 transition-colors'><FaCartShopping/></span>
             {
-                card_product_count !== 0 && <div className='w-[19px] h-[19px] absolute bg-red-500 rounded-full text-white text-[11px] font-semibold flex justify-center items-center -top-[3px] -right-[5px] ring-2 ring-white'>
+                card_product_count > 0 && <div className='w-[19px] h-[19px] absolute bg-red-500 rounded-full text-white text-[11px] font-semibold flex justify-center items-center -top-[3px] -right-[5px] ring-2 ring-white'>
                     {
                         card_product_count
                     }
@@ -102,7 +102,7 @@ const Footer = () => {
         <div title="Wishlist" onClick={() => navigate(userInfo ? '/dashboard/my-wishlist' : '/login') } className='relative flex justify-center items-center cursor-pointer w-[38px] h-[38px] rounded-full bg-slate-100 hover:bg-[#FBBF24] group transition-colors'>
             <span className='text-lg text-slate-600 group-hover:text-slate-900 transition-colors'><FaHeart/></span>
             {
-                wishlist_count !== 0 && <div className='w-[19px] h-[19px] absolute bg-red-500 rounded-full text-white text-[11px] font-semibold flex justify-center items-center -top-[3px] -right-[5px] ring-2 ring-white'>
+                wishlist_count > 0 && <div className='w-[19px] h-[19px] absolute bg-red-500 rounded-full text-white text-[11px] font-semibold flex justify-center items-center -top-[3px] -right-[5px] ring-2 ring-white'>
                     {
                        wishlist_count 
                     }

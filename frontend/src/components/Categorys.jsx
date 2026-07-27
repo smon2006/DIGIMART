@@ -56,14 +56,14 @@ const Categorys = () => {
                     arrows={true} 
                     responsive={responsive}
                     transitionDuration={500}
-                    itemClass='px-2'
+                    itemClass='px-2 py-4'
                 >
                 {
-                    categorys.map((c, i) => <Link className='group block rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300' key={i} to={`/products?category=${c.name}`}>
-                        <div className='w-full h-[170px] overflow-hidden bg-slate-100'>
+                    categorys.map((c, i) => <Link className='group block rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300' key={i} to={`/products?category=${c.name}`}>
+                        <div className='w-full h-[170px] overflow-hidden bg-slate-100 rounded-t-2xl'>
                             <img className='w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' src={c.image} alt={c.name} />
                         </div>
-                        <div className='px-4 py-3 flex items-center justify-between border-t border-slate-100'>
+                        <div className='px-4 py-3 flex items-center justify-between border-t border-slate-100 rounded-b-2xl'>
                             <span className='font-semibold text-slate-700 capitalize truncate'>{c.name}</span>
                             <span className='w-7 h-7 shrink-0 rounded-full bg-slate-100 group-hover:bg-[#2563EB] flex items-center justify-center text-slate-400 group-hover:text-white transition-colors duration-300'>
                                 <FaArrowRight size={11} />
