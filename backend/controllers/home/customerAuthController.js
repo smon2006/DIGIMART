@@ -10,7 +10,7 @@ class customerAuthController{
         const {name, email, password } = req.body
 
         try {
-            const customer = await customerModel.findOne({email})
+            const customer = await customerModel.findOne({email}) 
             if (customer) {
                 responseReturn(res, 404,{ error : 'Email Already Exits'} )
             } else {
@@ -27,7 +27,7 @@ class customerAuthController{
                     id : createCustomer.id,
                     name: createCustomer.name,
                     email: createCustomer.email,
-                    method: createCustomer.method
+                    method: createCustomer.method 
                 })
                 res.cookie('customerToken',token,{
                     expires : new Date(Date.now() + 7*24*60*60*1000 )
@@ -50,20 +50,20 @@ class customerAuthController{
                     id : customer.id,
                     name: customer.name,
                     email: customer.email,
-                    method: customer.method
+                    method: customer.method 
                 })
                 res.cookie('customerToken',token,{
                     expires : new Date(Date.now() + 7*24*60*60*1000 )
                 })
                 responseReturn(res, 201,{ message :  'User Login Success',token})
-
+                
             } else {
                 responseReturn(res, 404,{ error :  'Password Wrong'})
             }
         } else {
             responseReturn(res, 404,{ error :  'Email Not Found'})
         }
-
+        
        } catch (error) {
         console.log(error.message)
        }
@@ -79,18 +79,24 @@ class customerAuthController{
   forgot_password = async(req, res) => {
     const { email, new_password } = req.body
     try {
-        const customer = await customerModel.findOne({email})
+        if (!email || !new_password) {
+            return responseReturn(res, 400, { error: 'Email and new password are required' })
+        }
+        if (new_password.length < 6) {
+            return responseReturn(res, 400, { error: 'Password should be at least 6 characters' })
+        }
+        const customer = await customerModel.findOne({ email })
         if (!customer) {
-            return responseReturn(res, 404, { error: 'No account found with that email' })
+            return responseReturn(res, 404, { error: 'No account found with this email' })
         }
         customer.password = await bcrypt.hash(new_password, 10)
         await customer.save()
-        responseReturn(res, 200, { message: 'Password reset successfully. You can log in now.' })
+        responseReturn(res, 200, { message: 'Password reset successful. Please sign in with your new password.' })
     } catch (error) {
-        responseReturn(res, 500, { error: error.message })
+        console.log(error.message)
+        responseReturn(res, 500, { error: 'Something went wrong. Please try again.' })
     }
   }
-
 }
 
 module.exports = new customerAuthController()

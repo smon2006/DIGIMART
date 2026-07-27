@@ -3,8 +3,8 @@ const router = require('express').Router()
 
 router.post('/customer/customer-register',customerAuthController.customer_register)
 router.post('/customer/customer-login',customerAuthController.customer_login)
+router.post('/customer/forgot-password',customerAuthController.forgot_password)
 
 router.get('/customer/logout',customerAuthController.customer_logout)
-router.post('/customer/forgot-password',customerAuthController.forgot_password)
 
 module.exports = router
