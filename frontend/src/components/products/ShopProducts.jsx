@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { FaEye, FaRegHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import { RiShoppingCartLine } from "react-icons/ri";
 import Rating from '../Rating';
 import { Link, useNavigate } from 'react-router-dom';
@@ -56,7 +56,7 @@ const ShopProducts = ({styles,products}) => {
     return (
         <div className={`w-full grid ${styles === 'grid' ? 'grid-cols-3 md-lg:grid-cols-2 md:grid-cols-2' : 'grid-cols-1 md-lg:grid-cols-2 md:grid-cols-2'} gap-5 `}>
             {
-                products.map((p, i)=> <div key={i} className={`group flex transition-all duration-300 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 ${styles === 'grid' ? 'flex-col justify-start items-start' : 'justify-start items-center md-lg:flex-col md-lg:justify-start md-lg:items-start'} w-full gap-4 overflow-hidden`}>
+                products.map((p, i)=> <Link to={`/product/details/${p.slug}`} key={i} className={`group flex transition-all duration-300 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 ${styles === 'grid' ? 'flex-col justify-start items-start' : 'justify-start items-center md-lg:flex-col md-lg:justify-start md-lg:items-start'} w-full gap-4 overflow-hidden`}>
 
         <div className={styles === 'grid' ? 'w-full relative overflow-hidden h-[210px] md:h-[270px] xs:h-[170px] bg-slate-50' : 'md-lg:w-full relative overflow-hidden h-[210px] md:h-[270px] w-[240px] shrink-0 bg-slate-50'}>
             {
@@ -65,13 +65,10 @@ const ShopProducts = ({styles,products}) => {
             <img className='h-full rounded-none w-full object-cover group-hover:scale-110 transition-transform duration-500' src={ p.images[0] } alt="" />
 
           <ul className='flex transition-all duration-500 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3'>
-            <li title="Add to Wishlist" onClick={() => add_wishlist(p)} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
+            <li title="Add to Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_wishlist(p) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
             <FaRegHeart size={14} />
             </li>
-            <Link title="Quick View" to={`/product/details/${p.slug}`} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
-            <FaEye size={14} />
-            </Link>
-            <li title="Add to Cart" onClick={() => add_card(p._id)} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
+            <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_card(p._id) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
             <RiShoppingCartLine size={15} />
             </li>
         </ul>    
@@ -88,7 +85,7 @@ const ShopProducts = ({styles,products}) => {
             </div>
         </div>    
 
-                </div>
+                </Link>
                 
                 )
             }
