@@ -43,12 +43,12 @@ const Dashboard = () => {
     ]
 
     return (
-        <div>
+        <div className='min-h-screen bg-[#FBC39F]'>
            <Header/>
-           <div className='bg-slate-50 py-6'>
+           <div className='bg-[#FDD7BF] py-6'>
                 <div className='w-[90%] mx-auto md-lg:block hidden mb-3'>
                     <div>
-                        <button onClick={() => setFilterShow(!filterShow)} className='text-center py-2.5 px-4 bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white rounded-lg font-semibold text-sm flex items-center gap-2'><FaList/> Menu</button>
+                        <button onClick={() => setFilterShow(!filterShow)} className='text-center py-2.5 px-4 bg-[#F26627] hover:bg-[#F26627] transition-colors text-white rounded-lg font-semibold text-sm flex items-center gap-2'><FaList/> Menu</button>
                     </div> 
                 </div>
 
@@ -62,7 +62,7 @@ const Dashboard = () => {
                         const active = n.exact ? pathname === n.to : pathname.startsWith(n.to)
                         return (
                 <li key={i}>
-                    <Link to={n.to} className={`flex justify-start items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${active ? 'bg-blue-50 text-[#2563EB]' : 'hover:bg-slate-50 text-slate-600'}`}>
+                    <Link to={n.to} className={`flex justify-start items-center gap-3 py-2.5 px-3 rounded-lg text-sm font-medium transition-colors ${active ? 'bg-[#F9A26C]/25 text-[#F26627]' : 'hover:bg-slate-50 text-slate-600'}`}>
                         <span className='text-lg'>{n.icon}</span>
                         <span>{n.label}</span>
                     </Link>

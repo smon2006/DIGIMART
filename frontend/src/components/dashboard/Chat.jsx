@@ -85,7 +85,7 @@ const Chat = () => {
         
         <div className={`w-[230px] shrink-0 md-lg:absolute bg-white md-lg:h-full md-lg:z-20 md-lg:shadow-2xl md-lg:rounded-xl transition-all duration-200 ${show ? 'md-lg:left-0' : 'md-lg:-left-[350px]'}`}>
             <div className='flex justify-start gap-2 items-center text-slate-700 font-bold text-base h-[46px] border-b border-slate-100 mb-2'>
-                <span className='text-[#2563EB]'><AiOutlineMessage /></span>
+                <span className='text-[#F26627]'><AiOutlineMessage /></span>
                 <span>Messages</span>
             </div>
             <div className='w-full flex flex-col text-slate-600 gap-1 h-[400px] pr-2 overflow-y-auto'>
@@ -122,7 +122,7 @@ const Chat = () => {
                 
             </div> 
 
-                <div onClick={()=> setShow(!show)} className='w-[34px] h-[34px] hidden md-lg:flex cursor-pointer rounded-lg justify-center items-center bg-slate-100 hover:bg-[#2563EB] hover:text-white text-slate-500 transition-colors'>
+                <div onClick={()=> setShow(!show)} className='w-[34px] h-[34px] hidden md-lg:flex cursor-pointer rounded-lg justify-center items-center bg-slate-100 hover:bg-[#F26627] hover:text-white text-slate-500 transition-colors'>
                     <FaList/>
                 </div>      
                
@@ -144,7 +144,7 @@ const Chat = () => {
                 }else{ 
                   return (
                     <div ref={scrollRef} key={i} className='w-full flex gap-2 justify-end items-center text-[13px]'>
-                    <div className='py-2 px-3 bg-[#2563EB] text-white rounded-2xl rounded-tr-none max-w-[75%]'>
+                    <div className='py-2 px-3 bg-[#F26627] text-white rounded-2xl rounded-tr-none max-w-[75%]'>
                         <span>{m.message}</span>
                     </div>
                     <img className='w-[28px] h-[28px] rounded-full object-cover shrink-0' src="/images/user.png" alt="" />
@@ -156,18 +156,18 @@ const Chat = () => {
                     </div>
                 </div>
                 <div className='flex p-2 justify-between items-center w-full gap-2'>
-                    <div className='w-[40px] h-[40px] shrink-0 border border-slate-200 justify-center items-center flex rounded-full text-slate-500 hover:border-[#2563EB] hover:text-[#2563EB] transition-colors'>
+                    <div className='w-[40px] h-[40px] shrink-0 border border-slate-200 justify-center items-center flex rounded-full text-slate-500 hover:border-[#F26627] hover:text-[#F26627] transition-colors'>
                         <label className='cursor-pointer flex' htmlFor=""><AiOutlinePlus /></label>
                         <input className='hidden' type="file" />
                     </div>
-                    <div className='border border-slate-300 h-[40px] p-0 w-full rounded-full relative focus-within:border-[#2563EB] transition-colors'>
+                    <div className='border border-slate-300 h-[40px] p-0 w-full rounded-full relative focus-within:border-[#F26627] transition-colors'>
                         <input value={text} onChange={(e) => setText(e.target.value)} type="text" placeholder='Type a message' className='w-full rounded-full h-full outline-none pl-4 pr-10 text-sm' />
                         <div className='text-lg right-3 top-2 absolute cursor-auto text-slate-400'>
                             <span><GrEmoji /></span>
                         </div>
 
                     </div>
-                    <div className='w-[40px] h-[40px] shrink-0 justify-center items-center flex rounded-full bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white'>
+                    <div className='w-[40px] h-[40px] shrink-0 justify-center items-center flex rounded-full bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white'>
                         <div onClick={send} className='text-lg cursor-pointer flex'>
                             <IoSend />
                         </div>

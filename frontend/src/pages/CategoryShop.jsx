@@ -69,7 +69,7 @@ const CategoryShop = () => {
     }
     
     return (
-        <div>
+        <div className='min-h-screen bg-[#325D79]'>
            <Header/>
            <PageHeader
                 title={category || 'All Products'}
@@ -79,7 +79,7 @@ const CategoryShop = () => {
            <section className='py-16'>
             <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
             <div className={` md:block hidden ${!filter ? 'mb-6' : 'mb-0'} `}>
-                <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
+                <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F26627] hover:bg-[#F26627] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
             </div>
 
             <div className='w-full flex flex-wrap gap-y-8'>
@@ -101,7 +101,7 @@ const CategoryShop = () => {
                     </div>
                 )}
                 renderThumb={({ props }) => (
-                    <div className='w-[16px] h-[16px] bg-[#2563EB] rounded-full shadow-md ring-2 ring-white' {...props} />
+                    <div className='w-[16px] h-[16px] bg-[#F26627] rounded-full shadow-md ring-2 ring-white' {...props} />
     
                 )} 
              />  
@@ -113,7 +113,7 @@ const CategoryShop = () => {
          <div className='py-4 flex flex-col gap-3 border-t border-slate-100 mt-2'>
             <h2 className='text-lg font-bold text-slate-700 mb-1'>Rating</h2>
             <div className='flex flex-col gap-2.5'>
-                 <div onClick={() => setRating(5)} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                 <div onClick={() => setRating(5)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -121,7 +121,7 @@ const CategoryShop = () => {
                     <span><AiFillStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(4)} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => setRating(4)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -129,7 +129,7 @@ const CategoryShop = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(3)} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => setRating(3)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -137,7 +137,7 @@ const CategoryShop = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(2)} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => setRating(2)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
@@ -145,7 +145,7 @@ const CategoryShop = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(1)} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => setRating(1)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
                     <span><CiStar/> </span>
@@ -153,7 +153,7 @@ const CategoryShop = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={resetRating} className='text-[#EDBB0E] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={resetRating} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                   <span><CiStar/> </span>
                   <span><CiStar/> </span>
                   <span><CiStar/> </span>
@@ -172,18 +172,18 @@ const CategoryShop = () => {
         <div className='w-9/12 md-lg:w-8/12 md:w-full'>
             <div className='pl-8 md:pl-0'>
                 <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
-                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#2563EB] font-bold'>{totalProduct}</span> Products Found </h2>
+                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{totalProduct}</span> Products Found </h2>
         <div className='flex justify-center items-center gap-3'>
-            <select onChange={(e)=>setSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#2563EB] transition-colors' name="" id="">
+            <select onChange={(e)=>setSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F26627] transition-colors' name="" id="">
                 <option value="">Sort By</option>
                 <option value="low-to-high">Price: Low to High</option>
                 <option value="high-to-low">Price: High to Low</option>
             </select>
         <div className='flex justify-center items-center gap-2 md-lg:hidden'>
-            <div onClick={()=> setStyles('grid')} className={`p-2.5 rounded-lg ${styles === 'grid' ? 'bg-[#2563EB] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
+            <div onClick={()=> setStyles('grid')} className={`p-2.5 rounded-lg ${styles === 'grid' ? 'bg-[#F26627] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
                   <BsFillGridFill/>  
             </div>
-            <div onClick={()=> setStyles('list')} className={`p-2.5 rounded-lg ${styles === 'list' ? 'bg-[#2563EB] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
+            <div onClick={()=> setStyles('list')} className={`p-2.5 rounded-lg ${styles === 'list' ? 'bg-[#F26627] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
                   <FaThList/>  
             </div> 
         </div> 

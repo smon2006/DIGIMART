@@ -71,21 +71,21 @@ const ConfirmOrder = () => {
     },[message])
 
     return (
-        <div className='w-screen h-screen flex justify-center items-center flex-col gap-5 bg-slate-50 px-4'>
+        <div className='w-screen h-screen flex justify-center items-center flex-col gap-5 bg-[#325D79] px-4'>
             {
                 (message === 'failed' || message === 'processing') ? <>
                 <div className='bg-white rounded-2xl border border-slate-200 shadow-lg p-10 flex flex-col items-center gap-4 max-w-[420px] w-full'>
                 <img className='w-[110px]' src={error} alt="" />
                 <h2 className='text-slate-700 font-semibold text-lg text-center'>{message === 'processing' ? 'Your payment is processing' : 'Payment failed'}</h2>
-                <Link className='px-6 py-3 bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors rounded-lg text-white font-semibold text-sm' to="/dashboard/my-orders">Back to Dashboard </Link>
+                <Link className='px-6 py-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors rounded-lg text-white font-semibold text-sm' to="/dashboard/my-orders">Back to Dashboard </Link>
                 </div>
-                </> : message === 'succeeded' ? loader ? <FadeLoader color='#2563EB' /> : <>
+                </> : message === 'succeeded' ? loader ? <FadeLoader color='#F26627' /> : <>
                 <div className='bg-white rounded-2xl border border-slate-200 shadow-lg p-10 flex flex-col items-center gap-4 max-w-[420px] w-full'>
                 <img className='w-[110px]' src={success} alt="" />
                 <h2 className='text-slate-700 font-semibold text-lg text-center'>Your order was placed successfully</h2>
-                <Link className='px-6 py-3 bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors rounded-lg text-white font-semibold text-sm' to="/dashboard/my-orders">Back to Dashboard </Link>
+                <Link className='px-6 py-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors rounded-lg text-white font-semibold text-sm' to="/dashboard/my-orders">Back to Dashboard </Link>
                 </div>
-                </> : <FadeLoader color='#2563EB' /> 
+                </> : <FadeLoader color='#F26627' /> 
             }
             
         </div>

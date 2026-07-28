@@ -23,7 +23,7 @@ const OrderDetails = () => {
         <h2 className='text-slate-700 font-semibold'>
         Deliver To : <span className='font-normal text-slate-600'>{myOrder.shippingInfo?.name}</span> </h2>
         <p className='flex flex-wrap items-center gap-2'>
-            <span className='bg-blue-50 text-[#2563EB] text-xs font-semibold px-2.5 py-1 rounded-full'>Home</span>
+            <span className='bg-blue-50 text-[#F26627] text-xs font-semibold px-2.5 py-1 rounded-full'>Home</span>
             <span className='text-slate-600'>{myOrder.shippingInfo?.address} {myOrder.shippingInfo?.province} {myOrder.shippingInfo?.city}</span>
         </p>
         <p className='text-slate-500'>

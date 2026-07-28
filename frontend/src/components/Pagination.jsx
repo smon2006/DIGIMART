@@ -21,7 +21,7 @@ const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
         const btns = []
         for (let i = startPage; i < endPage; i++) {
             btns.push(
-                <li key={i} onClick={()=>setPageNumber(i)} className={` ${pageNumber === i ? 'bg-[#2563EB] shadow-lg shadow-[#2563EB]/30 text-white' : 'bg-white border border-slate-200 hover:bg-[#2563EB] hover:border-[#2563EB] hover:text-white text-slate-600'} w-[36px] h-[36px] rounded-full flex justify-center items-center cursor-pointer transition-colors text-sm font-medium `}>
+                <li key={i} onClick={()=>setPageNumber(i)} className={` ${pageNumber === i ? 'bg-[#F26627] shadow-lg shadow-[#F26627]/30 text-white' : 'bg-white border border-slate-200 hover:bg-[#F26627] hover:border-[#F26627] hover:text-white text-slate-600'} w-[36px] h-[36px] rounded-full flex justify-center items-center cursor-pointer transition-colors text-sm font-medium `}>
                     {i}                    
                 </li>
             ) 
@@ -30,9 +30,9 @@ const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
     }
 
     return (
-        <ul className='flex gap-2'>
+        <ul className='flex justify-center w-full gap-2'>
             {
-                pageNumber > 1 && <li onClick={() => setPageNumber(pageNumber - 1)} className='w-[36px] h-[36px] rounded-full flex justify-center items-center bg-white border border-slate-200 hover:bg-[#2563EB] hover:border-[#2563EB] hover:text-white text-slate-600 cursor-pointer transition-colors'>
+                pageNumber > 1 && <li onClick={() => setPageNumber(pageNumber - 1)} className='w-[36px] h-[36px] rounded-full flex justify-center items-center bg-white border border-slate-200 hover:bg-[#F26627] hover:border-[#F26627] hover:text-white text-slate-600 cursor-pointer transition-colors'>
                     <MdOutlineKeyboardDoubleArrowLeft />
                 </li>
             }
@@ -40,7 +40,7 @@ const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
                 createBtn()
             }
             {
-                pageNumber < totalPage && <li onClick={() => setPageNumber(pageNumber + 1)} className='w-[36px] h-[36px] rounded-full flex justify-center items-center bg-white border border-slate-200 hover:bg-[#2563EB] hover:border-[#2563EB] hover:text-white text-slate-600 cursor-pointer transition-colors'>
+                pageNumber < totalPage && <li onClick={() => setPageNumber(pageNumber + 1)} className='w-[36px] h-[36px] rounded-full flex justify-center items-center bg-white border border-slate-200 hover:bg-[#F26627] hover:border-[#F26627] hover:text-white text-slate-600 cursor-pointer transition-colors'>
                     <MdOutlineKeyboardDoubleArrowRight  />
                 </li>
             }

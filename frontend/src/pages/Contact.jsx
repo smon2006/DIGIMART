@@ -29,7 +29,7 @@ const info = [
     ];
 
     return (
-        <div className='w-full'>
+        <div className='min-h-screen bg-[#325D79] w-full'>
             <Header />
             <PageHeader title='Contact Us' crumbs={[{ label: 'Contact Us' }]} />
 
@@ -37,7 +37,7 @@ const info = [
                 <div className='grid grid-cols-4 md-lg:grid-cols-2 sm:grid-cols-1 gap-6 mb-12'>
                     {info.map((item, i) => (
                         <div key={i} className='bg-slate-50 border border-slate-200 rounded-lg p-6 flex flex-col items-start'>
-                            <div className='w-12 h-12 flex items-center justify-center rounded-full bg-[#2563EB]/10 text-[#2563EB] text-lg mb-4'>
+                            <div className='w-12 h-12 flex items-center justify-center rounded-full bg-[#F26627]/10 text-[#F26627] text-lg mb-4'>
                                 {item.icon}
                             </div>
                             <h3 className='font-semibold text-slate-800 mb-1'>{item.title}</h3>
@@ -58,7 +58,7 @@ const info = [
                                         <input
                                             value={form.name}
                                             onChange={inputHandle}
-                                            className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#2563EB] text-slate-800 text-sm'
+                                            className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#F26627] text-slate-800 text-sm'
                                             type='text' name='name' id='name' placeholder='Your name'
                                         />
                                     </div>
@@ -67,7 +67,7 @@ const info = [
                                         <input
                                             value={form.email}
                                             onChange={inputHandle}
-                                            className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#2563EB] text-slate-800 text-sm'
+                                            className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#F26627] text-slate-800 text-sm'
                                             type='email' name='email' id='email' placeholder='you@example.com'
                                         />
                                     </div>
@@ -77,7 +77,7 @@ const info = [
                                     <input
                                         value={form.subject}
                                         onChange={inputHandle}
-                                        className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#2563EB] text-slate-800 text-sm'
+                                        className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#F26627] text-slate-800 text-sm'
                                         type='text' name='subject' id='subject' placeholder='How can we help?'
                                     />
                                 </div>
@@ -86,13 +86,13 @@ const info = [
                                     <textarea
                                         value={form.message}
                                         onChange={inputHandle}
-                                        className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#2563EB] text-slate-800 text-sm min-h-[140px] resize-y'
+                                        className='px-3 py-2.5 border border-slate-300 rounded-md outline-none focus:border-[#F26627] text-slate-800 text-sm min-h-[140px] resize-y'
                                         name='message' id='message' placeholder='Write your message...'
                                     />
                                 </div>
                                 <button
                                     type='submit'
-                                    className='bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-medium px-6 py-2.5 rounded-md transition-colors w-fit'
+                                    className='bg-[#F26627] hover:bg-[#C24A16] text-white font-medium px-6 py-2.5 rounded-md transition-colors w-fit'
                                 >
                                     Send Message
                                 </button>

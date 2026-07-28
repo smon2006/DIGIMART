@@ -54,7 +54,7 @@ const Shipping = () => {
     }
 
     return (
-        <div>
+        <div className='min-h-screen bg-[#325D79]'>
           <Header/>
           <PageHeader title='Shipping' crumbs={[{ to: '/card', label: 'Cart' }, { label: 'Shipping' }]} />
 
@@ -73,47 +73,47 @@ const Shipping = () => {
             <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="name"> Name </label>
-                <input onChange={inputHandle} value={state.name} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="name" id="name" placeholder='Name' /> 
+                <input onChange={inputHandle} value={state.name} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="name" id="name" placeholder='Name' /> 
             </div>
 
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="address"> Address </label>
-                <input onChange={inputHandle} value={state.address} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="address" id="address" placeholder='Address' /> 
+                <input onChange={inputHandle} value={state.address} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="address" id="address" placeholder='Address' /> 
             </div> 
             </div>
 
             <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="phone"> Phone </label>
-                <input onChange={inputHandle} value={state.phone} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="phone" id="phone" placeholder='Phone' /> 
+                <input onChange={inputHandle} value={state.phone} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="phone" id="phone" placeholder='Phone' /> 
             </div>
 
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="post"> Post </label>
-                <input onChange={inputHandle} value={state.post} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="post" id="post" placeholder='Post' /> 
+                <input onChange={inputHandle} value={state.post} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="post" id="post" placeholder='Post' /> 
             </div> 
             </div>
 
             <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="province"> Province </label>
-                <input onChange={inputHandle} value={state.province} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="province" id="province" placeholder='Province' /> 
+                <input onChange={inputHandle} value={state.province} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="province" id="province" placeholder='Province' /> 
             </div>
 
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="city"> City </label>
-                <input onChange={inputHandle} value={state.city} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="city" id="city" placeholder='City' /> 
+                <input onChange={inputHandle} value={state.city} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="city" id="city" placeholder='City' /> 
             </div> 
             </div>
 
             <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600 items-start'>
             <div className='flex flex-col gap-1 mb-3 w-full'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="area"> Area </label>
-                <input onChange={inputHandle} value={state.area} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' name="area" id="area" placeholder='Area' /> 
+                <input onChange={inputHandle} value={state.area} type="text" className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' name="area" id="area" placeholder='Area' /> 
             </div>
 
             <div className='flex flex-col gap-1 mt-6 w-full'>
-               <button className='px-5 py-2.5 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white text-sm font-semibold'>Save Change </button>
+               <button className='px-5 py-2.5 rounded-lg bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white text-sm font-semibold'>Save Change </button>
             </div> 
             </div> 
                 </form>
@@ -125,10 +125,10 @@ const Shipping = () => {
                 res && <div className='flex flex-col gap-2'>
                 <h2 className='text-slate-700 font-semibold pb-1'>Deliver To {state.name}</h2>
                 <p className='text-sm text-slate-600'>
-                    <span className='bg-blue-50 text-[#2563EB] text-xs font-semibold mr-2 px-2.5 py-1 rounded-full'>Home</span>
+                    <span className='bg-blue-50 text-[#F26627] text-xs font-semibold mr-2 px-2.5 py-1 rounded-full'>Home</span>
                     <span>{state.phone} {state.address} {state.province} {state.city} {state.area}  </span>
 
-                    <span onClick={() => setRes(false)} className='text-[#2563EB] font-semibold cursor-pointer hover:underline ml-1'>Change </span>
+                    <span onClick={() => setRes(false)} className='text-[#F26627] font-semibold cursor-pointer hover:underline ml-1'>Change </span>
                 </p>
 
                 <p className='text-slate-500 text-xs' >Email To ariyan@gmail.com</p>
@@ -191,9 +191,9 @@ const Shipping = () => {
 
                 <div className='flex justify-between items-center pt-3 border-t border-slate-100'>
                     <span className='font-semibold text-slate-700'>Total</span>
-                    <span className='text-xl font-bold text-[#2563EB]'>₹{price + shipping_fee} </span>
+                    <span className='text-xl font-bold text-[#F26627]'>₹{price + shipping_fee} </span>
                 </div>
-                <button onClick={placeOrder} disabled={res ? false : true} className={`px-5 py-3 rounded-lg transition-colors ${res ? 'bg-[#2563EB] hover:bg-[#1d4ed8]' : 'bg-slate-300 cursor-not-allowed'}  text-sm text-white uppercase font-semibold`}>
+                <button onClick={placeOrder} disabled={res ? false : true} className={`px-5 py-3 rounded-lg transition-colors ${res ? 'bg-[#F26627] hover:bg-[#C24A16]' : 'bg-slate-300 cursor-not-allowed'}  text-sm text-white uppercase font-semibold`}>
                    Place Order 
                 </button>
 

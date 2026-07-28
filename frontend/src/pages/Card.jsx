@@ -59,7 +59,7 @@ const Card = () => {
     }
 
     return (
-        <div>
+        <div className='min-h-screen bg-[#325D79]'>
            <Header/>
            <PageHeader title='Shopping Cart' crumbs={[{ label: 'Cart' }]} />
 
@@ -175,15 +175,15 @@ const Card = () => {
                     <span className='font-medium text-slate-700'>₹{shipping_fee} </span>
                 </div>
                 <div className='flex gap-2'>
-                <input className='w-full px-3 py-2.5 border border-slate-300 outline-0 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 rounded-lg text-sm transition-all' type="text" placeholder='Coupon Code' />
-                <button className='px-5 bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white rounded-lg uppercase text-xs font-semibold'>Apply</button>
+                <input className='w-full px-3 py-2.5 border border-slate-300 outline-0 focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' type="text" placeholder='Coupon Code' />
+                <button className='px-5 bg-[#F26627] hover:bg-[#F26627] transition-colors text-white rounded-lg uppercase text-xs font-semibold'>Apply</button>
                 </div>
 
                 <div className='flex justify-between items-center pt-3 border-t border-slate-100'>
                     <span className='font-semibold text-slate-700'>Total</span>
-                    <span className='text-xl font-bold text-[#2563EB]'>₹{price + shipping_fee} </span>
+                    <span className='text-xl font-bold text-[#F26627]'>₹{price + shipping_fee} </span>
                 </div>
-                <button onClick={redirect} className='px-5 py-3 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-sm font-semibold text-white uppercase'>
+                <button onClick={redirect} className='px-5 py-3 rounded-lg bg-[#F26627] hover:bg-[#F26627] transition-colors text-sm font-semibold text-white uppercase'>
                     Proceed to Checkout ({buy_product_item})
                 </button>
 
@@ -198,7 +198,7 @@ const Card = () => {
             
             : <div className='py-10 text-center'>
                 <p className='text-slate-500 mb-4'>Your cart is empty.</p>
-                <Link className='px-6 py-3 inline-block bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors text-white rounded-lg font-semibold text-sm' to='/shops' > Shop Now</Link>
+                <Link className='px-6 py-3 inline-block bg-[#F26627] hover:bg-[##F26627] transition-colors text-white rounded-lg font-semibold text-sm' to='/shops' > Shop Now</Link>
             </div>
         }
 

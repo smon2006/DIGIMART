@@ -3,11 +3,32 @@
 @tailwind utilities;
 
 body {
-  background: linear-gradient(to bottom, rgba(51, 65, 85, 0.45), rgba(51, 65, 85, 0.15) 50%, transparent 100%), #ffffff;
+  background: #305F72;
   min-height: 100vh;
 }
 
 .react-multi-carousel-arrow,
 .react-multiple-carousel__arrow {
   z-index: 10 !important;
+}
+
+.react-multi-carousel-dot button {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.react-multi-carousel-dot--active button {
+  background: #5EEAD4;
+  border-color: #5EEAD4;
+}
+
+.custom_bullet .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+}
+
+.custom_bullet .swiper-pagination-bullet-active {
+  background: #F26627;
 }

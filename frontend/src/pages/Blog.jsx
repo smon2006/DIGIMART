@@ -64,7 +64,7 @@ const Blog = () => {
     ];
 
     return (
-        <div className='w-full'>
+        <div className='min-h-screen bg-[#325D79] w-full'>
             <Header />
             <PageHeader title='Blog' crumbs={[{ label: 'Blog' }]} />
 
@@ -80,7 +80,7 @@ const Blog = () => {
                                 />
                             </div>
                             <div className='p-5'>
-                                <span className='inline-block text-xs font-medium text-[#2563EB] bg-[#2563EB]/10 px-2.5 py-1 rounded'>
+                                <span className='inline-block text-xs font-medium text-[#F26627] bg-[#F26627]/10 px-2.5 py-1 rounded'>
                                     {post.category}
                                 </span>
                                 <h3 className='text-lg font-semibold text-slate-800 mt-3 leading-snug text-pretty'>
@@ -93,7 +93,7 @@ const Blog = () => {
                                 </div>
                                 <Link
                                     to='/blog'
-                                    className='inline-block mt-4 text-sm font-medium text-[#2563EB] hover:underline'
+                                    className='inline-block mt-4 text-sm font-medium text-[#F26627] hover:underline'
                                 >
                                     Read More
                                 </Link>

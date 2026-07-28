@@ -31,7 +31,7 @@ const Stripe = ({ price, orderId }) => {
                     <Elements options={options} stripe={stripePromise}>
                         <CheckoutForm orderId={orderId} />
                     </Elements>
-                ) : <button onClick={create_payment} className='px-10 py-2.5 rounded-lg hover:shadow-[#2563EB]/30 hover:shadow-lg bg-[#2563EB] hover:bg-[#1d4ed8] transition-all text-white font-semibold text-sm'>Start Payment</button>
+                ) : <button onClick={create_payment} className='px-10 py-2.5 rounded-lg hover:shadow-[#F26627]/30 hover:shadow-lg bg-[#F26627] hover:bg-[#C24A16] transition-all text-white font-semibold text-sm'>Start Payment</button>
             }
         </div>
     );

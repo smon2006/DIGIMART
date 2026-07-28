@@ -35,7 +35,7 @@ const Index = () => {
        
         <div className='flex justify-center items-center p-5 bg-white rounded-2xl border border-slate-200 shadow-sm gap-4'>
             <div className='bg-blue-50 w-[52px] h-[52px] shrink-0 rounded-full flex justify-center items-center text-xl'>
-        <span className='text-xl text-[#2563EB]'><RiShoppingCart2Fill /></span>
+        <span className='text-xl text-[#F26627]'><RiShoppingCart2Fill /></span>
             </div>
         <div className='flex flex-col justify-start items-start text-slate-600'>
         <h2 className='text-3xl font-bold text-slate-800'>{totalOrder}</h2>
@@ -86,10 +86,10 @@ const Index = () => {
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap capitalize'>{o.payment_status }</td>
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap capitalize'>{o.delivery_status}</td>
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>
-                    <Link to={`/dashboard/order/details/${o._id}`}><span className='bg-blue-50 text-[#2563EB] text-xs font-semibold mr-2 px-3 py-1 rounded-full'>View</span></Link>
+                    <Link to={`/dashboard/order/details/${o._id}`}><span className='bg-blue-50 text-[#F26627] text-xs font-semibold mr-2 px-3 py-1 rounded-full'>View</span></Link>
 
                     {
-                       o.payment_status !== 'paid' && <span onClick={() => redirect(o)} className='bg-blue-50 text-[#2563EB] text-xs font-semibold mr-2 px-3 py-1 rounded-full cursor-pointer hover:bg-[#2563EB] hover:text-white transition-colors'>Pay Now</span> 
+                       o.payment_status !== 'paid' && <span onClick={() => redirect(o)} className='bg-blue-50 text-[#F26627] text-xs font-semibold mr-2 px-3 py-1 rounded-full cursor-pointer hover:bg-[#F26627] hover:text-white transition-colors'>Pay Now</span> 
                     }
 
                 </td> 

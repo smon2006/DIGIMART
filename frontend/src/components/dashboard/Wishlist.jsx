@@ -56,7 +56,7 @@ const Wishlist = () => {
                 <li title="Remove from Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); dispatch(remove_wishlist(p._id)) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300'>
                 <FaHeart size={14} />
                 </li>
-                <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); addCard(p) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#2563EB] hover:text-white transition-all duration-300'>
+                <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); addCard(p) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F26627] hover:text-white transition-all duration-300'>
                 <RiShoppingCartLine size={15} />
                 </li>
             </ul>    

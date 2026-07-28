@@ -1,37 +1,67 @@
 import React, { useEffect } from 'react';
 import Carousel from 'react-multi-carousel';
 import { Link } from 'react-router-dom';
-import 'react-multi-carousel/lib/styles.css'
+import 'react-multi-carousel/lib/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_banners } from '../store/reducers/homeReducer';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
+
+// Palette Colors In Use:
+// #F26627 (Vibrant Orange)
+// #F9A26C (Soft Orange)
+// #325D79 (Original Deep Greenish Palette Color)
+// #46799B (Lighter Shade of #325D79)
+// #9BD7D1 (Teal - Arrow Button Background)
+// #EFEEEE (Off-White for Cards)
+
+const slideThemes = [
+    {
+        // 1. Vibrant Orange Banner
+        bg: 'bg-[#F26627]',
+        btnBg: 'bg-white hover:bg-gray-100 text-black',
+    },
+    {
+        // 2. Original Dark Greenish Banner (#325D79)
+        bg: 'bg-[#325D79]',
+        btnBg: 'bg-white hover:bg-gray-100 text-black',
+    },
+    {
+        // 3. Soft Orange Banner
+        bg: 'bg-[#F9A26C]',
+        btnBg: 'bg-white hover:bg-gray-100 text-black',
+    },
+    {
+        // 4. Lighter Shade of Greenish (#46799B)
+        bg: 'bg-[#46799B]',
+        btnBg: 'bg-white hover:bg-gray-100 text-black',
+    }
+];
 
 const CustomRightArrow = ({ onClick }) => (
     <button
         onClick={onClick}
         aria-label='Next banner'
         title='Next'
-        className='absolute right-5 md-lg:right-3 top-1/2 -translate-y-1/2 z-30 w-14 h-14 md-lg:w-11 md-lg:h-11 flex items-center justify-center rounded-full bg-white/95 hover:bg-white text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'
+        className='absolute right-4 md-lg:right-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md-lg:w-10 md-lg:h-10 flex items-center justify-center rounded-full bg-[#9BD7D1] hover:bg-[#7bbbb4] text-black shadow-lg transition-all duration-300 hover:scale-110 active:scale-95'
     >
-        <MdArrowForwardIos size={28} />
+        <MdArrowForwardIos size={22} className='text-black' />
     </button>
-)
+);
 
 const CustomLeftArrow = ({ onClick }) => (
     <button
         onClick={onClick}
         aria-label='Previous banner'
         title='Previous'
-        className='absolute left-5 md-lg:left-3 top-1/2 -translate-y-1/2 z-30 w-14 h-14 md-lg:w-11 md-lg:h-11 flex items-center justify-center rounded-full bg-white/95 hover:bg-white text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'
+        className='absolute left-4 md-lg:left-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md-lg:w-10 md-lg:h-10 flex items-center justify-center rounded-full bg-[#9BD7D1] hover:bg-[#7bbbb4] text-black shadow-lg transition-all duration-300 hover:scale-110 active:scale-95'
     >
-        <MdArrowBackIos size={28} className='ml-1.5' />
+        <MdArrowBackIos size={22} className='ml-1 text-black' />
     </button>
-)
+);
 
 const Banner = () => {
-
-    const dispatch = useDispatch()
-    const {banners} = useSelector(state => state.home)
+    const dispatch = useDispatch();
+    const { banners } = useSelector(state => state.home);
 
     const categoryDescriptions = {
         'electronics': 'Explore the latest gadgets and devices, built to keep you connected and ahead of the curve.',
@@ -55,7 +85,7 @@ const Banner = () => {
         'bags': 'Durable, functional bags designed to carry everything you need in style.',
         'groceries': 'Fresh picks and pantry staples, delivered with quality you can count on.',
         'books': 'Stories and knowledge worth getting lost in, for readers of every taste.',
-    }
+    };
 
     const fallbackTemplates = [
         (c) => `Discover ${c} chosen for quality and everyday value.`,
@@ -63,103 +93,95 @@ const Banner = () => {
         (c) => `Quality ${c}, hand-picked to fit your everyday needs.`,
         (c) => `Explore our ${c} range, built around style and value.`,
         (c) => `Find your next favorite in ${c} — carefully selected, fairly priced.`,
-    ]
-    const defaultDescription = 'Discover quality products at prices that make sense, hand-picked just for you.'
+    ];
+    const defaultDescription = 'Discover quality products at prices that make sense, hand-picked just for you.';
+
     const getDescription = (category) => {
-        if (!category) return defaultDescription
-        const key = category.toLowerCase()
-        if (categoryDescriptions[key]) return categoryDescriptions[key]
-        
-        let hash = 0
-        for (let i = 0; i < key.length; i++) hash = (hash + key.charCodeAt(i)) % fallbackTemplates.length
-        return fallbackTemplates[hash](category.toLowerCase())
-    }
+        if (!category) return defaultDescription;
+        const key = category.toLowerCase();
+        if (categoryDescriptions[key]) return categoryDescriptions[key];
+
+        let hash = 0;
+        for (let i = 0; i < key.length; i++) hash = (hash + key.charCodeAt(i)) % fallbackTemplates.length;
+        return fallbackTemplates[hash](category.toLowerCase());
+    };
 
     const responsive = {
-        superLargeDesktop: {
-            breakpoint: { max: 4000, min: 3000 },
-            items: 1
-        },
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 1
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 1
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1
-        },
-    }
+        superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 1 },
+        desktop: { breakpoint: { max: 3000, min: 1024 }, items: 1 },
+        tablet: { breakpoint: { max: 1024, min: 464 }, items: 1 },
+        mobile: { breakpoint: { max: 464, min: 0 }, items: 1 },
+    };
 
     useEffect(() => {
-        dispatch(get_banners())
-    },[])
+        dispatch(get_banners());
+    }, [dispatch]);
 
     return (
         <div className='w-full'>
             <div className='w-full overflow-hidden'>
-                {
-                   banners.length > 0 &&
-                <Carousel
-                    autoPlay={true}
-                    autoPlaySpeed={4500}
-                    infinite={true}
-                    arrows={true}
-                    showDots={false}
-                    customRightArrow={<CustomRightArrow />}
-                    customLeftArrow={<CustomLeftArrow />}
-                    responsive={responsive}
-                >
-                {
-                   banners.map((b, i) => {
-                       
-                       const to = b.category
-                           ? `/products?category=${b.category}`
-                           : `/product/details/${b.link}`
-                       return (
-                        <Link key={i} to={to}>
-                        <div className='relative w-full h-[480px] lg:h-[380px] md-lg:h-[300px] sm:h-[240px] overflow-hidden bg-slate-100'>
-                            <img className='w-full h-full object-contain object-center' src={b.banner} alt={b.category || 'Shop banner'} />
-                            {}
-                            <div className='absolute inset-0 bg-gradient-to-r from-slate-700/45 via-slate-700/15 to-transparent' />
+                {banners.length > 0 && (
+                    <Carousel
+                        autoPlay={true}
+                        autoPlaySpeed={4500}
+                        infinite={true}
+                        arrows={true}
+                        showDots={false}
+                        customRightArrow={<CustomRightArrow />}
+                        customLeftArrow={<CustomLeftArrow />}
+                        responsive={responsive}
+                    >
+                        {banners.map((b, i) => {
+                            const theme = slideThemes[i % slideThemes.length];
+                            const to = b.category
+                                ? `/products?category=${b.category}`
+                                : `/product/details/${b.link}`;
 
-                            <div className='absolute inset-0 flex flex-col justify-center pl-24 pr-12 md-lg:pl-20 md-lg:pr-8 sm:pl-16 sm:pr-5 max-w-[560px]'>
-                                {
-                                    b.category && <>
-                                        <span className='text-white/75 text-xs sm:text-[11px] font-semibold uppercase tracking-[0.25em] mb-3'>Shop by Category</span>
-                                        <h2 className='text-white text-4xl lg:text-3xl sm:text-2xl font-extrabold mb-6 leading-tight capitalize drop-shadow-lg text-balance'>{b.category}</h2>
-                                    </>
-                                }
-                                {}
-                                {
-                                    b.category
-                                    ? <span className='inline-flex w-fit items-center gap-3 bg-white/15 backdrop-blur-md border border-white/40 hover:bg-white hover:text-slate-900 transition-all duration-300 text-white text-lg sm:text-sm font-bold px-8 py-3.5 rounded-full shadow-xl hover:scale-[1.04] capitalize'>
-                                        Shop {b.category}
-                                        <MdArrowForwardIos size={20} />
-                                      </span>
-                                    : <span className='inline-flex w-fit items-center gap-3 bg-[#2563EB] hover:bg-[#1d4ed8] transition-all duration-300 text-white text-lg sm:text-sm font-bold px-8 py-3.5 rounded-full shadow-xl hover:scale-[1.04]'>
-                                        Shop Now
-                                        <MdArrowForwardIos size={20} />
-                                      </span>
-                                }
-                            </div>
+                            return (
+                                <Link key={i} to={to}>
+                                    <div className={`relative w-full h-[460px] lg:h-[380px] md-lg:h-[300px] sm:h-[240px] overflow-hidden ${theme.bg} flex items-center justify-center transition-colors duration-500`}>
+                                        
+                                        {/* Product Image */}
+                                        <img
+                                            className='w-full h-full object-contain object-center z-10 relative py-4'
+                                            src={b.banner}
+                                            alt={b.category || 'Shop banner'}
+                                        />
 
-                            {}
-                            <div className='flex md-lg:hidden absolute inset-y-0 right-0 w-[36%] flex-col justify-center items-start pl-7 pr-20'>
-                                <div className='border-2 border-slate-900/15 rounded-xl px-6 py-5'>
-                                    <p className='text-slate-700 text-base font-semibold italic leading-relaxed'>{getDescription(b.category)}</p>
-                                </div>
-                            </div>
-                        </div>
-                        </Link>
-                       )
-                   })
-                }
-                </Carousel>
-                }
+                                        {/* Left Side Call To Action */}
+                                        <div className='absolute inset-0 z-30 flex flex-col justify-center pl-20 pr-8 md-lg:pl-14 sm:pl-10 max-w-[540px]'>
+                                            {b.category && (
+                                                <>
+                                                    <span className='text-xs sm:text-[10px] font-bold uppercase tracking-[0.25em] mb-2 text-white drop-shadow-sm'>
+                                                        Shop by Category
+                                                    </span>
+                                                    <h2 className='text-4xl lg:text-3xl sm:text-2xl font-black mb-6 leading-tight capitalize text-white drop-shadow-md'>
+                                                        {b.category}
+                                                    </h2>
+                                                </>
+                                            )}
+
+                                            <span className={`inline-flex w-fit items-center gap-2.5 ${theme.btnBg} transition-all duration-300 text-base sm:text-xs font-bold px-8 py-3.5 rounded-full shadow-md hover:scale-105 capitalize`}>
+                                                {b.category ? `Shop ${b.category}` : 'Shop Now'}
+                                                <MdArrowForwardIos size={16} className='text-black' />
+                                            </span>
+                                        </div>
+
+                                        {/* Right Side Description Box */}
+                                        <div className='flex md-lg:hidden absolute inset-y-0 right-0 z-30 w-[38%] flex-col justify-center items-start pl-4 pr-16'>
+                                            <div className='bg-[#EFEEEE] border-2 border-white rounded-2xl p-6 shadow-lg max-w-sm'>
+                                                <p className='text-[#111827] text-sm font-semibold italic leading-relaxed'>
+                                                    {getDescription(b.category)}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </Carousel>
+                )}
             </div>
         </div>
     );

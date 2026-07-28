@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaList, FaSearch } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { FaHeart } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
@@ -16,11 +16,16 @@ const Header = () => {
     const {card_product_count,wishlist_count} = useSelector(state => state.card)
 
     const {pathname} = useLocation()
+    const [searchParams] = useSearchParams()
 
     const [showShidebar, setShowShidebar] = useState(true);
 
     const [searchValue, setSearchValue] = useState('')
-    const [category, setCategory] = useState('')
+    const [category, setCategory] = useState(searchParams.get('category') || '')
+
+    useEffect(() => {
+        setCategory(searchParams.get('category') || '')
+    },[searchParams])
 
     const search = (categoryOverride) => {
         const cat = categoryOverride !== undefined ? categoryOverride : category
@@ -72,7 +77,7 @@ const Header = () => {
                             {
                                 navLinks.map((n, i) => (
                                     <li key={i}>
-                                        <Link to={n.to} className={`relative py-2 block transition-colors after:absolute after:left-0 after:-bottom-[2px] after:h-[2px] after:bg-[#FBBF24] after:transition-all ${pathname === n.match ? 'text-[#FBBF24] after:w-full' : 'text-slate-100 hover:text-[#FBBF24] after:w-0 hover:after:w-full'}`}>{n.label}</Link>
+                                        <Link to={n.to} className={`relative py-2 block transition-colors after:absolute after:left-0 after:-bottom-[2px] after:h-[2px] after:bg-[#F26627] after:transition-all ${pathname === n.match ? 'text-[#F26627] after:w-full' : 'text-slate-100 hover:text-[#F26627] after:w-0 hover:after:w-full'}`}>{n.label}</Link>
                                     </li>
                                 ))
                             }
@@ -81,7 +86,7 @@ const Header = () => {
 
                     {/* Merged category + search — truly centered via the grid's equal side columns */}
                     <div className='w-full justify-self-stretch'>
-                        <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
+                        <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#F26627] transition-all'>
                             <select
                                 title="Select category"
                                 value={category}
@@ -90,7 +95,7 @@ const Header = () => {
                             >
                                 <option value=''>All Categories</option>
                                 {
-                                    categorys.map((c,i) => <option key={i} value={c.name}>{c.name}</option>)
+                                    categorys.map((c,i) => <option key={c._id || i} value={c.name}>{c.name}</option>)
                                 }
                             </select>
                             <input
@@ -100,29 +105,29 @@ const Header = () => {
                                 type='text'
                                 placeholder='What do you need'
                             />
-                            <button type="submit" title="Search" className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
+                            <button type="submit" title="Search" className='h-full px-5 bg-[#F26627] hover:bg-[#C24A16] text-white flex items-center justify-center transition-colors shrink-0'>
                                 <FaSearch size={15} />
                             </button>
                         </form>
                     </div>
 
-                    {/* Account / Wishlist / Cart, pinned to the right */}
+                    {}
                     <div className='flex items-center gap-6 shrink-0 justify-self-end'>
 
                         {
                             userInfo ? (
-                                <Link to='/dashboard' className='flex flex-col leading-tight text-white hover:text-[#FBBF24] transition-colors'>
+                                <Link to='/dashboard' className='flex flex-col leading-tight text-white hover:text-[#F26627] transition-colors'>
                                     <span className='text-[11px] text-slate-300'>Hello, {userInfo.name.split(' ')[0]}</span>
                                     <span className='text-sm font-semibold flex items-center gap-1'>Account <IoIosArrowDown size={11}/></span>
                                 </Link>
                             ) : (
-                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#FBBF24] hover:bg-[#F59E0B] transition-colors text-slate-900 text-sm font-semibold shrink-0'>
+                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white text-sm font-semibold shrink-0'>
                                     Login
                                 </Link>
                             )
                         }
 
-                        <Link title="Wishlist" to={userInfo ? '/dashboard/my-wishlist' : '/login'} className='relative flex flex-col items-center text-white hover:text-[#FBBF24] transition-colors'>
+                        <Link title="Wishlist" to={userInfo ? '/dashboard/my-wishlist' : '/login'} className='relative flex flex-col items-center text-white hover:text-[#F26627] transition-colors'>
                             <span className='relative text-xl'>
                                 <FaHeart />
                                 {
@@ -132,7 +137,7 @@ const Header = () => {
                             <span className='text-[11px] font-semibold mt-0.5'>Wishlist</span>
                         </Link>
 
-                        <div title="Cart" onClick={redirect_card_page} className='relative flex flex-col items-center text-white hover:text-[#FBBF24] transition-colors cursor-pointer'>
+                        <div title="Cart" onClick={redirect_card_page} className='relative flex flex-col items-center text-white hover:text-[#F26627] transition-colors cursor-pointer'>
                             <span className='relative text-xl'>
                                 <FaCartShopping />
                                 {
@@ -146,7 +151,7 @@ const Header = () => {
 
                 </div>
 
-                {/* ---------- Phone-only bar: logo centered, Login + Menu on the right, Wishlist/Cart moved into the sidebar ---------- */}
+                {}
                 <div className='hidden md-lg:flex justify-between items-center py-3'>
 
                     <Link to='/' className='block'>
@@ -164,12 +169,12 @@ const Header = () => {
                                     Hi, {userInfo.name.split(' ')[0]}
                                 </Link>
                             ) : (
-                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#FBBF24] hover:bg-[#F59E0B] transition-colors text-slate-900 text-sm font-semibold shrink-0'>
+                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white text-sm font-semibold shrink-0'>
                                     Login
                                 </Link>
                             )
                         }
-                        <div title="Menu" className='flex justify-center items-center w-[36px] h-[36px] bg-white text-slate-600 border border-slate-300 rounded-lg cursor-pointer hover:border-[#FBBF24] hover:text-[#FBBF24] transition-colors' onClick={() => setShowShidebar(false)}>
+                        <div title="Menu" className='flex justify-center items-center w-[36px] h-[36px] bg-white text-slate-600 border border-slate-300 rounded-lg cursor-pointer hover:border-[#F26627] hover:text-[#F26627] transition-colors' onClick={() => setShowShidebar(false)}>
                             <span> <FaList/> </span>
                         </div>
                     </div>
@@ -178,7 +183,7 @@ const Header = () => {
 
                 {/* Search bar, its own full-width row on phone */}
                 <div className='hidden md-lg:block pb-3'>
-                    <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#FBBF24] transition-all'>
+                    <form onSubmit={(e) => { e.preventDefault(); search() }} className='flex bg-white rounded-md h-[44px] items-center overflow-hidden w-full ring-1 ring-transparent focus-within:ring-2 focus-within:ring-[#F26627] transition-all'>
                         <select
                             title="Select category"
                             value={category}
@@ -187,7 +192,7 @@ const Header = () => {
                         >
                             <option value=''>All Categories</option>
                             {
-                                categorys.map((c,i) => <option key={i} value={c.name}>{c.name}</option>)
+                                categorys.map((c,i) => <option key={c._id || i} value={c.name}>{c.name}</option>)
                             }
                         </select>
                         <input
@@ -197,7 +202,7 @@ const Header = () => {
                             type='text'
                             placeholder='What do you need'
                         />
-                        <button type="submit" title="Search" className='h-full px-5 bg-[#FBBF24] hover:bg-[#F59E0B] text-slate-900 flex items-center justify-center transition-colors shrink-0'>
+                        <button type="submit" title="Search" className='h-full px-5 bg-[#F26627] hover:bg-[#C24A16] text-white flex items-center justify-center transition-colors shrink-0'>
                             <FaSearch size={15} />
                         </button>
                     </form>
@@ -232,7 +237,7 @@ const Header = () => {
                                     Hello, {userInfo.name.split(' ')[0]}
                                 </Link>
                             ) : (
-                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#FBBF24] text-slate-900 text-sm font-semibold'>
+                                <Link title="Login" to='/login' className='px-4 py-2 rounded-md bg-[#F26627] text-white text-sm font-semibold'>
                                     Login
                                 </Link>
                             )
@@ -241,13 +246,13 @@ const Header = () => {
 
                     <ul className='flex flex-col justify-start items-start text-sm font-bold uppercase gap-1 w-full'>
                         <li className='w-full border-b border-slate-100'>
-                            <Link to={navLinks[0].to} className={`py-3 block ${pathname === navLinks[0].match ? 'text-[#FBBF24]' : 'text-slate-600'}`}>{navLinks[0].label}</Link>
+                            <Link to={navLinks[0].to} className={`py-3 block ${pathname === navLinks[0].match ? 'text-[#F26627]' : 'text-slate-600'}`}>{navLinks[0].label}</Link>
                         </li>
                         <li className='w-full border-b border-slate-100'>
-                            <Link to={navLinks[1].to} className={`py-3 block ${pathname === navLinks[1].match ? 'text-[#FBBF24]' : 'text-slate-600'}`}>{navLinks[1].label}</Link>
+                            <Link to={navLinks[1].to} className={`py-3 block ${pathname === navLinks[1].match ? 'text-[#F26627]' : 'text-slate-600'}`}>{navLinks[1].label}</Link>
                         </li>
                         <li className='w-full border-b border-slate-100'>
-                            <Link to={userInfo ? '/dashboard/my-wishlist' : '/login'} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#FBBF24] transition-colors'>
+                            <Link to={userInfo ? '/dashboard/my-wishlist' : '/login'} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#F26627] transition-colors'>
                                 <span>Wishlist</span>
                                 {
                                     wishlist_count > 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{wishlist_count}</span>
@@ -255,7 +260,7 @@ const Header = () => {
                             </Link>
                         </li>
                         <li className='w-full border-b border-slate-100'>
-                            <div title="Cart" onClick={redirect_card_page} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#FBBF24] transition-colors cursor-pointer'>
+                            <div title="Cart" onClick={redirect_card_page} className='py-3 flex items-center justify-between text-slate-600 hover:text-[#F26627] transition-colors cursor-pointer'>
                                 <span>Cart</span>
                                 {
                                     card_product_count > 0 && <span className='text-[10px] font-bold bg-orange-400 text-slate-900 rounded-full w-[18px] h-[18px] flex items-center justify-center normal-case'>{card_product_count}</span>
@@ -263,7 +268,7 @@ const Header = () => {
                             </div>
                         </li>
                         <li className='w-full border-b-0'>
-                            <Link to={navLinks[2].to} className={`py-3 block ${pathname === navLinks[2].match ? 'text-[#FBBF24]' : 'text-slate-600'}`}>{navLinks[2].label}</Link>
+                            <Link to={navLinks[2].to} className={`py-3 block ${pathname === navLinks[2].match ? 'text-[#F26627]' : 'text-slate-600'}`}>{navLinks[2].label}</Link>
                         </li>
                     </ul>
 

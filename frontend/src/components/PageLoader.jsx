@@ -23,7 +23,7 @@ const PageLoader = () => {
 
     return (
         <div
-            className='fixed top-0 left-0 h-[3px] z-[9999] bg-[#2563EB] border-b border-black/30 transition-all ease-out'
+            className='fixed top-0 left-0 h-[3px] z-[9999] bg-[#F26627] border-b border-black/30 transition-all ease-out'
             style={{
                 width: `${width}%`,
                 opacity: visible ? 1 : 0,

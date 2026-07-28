@@ -21,11 +21,11 @@ const Home = () => {
             <Header />
             <Banner/>
             <Categorys />
-            <div className='py-[45px]'>
+            <div className='py-[45px] bg-[#FBC39F]'>
             <FeatureProducts products={products} />
             </div>
            
-            <div className='py-16 bg-[#c8d8f0]'>
+            <div className='py-16 bg-[#305F72]'>
                 <div className='w-[85%] flex flex-wrap mx-auto'>
                     <div className='grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7'>
             <div className='overflow-hidden'>
