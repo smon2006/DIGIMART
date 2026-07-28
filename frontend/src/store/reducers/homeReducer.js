@@ -6,10 +6,9 @@ export const get_category = createAsyncThunk(
     async(_, { fulfillWithValue }) => {
         try {
             const {data} = await api.get('/home/get-categorys')
-            
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -19,10 +18,9 @@ export const get_products = createAsyncThunk(
     async(_, { fulfillWithValue }) => {
         try {
             const {data} = await api.get('/home/get-products')
-             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -32,10 +30,9 @@ export const price_range_product = createAsyncThunk(
     async(_, { fulfillWithValue }) => {
         try {
             const {data} = await api.get('/home/price-range-latest-product')
-             console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -44,11 +41,10 @@ export const query_products = createAsyncThunk(
     'product/query_products',
     async(query , { fulfillWithValue }) => {
         try {
-            const {data} = await api.get(`/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''} `)
-            
+            const {data} = await api.get(`/home/query-products?category=${query.category || ''}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''}`)
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -58,10 +54,9 @@ export const product_details = createAsyncThunk(
     async(slug, { fulfillWithValue }) => {
         try {
             const {data} = await api.get(`/home/product-details/${slug}`)
-            
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -71,10 +66,9 @@ export const customer_review = createAsyncThunk(
     async(info, { fulfillWithValue }) => {
         try {
             const {data} = await api.post('/home/customer/submit-review',info)
-            
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -84,10 +78,9 @@ export const get_reviews = createAsyncThunk(
     async({productId, pageNumber}, { fulfillWithValue }) => {
         try {
             const {data} = await api.get(`/home/customer/get-reviews/${productId}?pageNo=${pageNumber}`)
-            
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -97,10 +90,9 @@ export const get_banners = createAsyncThunk(
     async( _ , { fulfillWithValue }) => {
         try {
             const {data} = await api.get(`/banners`)
-            
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            console.log(error.response)
         }
     }
 )
@@ -127,15 +119,14 @@ export const homeReducer = createSlice({
         totalReview: 0,
         rating_review: [],
         reviews : [],
-        banners: [] 
+        banners: [],
+        loader: false // Added loader state
     },
     reducers : {
-
-        messageClear : (state,_) => {
+        messageClear : (state) => {
             state.errorMessage = ""
             state.successMessage = ""
         }
- 
     },
     extraReducers: (builder) => {
         builder
@@ -152,10 +143,19 @@ export const homeReducer = createSlice({
             state.latest_product = payload.latest_product;
             state.priceRange = payload.priceRange; 
         })
+        /* --- CLEAR OLD PRODUCTS & SET LOADER ON PENDING --- */
+        .addCase(query_products.pending, (state) => {
+            state.loader = true;
+            state.products = []; // Clears stale products immediately
+        })
         .addCase(query_products.fulfilled, (state, { payload }) => { 
+            state.loader = false;
             state.products = payload.products;
             state.totalProduct = payload.totalProduct;
             state.parPage = payload.parPage; 
+        })
+        .addCase(query_products.rejected, (state) => {
+            state.loader = false;
         })
 
         .addCase(product_details.fulfilled, (state, { payload }) => { 
@@ -177,8 +177,8 @@ export const homeReducer = createSlice({
         .addCase(get_banners.fulfilled, (state, { payload }) => {
             state.banners = payload.banners; 
         })
-
     }
 })
-export const {messageClear} = homeReducer.actions
+
+export const { messageClear } = homeReducer.actions
 export default homeReducer.reducer
