@@ -21,7 +21,7 @@
 ### 📊 Multi-Role Management Dashboard (`/dashboard`)
 * **Role-Based Access Control (RBAC):** Customized interfaces and permission gates for **Administrators** and **Sellers**.
 * **Seller Portal:**
-  * Complete product lifecycle management (Add, Edit, Delete, Stock Update).
+  * Complete product lifecycle management (CRUD: Create, Read, Update, Delete with stock tracking).
   * Store profile customization and branding controls.
   * Real-time order fulfillment, dispatch status updates, and earnings tracking.
 * **Admin Control Panel:**
