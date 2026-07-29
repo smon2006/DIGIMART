@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { admin_login,messageClear } from '../../store/Reducers/authReducer';
 import { PropagateLoader } from 'react-spinners';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import digimartLogo from '../../assets/digimart-logo.png';
+import { overrideStyle } from '../../utils/utils';
 
 const AdminLogin = () => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {loader,errorMessage,successMessage} = useSelector(state=>state.auth)
+
+    const [showPassword, setShowPassword] = useState(false)
 
     const [state, setState] = useState({ 
         email: "",
@@ -28,14 +33,6 @@ const AdminLogin = () => {
         dispatch(admin_login(state))
     }
 
-    const overrideStyle = {
-        display : 'flex',
-        margin : '0 auto',
-        height: '24px',
-        justifyContent : 'center',
-        alignItems : 'center'
-    }
-
     useEffect(() => {
         if (errorMessage) {
             toast.error(errorMessage)
@@ -49,37 +46,40 @@ const AdminLogin = () => {
     },[errorMessage,successMessage])
 
     return (
-        <div className='min-w-screen min-h-screen bg-slate-50 flex justify-center items-center px-4' >
-          <div className='w-full max-w-[380px]'>
-            <div className='bg-white p-8 rounded-2xl border border-slate-100 shadow-xl'>
-
-        <div className='h-[60px] flex justify-center items-center mb-2'>
-            <div className='w-[160px] h-[46px]'>
-                <img className='w-full h-full object-contain' src="http://localhost:3000/images/logo.png" alt="logo" />
-            </div>
-            </div>
-
-        <div className='text-center mb-6'>
-            <h2 className='text-lg font-bold text-slate-800'>Admin Sign In</h2>
-            <p className='text-sm text-slate-400 mt-1'>Manage your marketplace</p>
-        </div>
+        <div className='min-w-screen min-h-screen bg-[#E2E8F0] flex justify-center items-center' >
+          <div className='w-[350px] text-[#ffffff] p-2'>
+            <div className='bg-[#334155] p-4 rounded-md'>
+                <div className='flex items-center gap-2 mb-3'>
+                    <span className='text-xl font-bold leading-none'>Welcome to</span>
+                    <img src={digimartLogo} alt="DIGIMART" className='h-9 object-contain relative top-[1px]' />
+                </div>
+                <p className='text-sm mb-3 font-medium'>Please Sign In to your admin account</p>
 
     <form onSubmit={submit}>
 
-        <div className='flex flex-col w-full gap-1.5 mb-4'>
-            <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="email">Email</label>
-            <input onChange={inputHandle} value={state.email}  className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="email" name='email' placeholder='you@example.com' id='email' required />
+        <div className='flex flex-col w-full gap-1 mb-3'>
+            <label htmlFor="email">Email</label>
+            <input onChange={inputHandle} value={state.email}  className='px-3 py-2 outline-none border border-slate-400 bg-transparent rounded-md' type="email" name='email' placeholder='Email' id='email' required />
 
         </div>
 
-        <div className='flex flex-col w-full gap-1.5 mb-5'>
-            <label className='text-xs font-semibold text-slate-500 uppercase tracking-wide' htmlFor="password">Password</label>
-            <input onChange={inputHandle} value={state.password}  className='px-3 py-2.5 outline-none border border-slate-200 bg-slate-50 rounded-lg text-sm text-slate-700 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 focus:bg-white transition-all' type="password" name='password' placeholder='••••••••' id='password' required />
+        <div className='flex flex-col w-full gap-1 mb-1'>
+            <label htmlFor="password">Password</label>
+            <div className='relative flex items-center'>
+                <input onChange={inputHandle} value={state.password}  className='px-3 py-2 w-full outline-none border border-slate-400 bg-transparent rounded-md pr-10' type={showPassword ? 'text' : 'password'} name='password' placeholder='Password' id='password' required />
+                <button type='button' onClick={() => setShowPassword(!showPassword)} className='absolute right-3 text-slate-300 hover:text-white'>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+            </div>
         </div>
 
-        <button disabled={loader ? true : false}  className='bg-[#2563EB] hover:bg-[#1d4ed8] w-full shadow-md shadow-blue-600/30 transition-colors text-white font-semibold rounded-lg px-7 py-2.5 mb-1'>
+        <div className='flex justify-end mb-3'>
+            <Link className='text-sm font-medium hover:underline' to="/login">Not an admin?</Link>
+        </div>
+
+        <button disabled={loader ? true : false}  className='bg-slate-800 w-full hover:shadow-blue-300/ hover:shadow-lg text-white rounded-md px-7 py-2 mb-1'>
             {
-               loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Login'
+               loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Sign In'
             } 
             </button>
 

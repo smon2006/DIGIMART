@@ -37,12 +37,16 @@ const ProtectRoute = ({route,children}) => {
                }else{
                 return <Navigate to='/unauthorized' replace />
                }
-            } 
+            } else {
+                return <Navigate to='/login' replace />
+            }
 
         } else {
             if (route.ability === 'seller') {
                 return <Suspense fallback={null} >{children}</Suspense>
-            } 
+            } else {
+                return <Navigate to='/unauthorized' replace />
+            }
         } 
     }else {
         return <Navigate to='/login' replace />

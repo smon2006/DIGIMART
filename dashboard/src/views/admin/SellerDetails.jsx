@@ -46,7 +46,7 @@ const SellerDetails = () => {
             <div className='w-3/12 flex justify-center items-center py-3'>
                 <div>
                    {
-                    seller?.image ?  <img className='w-full h-[230px]' src="http://localhost:3000/images/demo.jpg" alt="" /> :
+                    seller?.image ?  <img className='w-full h-[230px] object-cover rounded-md' src={seller.image} alt="" /> :
                     <span>Image Not Uploaded </span>
                    }
                 </div> 
@@ -97,7 +97,7 @@ const SellerDetails = () => {
             <span>{seller?.shopInfo?.shopName} </span> 
         </div>
         <div className='flex gap-2 font-bold text-[#000000]'>
-            <span>Divission : </span>
+            <span>Division : </span>
             <span>{seller?.shopInfo?.division} </span> 
         </div>
 
@@ -106,7 +106,7 @@ const SellerDetails = () => {
             <span>{seller?.shopInfo?.district}  </span> 
         </div>
         <div className='flex gap-2 font-bold text-[#000000]'>
-            <span>State : </span>
+            <span>Sub District : </span>
             <span>{seller?.shopInfo?.sub_district} </span> 
         </div>
         

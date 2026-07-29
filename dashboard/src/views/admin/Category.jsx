@@ -14,7 +14,7 @@ import Search from '../components/Search';
 const Category = () => {
 
     const dispatch = useDispatch()
-    const {loader,successMessage,errorMessage,categorys} = useSelector(state=> state.category)
+    const {loader,successMessage,errorMessage,categorys,totalCategory} = useSelector(state=> state.category)
 
     const [currentPage, setCurrentPage] = useState(1)
     const [searchValue, setSearchValue] = useState('')
@@ -109,8 +109,8 @@ const Category = () => {
 
         </div>
 
-            <div className='flex flex-wrap w-full gap-5'>
-                <div className='w-full lg:w-7/12'>
+            <div className='flex flex-wrap w-full'>
+                <div className='w-full lg:w-7/12 lg:pr-3'>
                 <div className='w-full p-5 bg-white rounded-xl border border-slate-100 shadow-sm'>
 
                <Search setParPage={setParPage} setSearchValue={setSearchValue} searchValue={searchValue}  />
@@ -149,22 +149,24 @@ const Category = () => {
     </table> 
     </div>  
 
-    <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+    {
+        totalCategory > parPage && <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
         <Pagination 
             pageNumber = {currentPage}
             setPageNumber = {setCurrentPage}
-            totalItem = {50}
+            totalItem = {totalCategory}
             parPage = {parPage}
             showItem = {3}
         />
         </div>
+    }
 
                 </div>
 
                 </div>
 
     <div className={`w-[320px] lg:w-5/12 translate-x-100 lg:relative lg:right-0 fixed ${show ? 'right-0' : '-right-[340px]'} z-[9999] top-0 transition-all duration-500 `} >
-    <div className='w-full lg:pl-0 pl-5'>
+    <div className='w-full lg:pl-3 pl-5'>
         <div className='bg-white h-screen lg:h-auto p-5 lg:rounded-xl lg:border lg:border-slate-100 lg:shadow-sm'>
 
             <div className='flex justify-between items-center mb-5' >

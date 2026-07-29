@@ -61,10 +61,7 @@ const OrderDetails = () => {
                         <div className='flex flex-col gap-1'>
                             <h2 className='pb-2 font-semibold'>Deliver To : {order.shippingInfo?.name} </h2>
                             <p><span className='text-sm'>
-                                {order.shippingInfo?.address}
-                                {order.shippingInfo?.province}
-                                {order.shippingInfo?.city}
-                                {order.shippingInfo?.area}</span></p> 
+                                {[order.shippingInfo?.address, order.shippingInfo?.area, order.shippingInfo?.city, order.shippingInfo?.province].filter(Boolean).join(', ')}</span></p> 
                         </div>
             <div className='flex justify-start items-center gap-3'>
                 <h2>Payment Status: </h2>
