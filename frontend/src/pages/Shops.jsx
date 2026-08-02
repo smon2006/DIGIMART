@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageHeader from '../components/PageHeader';
@@ -11,14 +11,15 @@ import {FaThList} from 'react-icons/fa'
 import ShopProducts from '../components/products/ShopProducts';
 import Pagination from '../components/Pagination';
 import { useDispatch, useSelector } from 'react-redux';
-import { price_range_product,query_products } from '../store/reducers/homeReducer';
+import { price_range_product,query_products,reset_products } from '../store/reducers/homeReducer';
 
 const Shops = () => {
 
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
+    const {products,categorys,priceRange,latest_product,totalProduct,parPage,loader} = useSelector(state => state.home)
 
     useEffect(() => { 
+        dispatch(reset_products())
         dispatch(price_range_product())
     },[])
     useEffect(() => { 
@@ -45,17 +46,30 @@ const Shops = () => {
         }
     }
 
-    useEffect(() => { 
-        dispatch(
-            query_products({
-                low: state.values[0],
-                high: state.values[1],
-                category,
-                rating,
-                sortPrice,
-                pageNumber
-            })
-         )
+    const isFirstRun = useRef(true)
+
+    useEffect(() => {
+        const runQuery = () => {
+            dispatch(
+                query_products({
+                    low: state.values[0],
+                    high: state.values[1],
+                    category,
+                    rating,
+                    sortPrice,
+                    pageNumber
+                })
+             )
+        }
+
+        if (isFirstRun.current) {
+            isFirstRun.current = false
+            runQuery()
+            return
+        }
+
+        const timeoutId = setTimeout(runQuery, 400)
+        return () => clearTimeout(timeoutId)
     },[state.values[0],state.values[1],category,rating,sortPrice,pageNumber])
 
     const resetRating = () => {
@@ -200,7 +214,12 @@ const Shops = () => {
         </div> 
          </div> 
 
-         <div className='pb-8'>
+         <div className='pb-8 relative'>
+                  {
+                    loader && <div className='absolute inset-0 bg-white/60 z-10 flex justify-center items-center rounded-2xl'>
+                        <div className='w-10 h-10 border-4 border-slate-200 border-t-[#F26627] rounded-full animate-spin'></div>
+                    </div>
+                  }
                   <ShopProducts products={products} styles={styles} />  
          </div>
 

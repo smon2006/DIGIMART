@@ -100,15 +100,44 @@ class homeControllers{
 
 query_products = async (req, res) => {
     const parPage = 12
-    req.query.parPage = parPage
+    const { category, rating, lowPrice, highPrice, sortPrice, pageNumber, searchValue } = req.query
 
     try {
-        const products = await productModel.find({}).sort({
-            createdAt: -1
-        })
-        const totalProduct = new queryProducts(products, req.query).categoryQuery().ratingQuery().searchQuery().priceQuery().sortByPrice().countProducts();
+        const filter = {}
 
-        const result = new queryProducts(products, req.query).categoryQuery().ratingQuery().priceQuery().searchQuery().sortByPrice().skip().limit().getProducts();
+        if (category) {
+            filter.category = category
+        }
+
+        if (rating) {
+            const ratingNum = parseInt(rating)
+            filter.rating = { $gte: ratingNum, $lt: ratingNum + 1 }
+        }
+
+        if (searchValue) {
+            filter.name = { $regex: searchValue, $options: 'i' }
+        }
+
+        if (lowPrice !== undefined && highPrice !== undefined) {
+            filter.price = { $gte: Number(lowPrice), $lte: Number(highPrice) }
+        }
+
+        const sort = {}
+        if (sortPrice === 'low-to-high') {
+            sort.price = 1
+        } else if (sortPrice === 'high-to-low') {
+            sort.price = -1
+        } else {
+            sort.createdAt = -1
+        }
+
+        const page = parseInt(pageNumber) || 1
+        const skip = (page - 1) * parPage
+
+        const [result, totalProduct] = await Promise.all([
+            productModel.find(filter).sort(sort).skip(skip).limit(parPage).lean(),
+            productModel.countDocuments(filter)
+        ])
 
         responseReturn(res, 200, {
             products: result,

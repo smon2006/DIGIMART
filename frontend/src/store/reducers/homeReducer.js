@@ -126,6 +126,10 @@ export const homeReducer = createSlice({
         messageClear : (state) => {
             state.errorMessage = ""
             state.successMessage = ""
+        },
+        reset_products : (state) => {
+            state.products = []
+            state.totalProduct = 0
         }
     },
     extraReducers: (builder) => {
@@ -146,7 +150,6 @@ export const homeReducer = createSlice({
         /* --- CLEAR OLD PRODUCTS & SET LOADER ON PENDING --- */
         .addCase(query_products.pending, (state) => {
             state.loader = true;
-            state.products = []; // Clears stale products immediately
         })
         .addCase(query_products.fulfilled, (state, { payload }) => { 
             state.loader = false;
@@ -180,5 +183,5 @@ export const homeReducer = createSlice({
     }
 })
 
-export const { messageClear } = homeReducer.actions
+export const { messageClear, reset_products } = homeReducer.actions
 export default homeReducer.reducer
