@@ -30,6 +30,31 @@ export const customer_login = createAsyncThunk(
     }
 )
 
+export const customer_change_password = createAsyncThunk(
+    'auth/customer_change_password',
+    async(info, { rejectWithValue,fulfillWithValue }) => {
+        try {
+            const {data} = await api.post('/customer/change-password',info)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+export const customer_update_name = createAsyncThunk(
+    'auth/customer_update_name',
+    async(info, { rejectWithValue,fulfillWithValue }) => {
+        try {
+            const {data} = await api.post('/customer/update-name',info)
+            localStorage.setItem('customerToken',data.token)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
 export const forgot_password = createAsyncThunk(
     'auth/forgot_password',
     async(info, { rejectWithValue,fulfillWithValue }) => {
@@ -110,6 +135,32 @@ export const authReducer = createSlice({
         .addCase(forgot_password.fulfilled, (state, { payload }) => {
             state.successMessage = payload.message;
             state.loader = false;
+        })
+
+        .addCase(customer_change_password.pending, (state) => {
+            state.loader = true;
+        })
+        .addCase(customer_change_password.rejected, (state, { payload }) => {
+            state.errorMessage = payload.error;
+            state.loader = false;
+        })
+        .addCase(customer_change_password.fulfilled, (state, { payload }) => {
+            state.successMessage = payload.message;
+            state.loader = false;
+        })
+
+        .addCase(customer_update_name.pending, (state) => {
+            state.loader = true;
+        })
+        .addCase(customer_update_name.rejected, (state, { payload }) => {
+            state.errorMessage = payload.error;
+            state.loader = false;
+        })
+        .addCase(customer_update_name.fulfilled, (state, { payload }) => {
+            const userInfo = decodeToken(payload.token)
+            state.successMessage = payload.message;
+            state.loader = false;
+            state.userInfo = userInfo
         })
     }
 })

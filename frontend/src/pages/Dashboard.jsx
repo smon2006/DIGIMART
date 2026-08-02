@@ -9,6 +9,7 @@ import { FaHeart } from "react-icons/fa";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { FaUserEdit } from "react-icons/fa";
 import api from '../api/api';
 import { useDispatch } from 'react-redux';
 import { user_reset } from '../store/reducers/authReducer'
@@ -39,6 +40,7 @@ const Dashboard = () => {
         { to: '/dashboard/my-orders', icon: <FaBorderAll/>, label: 'My Orders' },
         { to: '/dashboard/my-wishlist', icon: <FaHeart/>, label: 'Wishlist' },
         { to: '/dashboard/chat', icon: <IoChatbubbleEllipsesSharp/>, label: 'Chat' },
+        { to: '/dashboard/change-name', icon: <FaUserEdit/>, label: 'Change Name' },
         { to: '/dashboard/change-password', icon: <RiLockPasswordLine/>, label: 'Change Password' },
     ]
 

@@ -97,6 +97,64 @@ class customerAuthController{
         responseReturn(res, 500, { error: 'Something went wrong. Please try again.' })
     }
   }
+
+  customer_change_password = async (req, res) => {
+    const { customerId, old_password, new_password } = req.body
+    try {
+        if (!customerId || !old_password || !new_password) {
+            return responseReturn(res, 400, { error: 'All fields are required' })
+        }
+        if (new_password.length < 6) {
+            return responseReturn(res, 400, { error: 'New password should be at least 6 characters' })
+        }
+        const customer = await customerModel.findById(customerId).select('+password')
+        if (!customer) {
+            return responseReturn(res, 404, { error: 'Account not found' })
+        }
+        const match = await bcrypt.compare(old_password, customer.password)
+        if (!match) {
+            return responseReturn(res, 400, { error: 'Old password is incorrect' })
+        }
+        customer.password = await bcrypt.hash(new_password, 10)
+        await customer.save()
+        responseReturn(res, 200, { message: 'Password changed successfully' })
+    } catch (error) {
+        console.log(error.message)
+        responseReturn(res, 500, { error: 'Something went wrong. Please try again.' })
+    }
+  }
+
+  customer_update_name = async (req, res) => {
+    const { customerId, name } = req.body
+    try {
+        if (!customerId || !name || !name.trim()) {
+            return responseReturn(res, 400, { error: 'Name is required' })
+        }
+        const customer = await customerModel.findById(customerId)
+        if (!customer) {
+            return responseReturn(res, 404, { error: 'Account not found' })
+        }
+        customer.name = name.trim()
+        await customer.save()
+
+        // Reissue the token so the new name is reflected immediately
+        // without requiring the customer to log in again.
+        const token = await createToken({
+            id: customer.id,
+            name: customer.name,
+            email: customer.email,
+            method: customer.method
+        })
+        res.cookie('customerToken', token, {
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        })
+
+        responseReturn(res, 200, { message: 'Name updated successfully', token })
+    } catch (error) {
+        console.log(error.message)
+        responseReturn(res, 500, { error: 'Something went wrong. Please try again.' })
+    }
+  }
 }
 
 module.exports = new customerAuthController()
