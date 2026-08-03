@@ -111,6 +111,7 @@ export const homeReducer = createSlice({
             low: 0,
             high: 100
         },
+        priceRangeLoaded: false,
         product: {},
         relatedProducts: [],
         moreProducts: [],
@@ -146,6 +147,7 @@ export const homeReducer = createSlice({
         .addCase(price_range_product.fulfilled, (state, { payload }) => { 
             state.latest_product = payload.latest_product;
             state.priceRange = payload.priceRange; 
+            state.priceRangeLoaded = true;
         })
         /* --- CLEAR OLD PRODUCTS & SET LOADER ON PENDING --- */
         .addCase(query_products.pending, (state) => {

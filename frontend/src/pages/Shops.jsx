@@ -16,7 +16,7 @@ import { price_range_product,query_products,reset_products } from '../store/redu
 const Shops = () => {
 
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,latest_product,totalProduct,parPage,loader} = useSelector(state => state.home)
+    const {products,categorys,priceRange,priceRangeLoaded,latest_product,totalProduct,parPage,loader} = useSelector(state => state.home)
 
     useEffect(() => { 
         dispatch(reset_products())
@@ -47,22 +47,25 @@ const Shops = () => {
     }
 
     const isFirstRun = useRef(true)
+    const [ready, setReady] = useState(false)
 
     useEffect(() => {
+        if (!priceRangeLoaded) return
+        const isFirst = isFirstRun.current
         const runQuery = () => {
             dispatch(
                 query_products({
-                    low: state.values[0],
-                    high: state.values[1],
+                    low: isFirst ? priceRange.low : state.values[0],
+                    high: isFirst ? priceRange.high : state.values[1],
                     category,
                     rating,
                     sortPrice,
                     pageNumber
                 })
-             )
+             ).then(() => setReady(true))
         }
 
-        if (isFirstRun.current) {
+        if (isFirst) {
             isFirstRun.current = false
             runQuery()
             return
@@ -70,7 +73,7 @@ const Shops = () => {
 
         const timeoutId = setTimeout(runQuery, 400)
         return () => clearTimeout(timeoutId)
-    },[state.values[0],state.values[1],category,rating,sortPrice,pageNumber])
+    },[priceRangeLoaded,priceRange,state.values[0],state.values[1],category,rating,sortPrice,pageNumber])
 
     const resetRating = () => {
         setRating('')
@@ -196,7 +199,7 @@ const Shops = () => {
         <div className='w-9/12 md-lg:w-8/12 md:w-full'>
             <div className='pl-8 md:pl-0'>
                 <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
-                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{totalProduct}</span> Products Found </h2>
+                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
         <div className='flex justify-center items-center gap-3'>
             <select onChange={(e)=>setSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F26627] transition-colors' name="" id="">
                 <option value="">Sort By</option>
@@ -220,12 +223,14 @@ const Shops = () => {
                         <div className='w-10 h-10 border-4 border-slate-200 border-t-[#F26627] rounded-full animate-spin'></div>
                     </div>
                   }
-                  <ShopProducts products={products} styles={styles} />  
+                  <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
+                  <ShopProducts products={ready ? products : []} styles={styles} />  
+                  </div>
          </div>
 
          <div>
            {
-             totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+             ready && totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
            }
          </div>
 

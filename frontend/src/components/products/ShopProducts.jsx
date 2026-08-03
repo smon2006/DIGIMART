@@ -56,7 +56,7 @@ const ShopProducts = ({styles,products}) => {
     return (
         <div className={`w-full grid ${styles === 'grid' ? 'grid-cols-3 md-lg:grid-cols-2 md:grid-cols-2' : 'grid-cols-1 md-lg:grid-cols-2 md:grid-cols-2'} gap-5 `}>
             {
-                products.map((p, i)=> <Link to={`/product/details/${p.slug}`} key={i} className={`group flex transition-all duration-300 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 ${styles === 'grid' ? 'flex-col justify-start items-start' : 'justify-start items-center md-lg:flex-col md-lg:justify-start md-lg:items-start'} w-full gap-4 overflow-hidden`}>
+                products.map((p, i)=> <Link to={`/product/details/${p.slug}`} key={p._id || i} className={`group flex transition-all duration-300 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 ${styles === 'grid' ? 'flex-col justify-start items-start' : 'justify-start items-center md-lg:flex-col md-lg:justify-start md-lg:items-start'} w-full gap-4 overflow-hidden`}>
 
         <div className={styles === 'grid' ? 'w-full relative overflow-hidden h-[210px] md:h-[270px] xs:h-[170px] bg-slate-50' : 'md-lg:w-full relative overflow-hidden h-[210px] md:h-[270px] w-[240px] shrink-0 bg-slate-50'}>
             <img className='h-full rounded-none w-full object-cover group-hover:scale-110 transition-transform duration-500' src={ p.images[0] } alt="" />

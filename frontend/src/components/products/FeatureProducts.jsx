@@ -67,7 +67,7 @@ const FeatureProducts = ({ products }) => {
             <div className='w-full grid grid-cols-4 md-lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6'>
                 {
                     products.map((p, i) => (
-                        <Link to={`/product/details/${p.slug}`} key={i} className='group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden'>
+                        <Link to={`/product/details/${p.slug}`} key={p._id || i} className='group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden'>
                             <div className='relative overflow-hidden'>
                                 <div className='w-full h-[240px] overflow-hidden bg-slate-50'>
                                     <img className='sm:w-full w-full h-full object-cover group-hover:scale-110 transition-transform duration-500' src={p.images[0]} alt={p.name} />  
