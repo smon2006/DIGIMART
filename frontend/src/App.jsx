@@ -33,7 +33,19 @@ import Contact from './pages/Contact';
 function App() {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(get_category()) 
+    dispatch(get_category()).then(() => {
+      // Home waits on its own product data too (see Home.jsx) before
+      // dismissing the splash - every other page already shows its own
+      // loading spinner for whatever it still needs, so categories being
+      // ready is enough to hand off to the page itself here.
+      if (window.location.pathname !== '/') {
+        const el = document.getElementById('initial-loader');
+        if (el) {
+          el.classList.add('fade-out');
+          setTimeout(() => el.remove(), 400);
+        }
+      }
+    })
 },[])
 
   return (

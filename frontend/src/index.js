@@ -24,10 +24,11 @@ root.render(
     </Suspense>
     </Provider>
 );
-const initialLoader = document.getElementById('initial-loader');
-if (initialLoader) {
-  initialLoader.classList.add('fade-out');
-  setTimeout(() => initialLoader.remove(), 400);
-}
+setTimeout(() => {
+  const el = document.getElementById('initial-loader');
+  if (!el) return;
+  el.classList.add('fade-out');
+  setTimeout(() => el.remove(), 400);
+}, 8000);
 
 reportWebVitals();

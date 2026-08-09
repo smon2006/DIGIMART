@@ -13,7 +13,13 @@ const Home = () => {
     const dispatch = useDispatch()
     const {products,latest_product,topRated_product,discount_product} = useSelector(state => state.home)
     useEffect(() => { 
-        dispatch(get_products())
+        dispatch(get_products()).then(() => {
+            const el = document.getElementById('initial-loader');
+            if (el) {
+                el.classList.add('fade-out');
+                setTimeout(() => el.remove(), 400);
+            }
+        })
     },[])
 
     return (
