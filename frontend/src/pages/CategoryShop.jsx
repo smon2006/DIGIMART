@@ -22,16 +22,6 @@ const CategoryShop = () => {
     const dispatch = useDispatch();
     const { products, priceRange, priceRangeLoaded, latest_product, totalProduct, parPage, loader } = useSelector(state => state.home);
 
-    useEffect(() => { 
-        dispatch(price_range_product());
-    }, [dispatch]);
-
-    useEffect(() => { 
-        setState({
-            values: [priceRange.low, priceRange.high]
-        });
-    }, [priceRange]);
-
     const [filter, setFilter] = useState(true); 
     const [state, setState] = useState({ values: [priceRange.low, priceRange.high] });
     const [rating, setRating] = useState('');
@@ -40,35 +30,116 @@ const CategoryShop = () => {
     const [sortPrice, setSortPrice] = useState(''); 
     const isFirstRun = React.useRef(true);
     const [ready, setReady] = useState(false);
-      
+
+    const lastFilterKey = React.useRef('');
+    const skipNextPageEffect = React.useRef(false);
+    const skipNextRangeEffect = React.useRef(false);
+    const productSectionRef = React.useRef(null);
+    const scrollToProducts = () => {
+        productSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
     useEffect(() => { 
-        if (!priceRangeLoaded) return;
-        const isFirst = isFirstRun.current;
-        if (isFirst) isFirstRun.current = false;
+        dispatch(price_range_product());
+    }, [dispatch]);
+
+    // Fires once, the moment the price range loads: seeds the slider and
+    // performs the single initial fetch. Seeding the slider also changes
+    // state.values, which the debounce effect below watches too -
+    // skipNextRangeEffect stops that effect firing a second, redundant
+    // request right after this one.
+    useEffect(() => {
+        if (!priceRangeLoaded || !isFirstRun.current) return;
+        isFirstRun.current = false;
+        skipNextRangeEffect.current = true;
+        setState({ values: [priceRange.low, priceRange.high] });
+        lastFilterKey.current = `${category}|${rating}|${sortPrice}`;
         dispatch(
             query_products({
-                low: (isFirst ? priceRange.low : state.values[0]) || '',
-                high: (isFirst ? priceRange.high : state.values[1]) || '',
+                low: priceRange.low,
+                high: priceRange.high,
+                category: category || '',
+                rating,
+                sortPrice,
+                pageNumber: 1
+            })
+        ).then(() => setReady(true));
+    }, [priceRangeLoaded, priceRange]);
+
+    // Price slider only: debounced.
+    // Skipped once right after the effect above seeds state.values, so that
+    // initial sync doesn't also trigger a duplicate fetch.
+    useEffect(() => {
+        if (isFirstRun.current) return;
+        if (skipNextRangeEffect.current) {
+            skipNextRangeEffect.current = false;
+            return;
+        }
+        const timeoutId = setTimeout(() => {
+            dispatch(
+                query_products({
+                    low: state.values[0],
+                    high: state.values[1],
+                    category: category || '',
+                    rating,
+                    sortPrice,
+                    pageNumber
+                })
+            ).then(() => setReady(true));
+        }, 400);
+        return () => clearTimeout(timeoutId);
+    }, [state.values[0], state.values[1]]);
+
+    // Category (from the URL - e.g. navigating between category tiles),
+    // rating, or sort changed: jump back to page 1 and fetch instantly.
+    // This is what was causing "page 2 of category A, then pick category B
+    // with only one page -> blank grid": it kept requesting a page number
+    // that no longer existed for the new category.
+    useEffect(() => {
+        if (isFirstRun.current) return;
+        const filterKey = `${category}|${rating}|${sortPrice}`;
+        if (filterKey === lastFilterKey.current) return;
+        lastFilterKey.current = filterKey;
+        scrollToProducts();
+        if (pageNumber !== 1) {
+            skipNextPageEffect.current = true;
+            setPageNumber(1);
+        }
+        dispatch(
+            query_products({
+                low: state.values[0],
+                high: state.values[1],
+                category: category || '',
+                rating,
+                sortPrice,
+                pageNumber: 1
+            })
+        ).then(() => setReady(true));
+    }, [category, rating, sortPrice]);
+
+    // Pagination clicks. Skipped once right after the filter effect above
+    // force-resets the page number, so that reset doesn't fire twice.
+    useEffect(() => {
+        if (isFirstRun.current) return;
+        if (skipNextPageEffect.current) {
+            skipNextPageEffect.current = false;
+            return;
+        }
+        scrollToProducts();
+        dispatch(
+            query_products({
+                low: state.values[0],
+                high: state.values[1],
                 category: category || '',
                 rating,
                 sortPrice,
                 pageNumber
             })
         ).then(() => setReady(true));
-    }, [dispatch, priceRangeLoaded, priceRange, state.values[0], state.values[1], category, rating, sortPrice, pageNumber]);
+    }, [pageNumber]);
 
     const resetRating = () => {
         setRating('');
-        dispatch(
-            query_products({
-                low: state.values[0],
-                high: state.values[1],
-                category: category || '',
-                rating: '',
-                sortPrice,
-                pageNumber
-            })
-        );
     };
     
     return (
@@ -85,7 +156,7 @@ const CategoryShop = () => {
                     <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F26627] hover:bg-[#F26627] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
                 </div>
 
-                <div className='w-full flex flex-wrap gap-y-8'>
+                <div className='w-full flex flex-wrap items-start gap-y-8'>
                     <div className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 md:pr-0 ${filter ? 'md:h-0 md:overflow-hidden md:mb-6' : 'md:h-auto md:overflow-auto md:mb-0' } `}>
                         <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5'>
 
@@ -171,7 +242,7 @@ const CategoryShop = () => {
                         </div>
                     </div>
 
-                    <div className='w-9/12 md-lg:w-8/12 md:w-full'>
+                    <div ref={productSectionRef} className='w-9/12 md-lg:w-8/12 md:w-full scroll-mt-24'>
                         <div className='pl-8 md:pl-0'>
                             <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
                                 <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
@@ -209,7 +280,7 @@ const CategoryShop = () => {
 
                             <div>
                                {
-                                 ready && totalProduct > parPage && <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+                                 ready && totalProduct > parPage && <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={5} />
                                }
                             </div>
                         </div> 

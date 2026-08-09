@@ -3,23 +3,26 @@ import { MdOutlineKeyboardDoubleArrowLeft,MdOutlineKeyboardDoubleArrowRight } fr
 
 const Pagination = ({pageNumber,setPageNumber,totalItem,parPage,showItem}) => {
 
-    let totalPage = Math.ceil(totalItem / parPage)
-    let startPage = pageNumber
+    const totalPage = Math.ceil(totalItem / parPage)
+    if (totalPage <= 1) return null
 
-    let dif = totalPage - pageNumber
-    if (dif <= showItem) {
-        startPage = totalPage - showItem
-    }
-    let endPage = startPage < 0 ? showItem : showItem + startPage
-     
-    if (startPage <= 0) {
-        startPage = 1
+    // How many numbered buttons to show at once (sliding window), capped to
+    // the actual number of pages that exist.
+    const windowSize = Math.min(showItem || 5, totalPage)
+
+    let startPage = pageNumber - Math.floor(windowSize / 2)
+    if (startPage < 1) startPage = 1
+
+    let endPage = startPage + windowSize - 1
+    if (endPage > totalPage) {
+        endPage = totalPage
+        startPage = Math.max(1, endPage - windowSize + 1)
     }
 
     const createBtn = () => {
 
         const btns = []
-        for (let i = startPage; i < endPage; i++) {
+        for (let i = startPage; i <= endPage; i++) {
             btns.push(
                 <li key={i} onClick={()=>setPageNumber(i)} className={` ${pageNumber === i ? 'bg-[#F26627] shadow-lg shadow-[#F26627]/30 text-white' : 'bg-white border border-slate-200 hover:bg-[#F26627] hover:border-[#F26627] hover:text-white text-slate-600'} w-[36px] h-[36px] rounded-full flex justify-center items-center cursor-pointer transition-colors text-sm font-medium `}>
                     {i}                    

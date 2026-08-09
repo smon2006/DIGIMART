@@ -18,17 +18,7 @@ const Shops = () => {
     const dispatch = useDispatch()
     const {products,categorys,priceRange,priceRangeLoaded,latest_product,totalProduct,parPage,loader} = useSelector(state => state.home)
 
-    useEffect(() => { 
-        dispatch(reset_products())
-        dispatch(price_range_product())
-    },[])
-    useEffect(() => { 
-        setState({
-            values: [priceRange.low, priceRange.high]
-        })
-    },[priceRange])
-
-    const [filter, setFilter] = useState(true) 
+    const [filter, setFilter] = useState(true)
 
     const [state, setState] = useState({values: [priceRange.low, priceRange.high]})
     const [rating, setRating] = useState('')
@@ -39,6 +29,7 @@ const Shops = () => {
     const [sortPrice, setSortPrice] = useState('')
     const [category, setCategory] = useState('')
     const queryCategory = (e, value) => {
+        setPageNumber(1)
         if (e.target.checked) {
             setCategory(value)
         } else {
@@ -48,45 +39,98 @@ const Shops = () => {
 
     const isFirstRun = useRef(true)
     const [ready, setReady] = useState(false)
+    const productSectionRef = useRef(null)
+    const skipNextRangeEffect = useRef(false)
 
+    const scrollToProducts = () => {
+        productSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    // Kick off category list + price range on mount. Nothing else depends on
+    // this effect, so it only ever runs once.
     useEffect(() => {
-        if (!priceRangeLoaded) return
-        const isFirst = isFirstRun.current
-        const runQuery = () => {
+        dispatch(reset_products())
+        dispatch(price_range_product())
+    },[])
+
+    // Fires exactly once, the moment the price range comes back from the API.
+    // This both seeds the slider's local state AND performs the single
+    // initial product fetch. Seeding the slider changes state.values, which
+    // is also the debounce effect's dependency below - skipNextRangeEffect
+    // tells that effect to ignore this particular change instead of firing
+    // a second, redundant request a moment later (that second request was
+    // the actual cause of the loading flicker/glitch).
+    useEffect(() => {
+        if (!priceRangeLoaded || !isFirstRun.current) return
+        isFirstRun.current = false
+        skipNextRangeEffect.current = true
+        setState({ values: [priceRange.low, priceRange.high] })
+        dispatch(
+            query_products({
+                low: priceRange.low,
+                high: priceRange.high,
+                category,
+                rating,
+                sortPrice,
+                pageNumber
+            })
+        ).then(() => setReady(true))
+    },[priceRangeLoaded, priceRange])
+
+    // Price slider only: debounced, so dragging doesn't spam the API.
+    // Skipped once right after the effect above seeds state.values, so that
+    // initial sync doesn't also trigger a duplicate fetch.
+    useEffect(() => {
+        if (isFirstRun.current) return
+        if (skipNextRangeEffect.current) {
+            skipNextRangeEffect.current = false
+            return
+        }
+        const timeoutId = setTimeout(() => {
             dispatch(
                 query_products({
-                    low: isFirst ? priceRange.low : state.values[0],
-                    high: isFirst ? priceRange.high : state.values[1],
+                    low: state.values[0],
+                    high: state.values[1],
                     category,
                     rating,
                     sortPrice,
                     pageNumber
                 })
-             ).then(() => setReady(true))
-        }
-
-        if (isFirst) {
-            isFirstRun.current = false
-            runQuery()
-            return
-        }
-
-        const timeoutId = setTimeout(runQuery, 400)
+            ).then(() => setReady(true))
+        }, 400)
         return () => clearTimeout(timeoutId)
-    },[priceRangeLoaded,priceRange,state.values[0],state.values[1],category,rating,sortPrice,pageNumber])
+    },[state.values[0], state.values[1]])
 
-    const resetRating = () => {
-        setRating('')
+    // Sort / category / rating / page: these are discrete clicks, not a drag
+    // gesture, so they should feel instant rather than waiting out a debounce.
+    useEffect(() => {
+        if (isFirstRun.current) return
+        scrollToProducts()
         dispatch(
             query_products({
                 low: state.values[0],
                 high: state.values[1],
                 category,
-                rating: '',
+                rating,
                 sortPrice,
                 pageNumber
             })
-         )
+        ).then(() => setReady(true))
+    },[category, rating, sortPrice, pageNumber])
+
+    const resetRating = () => {
+        setPageNumber(1)
+        setRating('')
+    }
+
+    const changeRating = (value) => {
+        setPageNumber(1)
+        setRating(value)
+    }
+
+    const changeSortPrice = (value) => {
+        setPageNumber(1)
+        setSortPrice(value)
     }
     
     return (
@@ -100,11 +144,11 @@ const Shops = () => {
                 <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
             </div>
 
-            <div className='w-full flex flex-wrap gap-y-8'>
-                <div className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 md:pr-0 ${filter ? 'md:h-0 md:overflow-hidden md:mb-6' : 'md:h-auto md:overflow-auto md:mb-0' } `}>
+            <div className='w-full flex flex-wrap items-start gap-y-8'>
+                <div className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 md:pr-0 sticky md:static top-24 self-start ${filter ? 'md:h-0 md:overflow-hidden md:mb-6' : 'md:h-auto md:overflow-auto md:mb-0' } `}>
                   <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5'>
                     <h2 className='text-lg font-bold mb-3 text-slate-700 pb-3 border-b border-slate-100'>Category</h2>
-        <div className='py-1 flex flex-col gap-1'>
+        <div className='py-1 flex flex-col gap-1 max-h-[280px] overflow-y-auto pr-1'>
             {
                 categorys.map((c,i) => <div key={i} className='flex justify-start items-center gap-2 py-1.5 hover:text-[#F26627] transition-colors'>
                     <input className='accent-[#F26627] w-4 h-4 cursor-pointer' checked={category === c.name ? true : false} onChange={(e)=>queryCategory(e,c.name)} type="checkbox" id={c.name} />
@@ -140,7 +184,7 @@ const Shops = () => {
          <div className='py-4 flex flex-col gap-3 border-t border-slate-100 mt-2'>
             <h2 className='text-lg font-bold text-slate-700 mb-1'>Rating</h2>
             <div className='flex flex-col gap-2.5'>
-                 <div onClick={() => setRating(5)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                 <div onClick={() => changeRating(5)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -148,7 +192,7 @@ const Shops = () => {
                     <span><AiFillStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(4)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(4)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -156,7 +200,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(3)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(3)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -164,7 +208,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(2)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(2)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
@@ -172,7 +216,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => setRating(1)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(1)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
                     <span><CiStar/> </span>
@@ -196,12 +240,12 @@ const Shops = () => {
           </div>
           </div>
 
-        <div className='w-9/12 md-lg:w-8/12 md:w-full'>
+        <div ref={productSectionRef} className='w-9/12 md-lg:w-8/12 md:w-full scroll-mt-24'>
             <div className='pl-8 md:pl-0'>
                 <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
                     <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
         <div className='flex justify-center items-center gap-3'>
-            <select onChange={(e)=>setSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F26627] transition-colors' name="" id="">
+            <select onChange={(e)=>changeSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F26627] transition-colors' name="" id="">
                 <option value="">Sort By</option>
                 <option value="low-to-high">Price: Low to High</option>
                 <option value="high-to-low">Price: High to Low</option>
@@ -217,20 +261,23 @@ const Shops = () => {
         </div> 
          </div> 
 
-         <div className='pb-8 relative'>
+         <div className='pb-8 min-h-[300px]'>
                   {
-                    loader && <div className='absolute inset-0 bg-white/60 z-10 flex justify-center items-center rounded-2xl'>
-                        <div className='w-10 h-10 border-4 border-slate-200 border-t-[#F26627] rounded-full animate-spin'></div>
-                    </div>
+                    (!ready || loader) ? (
+                        <div className='w-full py-20 flex justify-center items-center'>
+                            <div className='w-12 h-12 border-4 border-[#F26627] border-t-transparent rounded-full animate-spin'></div>
+                        </div>
+                    ) : (
+                        <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
+                        <ShopProducts products={ready ? products : []} styles={styles} />  
+                        </div>
+                    )
                   }
-                  <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
-                  <ShopProducts products={ready ? products : []} styles={styles} />  
-                  </div>
          </div>
 
          <div>
            {
-             ready && totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+             ready && totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={5} />
            }
          </div>
 

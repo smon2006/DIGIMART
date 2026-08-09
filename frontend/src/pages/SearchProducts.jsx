@@ -21,16 +21,7 @@ const SearchProducts = () => {
     const searchValue = searchParams.get('value')
      
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,priceRangeLoaded,latest_product,totalProduct,parPage} = useSelector(state => state.home)
-
-    useEffect(() => { 
-        dispatch(price_range_product())
-    },[])
-    useEffect(() => { 
-        setState({
-            values: [priceRange.low, priceRange.high]
-        })
-    },[priceRange])
+    const {products,categorys,priceRange,priceRangeLoaded,latest_product,totalProduct,parPage,loader} = useSelector(state => state.home)
 
     const [filter, setFilter] = useState(true) 
 
@@ -43,36 +34,122 @@ const SearchProducts = () => {
     const [sortPrice, setSortPrice] = useState('') 
     const isFirstRun = React.useRef(true)
     const [ready, setReady] = useState(false)
-      
-    useEffect(() => { 
-        if (!priceRangeLoaded) return
-        const isFirst = isFirstRun.current
-        if (isFirst) isFirstRun.current = false
+
+    const lastFilterKey = React.useRef('')
+    const skipNextPageEffect = React.useRef(false)
+    const skipNextRangeEffect = React.useRef(false)
+    const productSectionRef = React.useRef(null)
+    const scrollToProducts = () => {
+        productSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    useEffect(() => {
+        dispatch(price_range_product())
+    },[])
+
+    // Fires once, the moment the price range loads: seeds the slider and
+    // performs the single initial fetch. Seeding the slider also changes
+    // state.values, which the debounce effect below watches too -
+    // skipNextRangeEffect stops that effect firing a second, redundant
+    // request right after this one (that duplicate request was the glitch
+    // seen the first time a category is picked from the header dropdown).
+    useEffect(() => {
+        if (!priceRangeLoaded || !isFirstRun.current) return
+        isFirstRun.current = false
+        skipNextRangeEffect.current = true
+        setState({ values: [priceRange.low, priceRange.high] })
+        lastFilterKey.current = `${category}|${searchValue}|${rating}|${sortPrice}`
         dispatch(
             query_products({
-                low: (isFirst ? priceRange.low : state.values[0]) || '',
-                high: (isFirst ? priceRange.high : state.values[1]) || '',
+                low: priceRange.low,
+                high: priceRange.high,
+                category,
+                rating,
+                sortPrice,
+                pageNumber: 1,
+                searchValue
+            })
+        ).then(() => setReady(true))
+    },[priceRangeLoaded, priceRange])
+
+    // Price slider only: debounced.
+    // Skipped once right after the effect above seeds state.values, so that
+    // initial sync doesn't also trigger a duplicate fetch.
+    useEffect(() => {
+        if (isFirstRun.current) return
+        if (skipNextRangeEffect.current) {
+            skipNextRangeEffect.current = false
+            return
+        }
+        const timeoutId = setTimeout(() => {
+            dispatch(
+                query_products({
+                    low: state.values[0],
+                    high: state.values[1],
+                    category,
+                    rating,
+                    sortPrice,
+                    pageNumber,
+                    searchValue
+                })
+            ).then(() => setReady(true))
+        }, 400)
+        return () => clearTimeout(timeoutId)
+    },[state.values[0], state.values[1]])
+
+    // Category (from the header dropdown / URL), search term, rating, or sort
+    // changed: always jump back to page 1 and fetch instantly - this is what
+    // was causing the "second page of category A, then pick category B with
+    // only one page -> blank grid" bug (it was requesting a page that no
+    // longer exists).
+    useEffect(() => {
+        if (isFirstRun.current) return
+        const filterKey = `${category}|${searchValue}|${rating}|${sortPrice}`
+        if (filterKey === lastFilterKey.current) return
+        lastFilterKey.current = filterKey
+        scrollToProducts()
+        if (pageNumber !== 1) {
+            skipNextPageEffect.current = true
+            setPageNumber(1)
+        }
+        dispatch(
+            query_products({
+                low: state.values[0],
+                high: state.values[1],
+                category,
+                rating,
+                sortPrice,
+                pageNumber: 1,
+                searchValue
+            })
+        ).then(() => setReady(true))
+    },[category, searchValue, rating, sortPrice])
+
+    // Pagination clicks. Skipped once right after the filter effect above
+    // force-resets the page number, so that reset doesn't fire a duplicate
+    // request.
+    useEffect(() => {
+        if (isFirstRun.current) return
+        if (skipNextPageEffect.current) {
+            skipNextPageEffect.current = false
+            return
+        }
+        scrollToProducts()
+        dispatch(
+            query_products({
+                low: state.values[0],
+                high: state.values[1],
                 category,
                 rating,
                 sortPrice,
                 pageNumber,
                 searchValue
             })
-         ).then(() => setReady(true))
-    },[priceRangeLoaded,priceRange,state.values[0],state.values[1],category,rating,sortPrice,searchValue,pageNumber])
+        ).then(() => setReady(true))
+    },[pageNumber])
 
     const resetRating = () => {
         setRating('')
-        dispatch(
-            query_products({
-                low: state.values[0],
-                high: state.values[1],
-                category,
-                rating: '',
-                sortPrice,
-                pageNumber
-            })
-         )
     }
     
     return (
@@ -89,7 +166,7 @@ const SearchProducts = () => {
                 <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
             </div>
 
-            <div className='w-full flex flex-wrap gap-y-8'>
+            <div className='w-full flex flex-wrap items-start gap-y-8'>
                 <div className={`w-3/12 md-lg:w-4/12 md:w-full pr-8 md:pr-0 ${filter ? 'md:h-0 md:overflow-hidden md:mb-6' : 'md:h-auto md:overflow-auto md:mb-0' } `}>
                   <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5'>
 
@@ -176,7 +253,7 @@ const SearchProducts = () => {
           </div>
           </div>
 
-        <div className='w-9/12 md-lg:w-8/12 md:w-full'>
+        <div ref={productSectionRef} className='w-9/12 md-lg:w-8/12 md:w-full scroll-mt-24'>
             <div className='pl-8 md:pl-0'>
                 <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
                     <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
@@ -197,15 +274,23 @@ const SearchProducts = () => {
         </div> 
          </div> 
 
-         <div className='pb-8'>
-                  <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
-                  <ShopProducts products={ready ? products : []} styles={styles} />  
-                  </div>
+         <div className='pb-8 min-h-[300px]'>
+                  {
+                    (!ready || loader) ? (
+                        <div className='w-full py-20 flex justify-center items-center'>
+                            <div className='w-12 h-12 border-4 border-[#F26627] border-t-transparent rounded-full animate-spin'></div>
+                        </div>
+                    ) : (
+                        <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
+                        <ShopProducts products={ready ? products : []} styles={styles} />  
+                        </div>
+                    )
+                  }
          </div>
 
          <div>
            {
-             ready && totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+             ready && totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={5} />
            }
          </div>
 

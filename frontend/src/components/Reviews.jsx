@@ -158,7 +158,7 @@ const Reviews = ({product}) => {
         }
         <div className='flex justify-end'>
             {
-               totalReview > 5 && <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber}  totalItem={totalReview} parPage={parPage} showItem={Math.floor(totalReview / 3)} />
+               totalReview > 5 && <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber}  totalItem={totalReview} parPage={parPage} showItem={5} />
             }
         </div> 
     </div>
