@@ -136,7 +136,7 @@ export const homeReducer = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(get_category.fulfilled, (state, { payload }) => {
-            state.categorys = payload.categorys;
+            state.categorys = [...payload.categorys].sort((a, b) => a.name.localeCompare(b.name));
         })
         .addCase(get_products.fulfilled, (state, { payload }) => {
             state.products = payload.products;

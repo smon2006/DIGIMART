@@ -4,7 +4,7 @@ import error from '../assets/error.png'
 import success from '../assets/success.png'
 import { Link } from 'react-router-dom';
 import { FadeLoader } from 'react-spinners';
-import axios from 'axios';
+import api from '../api/api';
 
 const load = async () => {
     return await loadStripe('pk_test_51Oml5cGAwoXiNtjJgPPyQngDj9WTjawya4zCsqTn3LPFhl4VvLZZJIh9fW9wqVweFYC5f0YEb9zjUqRpXbkEKT7T00eU1xQvjp')
@@ -55,7 +55,7 @@ const ConfirmOrder = () => {
         const orderId = localStorage.getItem('orderId')
         if (orderId) {
             try {
-                await axios.get(`http://localhost:5000/api/order/confirm/${orderId}`)
+                await api.get(`/order/confirm/${orderId}`)
                 localStorage.removeItem('orderId')
                 setLoader(false)
             } catch (error) {
