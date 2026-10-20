@@ -46,7 +46,7 @@ const ChangeName = () => {
         <form onSubmit={submit} className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
                 <label className='text-sm font-medium text-slate-700' htmlFor="name">Name</label>
-            <input onChange={(e) => setName(e.target.value)} value={name} className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' type="text" name="name" id="name"  placeholder='Your Name' required/>
+            <input onChange={(e) => setName(e.target.value)} value={name} className='w-full px-4 py-2.5 border border-slate-300 outline-none focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 rounded-lg text-sm transition-all' type="text" name="name" id="name"  placeholder='Your Name' required/>
             </div>
 
             <p className='text-xs text-slate-400 -mt-2'>
@@ -54,7 +54,7 @@ const ChangeName = () => {
             </p>
 
             <div className='pt-1'>
-                <button disabled={loader} className='px-8 py-2.5 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-lg text-sm font-semibold disabled:opacity-60'>
+                <button disabled={loader} className='px-8 py-2.5 bg-[#F5B301] hover:brightness-95 transition-colors text-slate-900 rounded-lg text-sm font-semibold disabled:opacity-60'>
                     {loader ? 'Updating...' : 'Update Name'}
                 </button>
             </div>

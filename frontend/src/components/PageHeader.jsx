@@ -5,7 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 const PageHeader = ({ title, crumbs = [] }) => {
     const allCrumbs = [{ to: '/', label: 'Home' }, ...crumbs];
     return (
-        <div className='w-full bg-[#9BD7D1] border-b border-slate-300/60'>
+        <div className='w-full bg-[#D4D4D4] border-b border-slate-300/60'>
             <div className='w-[85%] lg:w-[90%] mx-auto py-6 md-lg:py-5 sm:py-4'>
                 <div className='flex flex-col gap-2'>
                     <h1 className='text-2xl md-lg:text-xl font-bold text-slate-800 truncate'>{title}</h1>

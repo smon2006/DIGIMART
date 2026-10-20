@@ -76,7 +76,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={5} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div style={{ width: `${Math.floor(( 100 * (rating_review[0]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F26627]'> 
+                <div style={{ width: `${Math.floor(( 100 * (rating_review[0]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F5B301]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>{rating_review[0]?.sum }</p>
@@ -87,7 +87,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={4} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div style={{ width: `${Math.floor(( 100 * (rating_review[1]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F26627]'> 
+                <div style={{ width: `${Math.floor(( 100 * (rating_review[1]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F5B301]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>{rating_review[1]?.sum }</p>
@@ -98,7 +98,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={3} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div style={{ width: `${Math.floor(( 100 * (rating_review[2]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F26627]'> 
+                <div style={{ width: `${Math.floor(( 100 * (rating_review[2]?.sum || 0)) / totalReview )}%` }}  className='h-full rounded-full bg-[#F5B301]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>{rating_review[2]?.sum }</p>
@@ -109,7 +109,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={2} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div style={{ width: `${Math.floor(( 100 * (rating_review[3]?.sum || 0)) / totalReview )}%` }}   className='h-full rounded-full bg-[#F26627]'> 
+                <div style={{ width: `${Math.floor(( 100 * (rating_review[3]?.sum || 0)) / totalReview )}%` }}   className='h-full rounded-full bg-[#F5B301]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>{rating_review[3]?.sum }</p>
@@ -120,7 +120,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={1} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div  style={{ width: `${Math.floor(( 100 * (rating_review[4]?.sum || 0)) / totalReview )}%` }}   className='h-full rounded-full bg-[#F26627]'> 
+                <div  style={{ width: `${Math.floor(( 100 * (rating_review[4]?.sum || 0)) / totalReview )}%` }}   className='h-full rounded-full bg-[#F5B301]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>{rating_review[4]?.sum }</p>
@@ -131,7 +131,7 @@ const Reviews = ({product}) => {
              <RatingTemp rating={0} />
             </div>
             <div className='w-full max-w-[220px] h-[10px] rounded-full bg-slate-100 relative overflow-hidden'>
-                <div className='h-full rounded-full bg-[#F26627] w-[0%]'> 
+                <div className='h-full rounded-full bg-[#F5B301] w-[0%]'> 
                 </div> 
             </div>
             <p className='text-sm text-slate-500'>0</p>
@@ -171,19 +171,19 @@ const Reviews = ({product}) => {
                     onChange={(e) => setRat(e)}
                     initialRating={rat}
                     emptySymbol={<span className='text-slate-300 text-3xl'><CiStar/></span>}
-                    fullSymbol={<span className='text-[#F26627] text-3xl'><FaStar/></span>} 
+                    fullSymbol={<span className='text-[#F5B301] text-3xl'><FaStar/></span>} 
                     /> 
                  </div> 
                  <form onSubmit={review_submit}>
-                    <textarea value={re} onChange={(e) => setRe(e.target.value)} required className='border border-slate-300 rounded-lg outline-0 focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 p-3 w-full text-sm transition-all' placeholder='Share your thoughts about this product...' name="" id="" cols="30" rows="5"></textarea>
+                    <textarea value={re} onChange={(e) => setRe(e.target.value)} required className='border border-slate-300 rounded-lg outline-0 focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 p-3 w-full text-sm transition-all' placeholder='Share your thoughts about this product...' name="" id="" cols="30" rows="5"></textarea>
                 <div className='mt-3'>
-            <button className='py-2 px-6 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-full text-sm font-semibold'>Submit Review</button>
+            <button className='py-2 px-6 bg-[#F5B301] hover:brightness-95 transition-colors text-slate-900 rounded-full text-sm font-semibold'>Submit Review</button>
                 </div> 
                  
                  </form>
 
             </div> : <div className='border-t border-slate-100 pt-6'>
-                <Link to='/login' className='inline-block py-2 px-6 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-full text-sm font-semibold'> Login to Write a Review </Link>
+                <Link to='/login' className='inline-block py-2 px-6 bg-[#F5B301] hover:brightness-95 transition-colors text-slate-900 rounded-full text-sm font-semibold'> Login to Write a Review </Link>
             </div>
         }
     </div>

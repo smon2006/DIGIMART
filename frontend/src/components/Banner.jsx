@@ -6,56 +6,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get_banners } from '../store/reducers/homeReducer';
 import { MdArrowForwardIos, MdArrowBackIos } from 'react-icons/md';
 
-// Palette Colors In Use:
-// #F26627 (Vibrant Orange)
-// #F9A26C (Soft Orange)
-// #325D79 (Original Deep Greenish Palette Color)
-// #46799B (Lighter Shade of #325D79)
-// #9BD7D1 (Teal - Arrow Button Background)
-// #EFEEEE (Off-White for Cards)
-
-const slideThemes = [
-    {
-        // 1. Vibrant Orange Banner
-        bg: 'bg-[#F26627]',
-        btnBg: 'bg-white hover:bg-gray-100 text-black',
-    },
-    {
-        // 2. Original Dark Greenish Banner (#325D79)
-        bg: 'bg-[#325D79]',
-        btnBg: 'bg-white hover:bg-gray-100 text-black',
-    },
-    {
-        // 3. Soft Orange Banner
-        bg: 'bg-[#F9A26C]',
-        btnBg: 'bg-white hover:bg-gray-100 text-black',
-    },
-    {
-        // 4. Lighter Shade of Greenish (#46799B)
-        bg: 'bg-[#46799B]',
-        btnBg: 'bg-white hover:bg-gray-100 text-black',
-    }
+// Slide looks. They rotate by position. Dark backgrounds sit well next to the navy
+// header/footer, and each has a soft glow behind the product.
+const themes = [
+    { bg: 'linear-gradient(110deg, #0f172a 0%, #1e293b 55%, #334155 100%)', glow: 'rgba(245,179,1,0.28)' },
+    { bg: 'linear-gradient(110deg, #18181b 0%, #27272a 55%, #3f3f46 100%)', glow: 'rgba(245,158,11,0.26)' },
+    { bg: 'linear-gradient(110deg, #0b1a33 0%, #1e3a5f 55%, #2c5282 100%)', glow: 'rgba(56,189,248,0.24)' },
 ];
 
+const arrowClass = 'md:hidden absolute top-1/2 -translate-y-1/2 z-30 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/25 backdrop-blur-sm text-white border border-white/20 transition-all duration-300';
+
 const CustomRightArrow = ({ onClick }) => (
-    <button
-        onClick={onClick}
-        aria-label='Next banner'
-        title='Next'
-        className='absolute right-4 md-lg:right-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md-lg:w-10 md-lg:h-10 flex items-center justify-center rounded-full bg-[#9BD7D1] hover:bg-[#7bbbb4] text-black shadow-lg transition-all duration-300 hover:scale-110 active:scale-95'
-    >
-        <MdArrowForwardIos size={22} className='text-black' />
+    <button onClick={onClick} aria-label='Next banner' title='Next' className={`${arrowClass} right-4`}>
+        <MdArrowForwardIos size={18} />
     </button>
 );
 
 const CustomLeftArrow = ({ onClick }) => (
-    <button
-        onClick={onClick}
-        aria-label='Previous banner'
-        title='Previous'
-        className='absolute left-4 md-lg:left-2 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md-lg:w-10 md-lg:h-10 flex items-center justify-center rounded-full bg-[#9BD7D1] hover:bg-[#7bbbb4] text-black shadow-lg transition-all duration-300 hover:scale-110 active:scale-95'
-    >
-        <MdArrowBackIos size={22} className='ml-1 text-black' />
+    <button onClick={onClick} aria-label='Previous banner' title='Previous' className={`${arrowClass} left-4`}>
+        <MdArrowBackIos size={18} className='ml-1' />
     </button>
 );
 
@@ -117,13 +86,19 @@ const Banner = () => {
         dispatch(get_banners());
     }, [dispatch]);
 
+    const hiddenCategories = ['books', 'stationery','electronics','jewelry','accessories','bags','fragrances','womens dresses','womens watches','womens jewellery','tops','motorcycle','tablets'];
+
+    const visibleBanners = banners.filter(
+        b => !hiddenCategories.includes((b.category || '').toLowerCase())
+    );
+
     return (
         <div className='w-full'>
             <div className='w-full overflow-hidden'>
-                {banners.length > 0 && (
+                {visibleBanners.length > 0 && (
                     <Carousel
                         autoPlay={true}
-                        autoPlaySpeed={4500}
+                        autoPlaySpeed={5000}
                         infinite={true}
                         arrows={true}
                         showDots={false}
@@ -131,51 +106,58 @@ const Banner = () => {
                         customLeftArrow={<CustomLeftArrow />}
                         responsive={responsive}
                     >
-                        {banners.map((b, i) => {
-                            const theme = slideThemes[i % slideThemes.length];
+                        {visibleBanners.map((b, i) => {
+                            const theme = themes[i % themes.length];
                             const to = b.category
                                 ? `/products?category=${b.category}`
                                 : `/product/details/${b.link}`;
 
                             return (
-                                <Link key={i} to={to}>
-                                    <div className={`relative w-full h-[460px] lg:h-[380px] md-lg:h-[300px] sm:h-[240px] overflow-hidden ${theme.bg} flex items-center justify-center transition-colors duration-500`}>
-                                        
-                                        {/* Product Image */}
-                                        <img
-                                            className='w-full h-full object-contain object-center z-10 relative py-4'
-                                            src={b.banner}
-                                            alt={b.category || 'Shop banner'}
+                                <Link key={i} to={to} className='block'>
+                                    <div
+                                        className='relative w-full h-[400px] xl:h-[360px] lg:h-[320px] md-lg:h-[280px] md:h-[230px] xs:h-[210px] overflow-hidden'
+                                        style={{ background: theme.bg }}
+                                    >
+                                        {/* Soft glow behind the product */}
+                                        <div
+                                            className='absolute inset-0 pointer-events-none'
+                                            style={{ background: `radial-gradient(circle at 76% 50%, ${theme.glow}, transparent 55%)` }}
                                         />
 
-                                        {/* Left Side Call To Action */}
-                                        <div className='absolute inset-0 z-30 flex flex-col justify-center pl-20 pr-8 md-lg:pl-14 sm:pl-10 max-w-[540px]'>
-                                            {b.category && (
-                                                <>
-                                                    <span className='text-xs sm:text-[10px] font-bold uppercase tracking-[0.25em] mb-2 text-white drop-shadow-sm'>
-                                                        Shop by Category
-                                                    </span>
-                                                    <h2 className='text-4xl lg:text-3xl sm:text-2xl font-black mb-6 leading-tight capitalize text-white drop-shadow-md'>
+                                        <div className='relative h-full w-[85%] lg:w-[90%] md:w-[88%] mx-auto flex items-center justify-between gap-8 md:gap-4'>
+
+                                            {/* Text */}
+                                            <div className='min-w-0 flex-1 flex flex-col items-start'>
+                                                {b.category && (
+                                                    <h2 className='text-[clamp(1.5rem,3.6vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight capitalize text-white break-words'>
                                                         {b.category}
                                                     </h2>
-                                                </>
-                                            )}
-
-                                            <span className={`inline-flex w-fit items-center gap-2.5 ${theme.btnBg} transition-all duration-300 text-base sm:text-xs font-bold px-8 py-3.5 rounded-full shadow-md hover:scale-105 capitalize`}>
-                                                {b.category ? `Shop ${b.category}` : 'Shop Now'}
-                                                <MdArrowForwardIos size={16} className='text-black' />
-                                            </span>
-                                        </div>
-
-                                        {/* Right Side Description Box */}
-                                        <div className='flex md-lg:hidden absolute inset-y-0 right-0 z-30 w-[38%] flex-col justify-center items-start pl-4 pr-16'>
-                                            <div className='bg-[#EFEEEE] border-2 border-white rounded-2xl p-6 shadow-lg max-w-sm'>
-                                                <p className='text-[#111827] text-sm font-semibold italic leading-relaxed'>
+                                                )}
+                                                <p className='md:hidden mt-4 text-[clamp(0.95rem,1.2vw,1.2rem)] leading-relaxed text-slate-300 max-w-[34ch]'>
                                                     {getDescription(b.category)}
                                                 </p>
+                                                <span className='mt-7 md:mt-4 inline-flex items-center rounded-full bg-[#F5B301] hover:brightness-95 transition-colors text-white font-semibold whitespace-nowrap px-8 py-3.5 text-base md:px-5 md:py-2 md:text-sm shadow-lg'>
+                                                    Shop now
+                                                </span>
                                             </div>
-                                        </div>
 
+                                            {/* Product on a white disc with a faint halo.
+                                                multiply hides a white photo background inside the disc */}
+                                            <div className='relative shrink-0 h-[84%] md:h-[76%] aspect-square'>
+                                                <div className='absolute -inset-[7%] rounded-full border border-white/15' />
+                                                <div className='absolute -inset-[14%] rounded-full border border-white/[0.07] md:hidden' />
+                                                <div className='absolute inset-0 rounded-full bg-white overflow-hidden shadow-2xl'>
+                                                    <img
+                                                        className='w-full h-full object-contain mix-blend-multiply p-[9%]'
+                                                        src={b.banner}
+                                                        alt={b.category || 'Featured product'}
+                                                        loading={i === 0 ? 'eager' : 'lazy'}
+                                                        decoding='async'
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </Link>
                             );

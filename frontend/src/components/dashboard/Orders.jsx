@@ -33,7 +33,7 @@ const Orders = () => {
         <div className='bg-white p-5 rounded-2xl border border-slate-200 shadow-sm'>
             <div className='flex justify-between items-center pb-4 border-b border-slate-100 flex-wrap gap-3'>
                 <h2 className='text-lg font-bold text-slate-700'>My Orders </h2>
-                <select className='outline-none px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 font-medium focus:border-[#F26627] transition-colors' value={state} onChange={(e) => setState(e.target.value)} >
+                <select className='outline-none px-3 py-2 border border-slate-300 rounded-lg text-sm text-slate-600 font-medium focus:border-[#F5B301] transition-colors' value={state} onChange={(e) => setState(e.target.value)} >
                     <option value="all">-- Order Status --</option>
                     <option value="placed">Placed</option>
                     <option value="pending">Pending</option>
@@ -62,10 +62,10 @@ const Orders = () => {
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap capitalize'>{o.payment_status }</td>
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap capitalize'>{o.delivery_status}</td>
                 <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>
-                    <Link to={`/dashboard/order/details/${o._id}`}><span className='bg-blue-50 text-[#F26627] text-xs font-semibold mr-2 px-3 py-1 rounded-full'>View</span></Link>
+                    <Link to={`/dashboard/order/details/${o._id}`}><span className='bg-[#F5B301] text-slate-900 text-xs font-semibold mr-2 px-3 py-1 rounded-full'>View</span></Link>
 
                     {
-                       o.payment_status !== 'paid' && <span onClick={() => redirect(o)} className='bg-blue-50 text-[#F26627] text-xs font-semibold mr-2 px-3 py-1 rounded-full cursor-pointer hover:bg-[#F26627] hover:text-white transition-colors'>Pay Now</span> 
+                       o.payment_status !== 'paid' && <span onClick={() => redirect(o)} className='bg-[#F5B301] text-slate-900 text-xs font-semibold mr-2 px-3 py-1 rounded-full cursor-pointer hover:bg-[#F5B301] hover:text-slate-900 transition-colors'>Pay Now</span> 
                     }
 
                 </td> 

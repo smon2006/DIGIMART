@@ -20,16 +20,24 @@ const Card = () => {
         dispatch(get_card_products(userInfo.id))
     },[])
 
-    const redirect = () => {
-        navigate('/shipping',{
-            state: {
-                products : card_products,
-                price: price,
-                shipping_fee : shipping_fee,
-                items: buy_product_item
-            }
-        })
-    }
+    const countItems = (groups = []) =>
+    groups.reduce(
+        (total, g) => total + g.products.reduce((sum, p) => sum + (p.quantity || 1), 0),
+        0
+    )
+
+const itemCount = buy_product_item || countItems(card_products)
+
+const redirect = () => {
+    navigate('/shipping', {
+        state: {
+            products : card_products,
+            price: price,
+            shipping_fee : shipping_fee,
+            items: itemCount
+        }
+    })
+}
 
     useEffect(() => { 
         if (successMessage) {
@@ -59,7 +67,7 @@ const Card = () => {
     }
 
     return (
-        <div className='min-h-screen bg-[#325D79]'>
+        <div className='min-h-screen bg-[#8A8A8A]'>
            <Header/>
            <PageHeader title='Shopping Cart' crumbs={[{ label: 'Cart' }]} />
 
@@ -167,7 +175,7 @@ const Card = () => {
             card_products.length > 0 && <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-5 text-slate-600 flex flex-col gap-4 sticky top-24'>
                 <h2 className='text-lg font-bold text-slate-800 pb-3 border-b border-slate-100'>Order Summary</h2>
                 <div className='flex justify-between items-center text-sm'>
-                    <span>{buy_product_item} Items </span>
+                    <span>{itemCount} Items </span>
                     <span className='font-medium text-slate-700'>₹{price} </span>
                 </div>
                 <div className='flex justify-between items-center text-sm'>
@@ -175,16 +183,16 @@ const Card = () => {
                     <span className='font-medium text-slate-700'>₹{shipping_fee} </span>
                 </div>
                 <div className='flex gap-2'>
-                <input className='w-full px-3 py-2.5 border border-slate-300 outline-0 focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg text-sm transition-all' type="text" placeholder='Coupon Code' />
-                <button className='px-5 bg-[#F26627] hover:bg-[#F26627] transition-colors text-white rounded-lg uppercase text-xs font-semibold'>Apply</button>
+                <input className='w-full px-3 py-2.5 border border-slate-300 outline-0 focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 rounded-lg text-sm transition-all' type="text" placeholder='Coupon Code' />
+                <button className='px-5 bg-[#F5B301] hover:bg-[#F5B301] transition-colors text-slate-900 rounded-lg uppercase text-xs font-semibold'>Apply</button>
                 </div>
 
                 <div className='flex justify-between items-center pt-3 border-t border-slate-100'>
                     <span className='font-semibold text-slate-700'>Total</span>
-                    <span className='text-xl font-bold text-[#F26627]'>₹{price + shipping_fee} </span>
+                    <span className='text-xl font-bold text-slate-900'>₹{price + shipping_fee} </span>
                 </div>
-                <button onClick={redirect} className='px-5 py-3 rounded-lg bg-[#F26627] hover:bg-[#F26627] transition-colors text-sm font-semibold text-white uppercase'>
-                    Proceed to Checkout ({buy_product_item})
+                <button onClick={redirect} className='px-5 py-3 rounded-lg bg-[#F5B301] hover:bg-[#F5B301] transition-colors text-sm font-semibold text-slate-900 uppercase'>
+                    Proceed to Checkout ({itemCount})
                 </button>
 
             </div>
@@ -197,8 +205,8 @@ const Card = () => {
             </div> 
             
             : <div className='py-10 text-center'>
-                <p className='text-slate-500 mb-4'>Your cart is empty.</p>
-                <Link className='px-6 py-3 inline-block bg-[#F26627] hover:bg-[##F26627] transition-colors text-white rounded-lg font-semibold text-sm' to='/shops' > Shop Now</Link>
+                <p className='text-black mb-4'>Your cart is empty.</p>
+                <Link className='px-6 py-3 inline-block bg-[#F5B301] hover:brightness-95 transition-colors text-slate-900 rounded-lg font-semibold text-sm' to='/shops' > Shop Now</Link>
             </div>
         }
 

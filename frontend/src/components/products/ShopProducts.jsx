@@ -62,10 +62,10 @@ const ShopProducts = ({styles,products}) => {
             <img className='h-full rounded-none w-full object-cover group-hover:scale-110 transition-transform duration-500' src={ p.images[0] } alt="" />
 
           <ul className='flex transition-all duration-500 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3'>
-            <li title="Add to Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_wishlist(p) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F26627] hover:text-white transition-all duration-300'>
+            <li title="Add to Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_wishlist(p) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F5B301] hover:text-slate-900 transition-all duration-300'>
             <FaRegHeart size={14} />
             </li>
-            <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_card(p._id) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F26627] hover:text-white transition-all duration-300'>
+            <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_card(p._id) }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F5B301] hover:text-slate-900 transition-all duration-300'>
             <RiShoppingCartLine size={15} />
             </li>
         </ul>    

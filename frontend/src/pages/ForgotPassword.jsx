@@ -59,7 +59,7 @@ const ForgotPassword = () => {
                 </div>
             }
             <Header/>
-    <div className='bg-[#FDD7BF] py-14 md-lg:py-8'>
+    <div className='bg-[#D4D4D4] py-14 md-lg:py-8'>
         <div className='w-full justify-center items-center px-4'>
             <div className='grid grid-cols-2 md-lg:grid-cols-1 w-[60%] md-lg:w-[92%] mx-auto bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden'>
                 <div className='px-10 py-10 sm:px-6 sm:py-8'>
@@ -71,26 +71,26 @@ const ForgotPassword = () => {
 
     <div className='flex flex-col gap-1 mb-4'>
         <label className='text-sm font-medium text-slate-700' htmlFor="email">Email</label>
-        <input onChange={inputHandle} value={state.email} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg transition-all text-sm' type="email" name="email" id="email" placeholder='Email' required />
+        <input onChange={inputHandle} value={state.email} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 rounded-lg transition-all text-sm' type="email" name="email" id="email" placeholder='Email' required />
     </div>
 
     <div className='flex flex-col gap-1 mb-4'>
         <label className='text-sm font-medium text-slate-700' htmlFor="new_password">New Password</label>
-        <input onChange={inputHandle} value={state.new_password} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg transition-all text-sm' type="password" name="new_password" id="new_password" placeholder='New Password' required />
+        <input onChange={inputHandle} value={state.new_password} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 rounded-lg transition-all text-sm' type="password" name="new_password" id="new_password" placeholder='New Password' required />
     </div>
 
     <div className='flex flex-col gap-1 mb-5'>
         <label className='text-sm font-medium text-slate-700' htmlFor="confirm_password">Confirm New Password</label>
-        <input onChange={inputHandle} value={state.confirm_password} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F26627] focus:ring-2 focus:ring-[#F26627]/20 rounded-lg transition-all text-sm' type="password" name="confirm_password" id="confirm_password" placeholder='Confirm New Password' required />
+        <input onChange={inputHandle} value={state.confirm_password} className='w-full px-4 py-3 border border-slate-300 outline-none focus:border-[#F5B301] focus:ring-2 focus:ring-[#F5B301]/20 rounded-lg transition-all text-sm' type="password" name="confirm_password" id="confirm_password" placeholder='Confirm New Password' required />
     </div>
 
-    <button className='px-8 w-full py-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors font-semibold text-white rounded-lg'>Reset Password</button>
+    <button className='px-8 w-full py-3 bg-[#F5B301] hover:brightness-95 transition-colors font-semibold text-slate-900 rounded-lg'>Reset Password</button>
 
         </form>
     </div>
 
     <div className='text-center text-slate-500 text-sm pt-4'>
-        <p>Remembered it? <Link className='text-[#F26627] font-semibold hover:underline' to='/login'> Sign In</Link> </p>
+        <p>Remembered it? <Link className='text-slate-900 font-semibold hover:underline' to='/login'> Sign In</Link> </p>
     </div>
 
             </div>

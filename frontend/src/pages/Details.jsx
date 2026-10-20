@@ -167,10 +167,10 @@ const Details = () => {
 
     if (!product || !product.slug || product.slug !== slug) {
         return (
-            <div className='min-h-screen bg-[#325D79] flex flex-col'>
+            <div className='min-h-screen bg-[#8A8A8A] flex flex-col'>
                 <Header/>
                 <div className='flex-grow flex justify-center items-center py-32'>
-                    <div className='w-12 h-12 border-4 border-slate-300 border-t-[#F26627] rounded-full animate-spin'></div>
+                    <div className='w-12 h-12 border-4 border-slate-300 border-t-[#F5B301] rounded-full animate-spin'></div>
                 </div>
                 <Footer/>
             </div>
@@ -178,7 +178,7 @@ const Details = () => {
     }
 
     return (
-        <div className='min-h-screen bg-[#325D79]'>
+        <div className='min-h-screen bg-[#8A8A8A]'>
             <Header/>
     <PageHeader
         title={product.name || 'Product Details'}
@@ -209,7 +209,7 @@ const Details = () => {
                     { 
                        product.images.map((img, i) => {
                         return (
-                            <div key={i}  onClick={() => setImage(img)} className='rounded-lg overflow-hidden border border-slate-200 hover:border-[#F26627] transition-colors cursor-pointer'>
+                            <div key={i}  onClick={() => setImage(img)} className='rounded-lg overflow-hidden border border-slate-200 hover:border-[#F5B301] transition-colors cursor-pointer'>
                    <img className='h-[100px] w-full object-cover cursor-pointer' src={img} alt="" /> 
                             </div>
                         )
@@ -245,7 +245,7 @@ const Details = () => {
 
           <div className='text-slate-600 text-sm leading-relaxed'>
             <p>{product.description}  </p>
-            <p className='text-slate-700 py-1 font-semibold'>Shop Name : <span className='text-[#F26627]'>{product.shopName}</span></p>
+            <p className='text-slate-700 py-1 font-semibold'>Shop Name : <span className='text-slate-900'>{product.shopName}</span></p>
            </div> 
 
             <div className='flex gap-3 pb-8 border-b border-slate-100 flex-wrap'>
@@ -257,14 +257,14 @@ const Details = () => {
             <div onClick={inc} className='px-5 h-full flex items-center cursor-pointer hover:bg-slate-200 transition-colors text-slate-600'><FaPlus size={12}/></div>
         </div>
                     <div>
-                        <button onClick={add_card} className='px-8 h-[48px] cursor-pointer transition-all rounded-lg font-semibold bg-[#F26627] hover:bg-[#C24A16] text-white'>Add To Cart</button>
+                        <button onClick={add_card} className='px-8 h-[48px] cursor-pointer transition-all rounded-lg font-semibold bg-[#F5B301] hover:brightness-95 text-slate-900'>Add To Cart</button>
                     </div>
                     
                     </> : <span className='px-4 h-[48px] flex items-center rounded-lg bg-red-50 text-red-500 font-semibold text-sm'>Out of Stock</span>
                 }
 
                 <div>
-                    <div onClick={add_wishlist} className='h-[48px] w-[48px] rounded-lg flex justify-center items-center cursor-pointer transition-all bg-slate-100 hover:bg-[#F26627] text-slate-500 hover:text-white'>
+                    <div onClick={add_wishlist} className='h-[48px] w-[48px] rounded-lg flex justify-center items-center cursor-pointer transition-all bg-slate-100 hover:bg-[#F5B301] text-slate-500 hover:text-slate-900'>
                     <FaHeart />
                     </div> 
                 </div> 
@@ -283,16 +283,16 @@ const Details = () => {
 
     <ul className='flex justify-start items-center gap-3'>
         <li>
-            <a className='w-[36px] h-[36px] hover:bg-[#F26627] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaFacebookF size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#F5B301] hover:text-slate-900 transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaFacebookF size={13} /> </a>
         </li>
         <li>
-            <a className='w-[36px] h-[36px] hover:bg-[#F26627] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaTwitter size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#F5B301] hover:text-slate-900 transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaTwitter size={13} /> </a>
         </li>
         <li>
-            <a className='w-[36px] h-[36px] hover:bg-[#F26627] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaLinkedin size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#F5B301] hover:text-slate-900 transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaLinkedin size={13} /> </a>
         </li>
         <li>
-            <a className='w-[36px] h-[36px] hover:bg-[#F26627] hover:text-white transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaGithub size={13} /> </a>
+            <a className='w-[36px] h-[36px] hover:bg-[#F5B301] hover:text-slate-900 transition-colors flex justify-center items-center bg-slate-100 rounded-full text-slate-500' href="#"> <FaGithub size={13} /> </a>
         </li>
     </ul> 
 
@@ -301,9 +301,9 @@ const Details = () => {
 
           <div className='flex gap-3 flex-wrap pt-2'>
                 {
-                    product.stock ? <button onClick={buynow} className='px-8 h-[48px] cursor-pointer transition-colors rounded-lg font-semibold bg-[#325D79] hover:bg-[#24455C] text-white'>Buy Now</button> : ''
+                    product.stock ? <button onClick={buynow} className='px-8 h-[48px] cursor-pointer transition-colors rounded-lg font-semibold bg-[#8A8A8A] hover:bg-[#24455C] text-white'>Buy Now</button> : ''
                 }
-                <Link to={`/dashboard/chat/${product.sellerId}`} className='px-8 h-[48px] flex items-center gap-2 cursor-pointer transition-colors rounded-lg font-semibold border-2 border-slate-200 text-slate-600 hover:border-[#F26627] hover:text-[#F26627]'>
+                <Link to={`/dashboard/chat/${product.sellerId}`} className='px-8 h-[48px] flex items-center gap-2 cursor-pointer transition-colors rounded-lg font-semibold border-2 border-slate-200 text-slate-600 hover:border-[#F5B301] hover:text-slate-900'>
                     <BsChatDotsFill /> Chat Seller
                 </Link>
             </div>
@@ -320,9 +320,9 @@ const Details = () => {
             <div className='w-[70%] md-lg:w-full'>
                 <div className='bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-4'>
                     <div className='inline-flex gap-2 p-1 bg-slate-100 rounded-full'>
-                    <button onClick={() => setState('reviews')} className={`py-2 px-6 transition-colors text-sm font-semibold ${state === 'reviews' ? 'bg-[#F26627] text-white' : 'text-slate-600 hover:text-[#F26627]'} rounded-full`}>Reviews </button>
+                    <button onClick={() => setState('reviews')} className={`py-2 px-6 transition-colors text-sm font-semibold ${state === 'reviews' ? 'bg-[#F5B301] text-slate-900' : 'text-slate-600 hover:text-slate-900'} rounded-full`}>Reviews </button>
                     
-                    <button onClick={() => setState('description')} className={`py-2 px-6 transition-colors text-sm font-semibold ${state === 'description' ? 'bg-[#F26627] text-white' : 'text-slate-600 hover:text-[#F26627]' } rounded-full`}>Description </button>
+                    <button onClick={() => setState('description')} className={`py-2 px-6 transition-colors text-sm font-semibold ${state === 'description' ? 'bg-[#F5B301] text-slate-900' : 'text-slate-600 hover:text-slate-900' } rounded-full`}>Description </button>
                     </div>
 
     <div>
@@ -337,8 +337,8 @@ const Details = () => {
 
 <div className='w-[28%] md-lg:w-full flex-1'>
     <div className='bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden'>
-    <div className='px-4 py-3 bg-[#F26627]'>
-        <h2 className='font-bold text-white text-sm'>From {product.shopName}</h2>
+    <div className='px-4 py-3 bg-[#F5B301]'>
+        <h2 className='font-bold text-slate-900 text-sm'>From {product.shopName}</h2>
     </div>
     <div className='flex flex-col gap-3 p-3'>
         {
@@ -384,13 +384,13 @@ const Details = () => {
 <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16'>
 <div className='text-center flex justify-center items-center flex-col text-3xl text-white font-bold relative pb-[40px]'>
     <h2>Related Products</h2>
-    <div className='w-[70px] h-[3px] rounded-full bg-[#F26627] mt-4'></div>
+    <div className='w-[70px] h-[3px] rounded-full bg-[#F5B301] mt-4'></div>
 </div>
 <div className='relative px-10 sm:px-0'>
-    <button title='Previous' className='related-prev absolute -left-2 sm:hidden top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-[#F26627] hover:bg-[#C24A16] text-white shadow-xl transition-all duration-300 hover:scale-110'>
+    <button title='Previous' className='related-prev absolute -left-2 sm:hidden top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-[#F5B301] hover:brightness-95 text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'>
         <MdArrowBackIos size={18} className='ml-1' />
     </button>
-    <button title='Next' className='related-next absolute -right-2 sm:hidden top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-[#F26627] hover:bg-[#C24A16] text-white shadow-xl transition-all duration-300 hover:scale-110'>
+    <button title='Next' className='related-next absolute -right-2 sm:hidden top-1/2 -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center rounded-full bg-[#F5B301] hover:brightness-95 text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'>
         <MdArrowForwardIos size={18} />
     </button>
     <Swiper

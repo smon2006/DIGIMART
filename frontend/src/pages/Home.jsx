@@ -27,11 +27,11 @@ const Home = () => {
             <Header />
             <Banner/>
             <Categorys />
-            <div className='py-[45px] bg-[#FBC39F]'>
+            <div className='py-[45px] bg-white'>
             <FeatureProducts products={products} />
             </div>
            
-            <div className='py-16 bg-[#305F72]'>
+            <div className='py-16 bg-[#9C9C9C]'>
                 <div className='w-[85%] flex flex-wrap mx-auto'>
                     <div className='grid w-full grid-cols-3 md-lg:grid-cols-2 md:grid-cols-1 gap-7'>
             <div className='overflow-hidden'>

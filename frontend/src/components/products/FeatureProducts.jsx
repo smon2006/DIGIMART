@@ -60,7 +60,7 @@ const FeatureProducts = ({ products }) => {
             <div className='w-full'>
                 <div className='text-center flex justify-center items-center flex-col text-3xl text-slate-900 font-bold relative pb-8'>
                     <h2>Feature Products</h2>
-                    <div className='w-[70px] h-[3px] rounded-full bg-[#F26627] mt-3'></div>
+                    <div className='w-[70px] h-[3px] rounded-full bg-[#F5B301] mt-3'></div>
                 </div>
             </div>
 
@@ -74,10 +74,10 @@ const FeatureProducts = ({ products }) => {
                                 </div>
 
                                 <ul className='flex transition-all duration-500 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3'>
-                                    <li title="Add to Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_wishlist(p); }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F26627] hover:text-white transition-all duration-300'>
+                                    <li title="Add to Wishlist" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_wishlist(p); }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F5B301] hover:text-slate-900 transition-all duration-300'>
                                         <FaRegHeart size={14} />
                                     </li>
-                                    <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_card(p._id); }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F26627] hover:text-white transition-all duration-300'>
+                                    <li title="Add to Cart" onClick={(e) => { e.preventDefault(); e.stopPropagation(); add_card(p._id); }} className='w-[36px] h-[36px] cursor-pointer bg-white shadow-md flex justify-center items-center rounded-full hover:bg-[#F5B301] hover:text-slate-900 transition-all duration-300'>
                                         <RiShoppingCartLine size={15} />
                                     </li>
                                 </ul>    

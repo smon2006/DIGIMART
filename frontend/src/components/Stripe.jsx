@@ -1,26 +1,39 @@
 import React, { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js' 
-import { Elements } from '@stripe/react-stripe-js' 
+import { Elements } from '@stripe/react-stripe-js'
 import api from '../api/api';
 import CheckoutForm from './CheckoutForm';
-const stripePromise = loadStripe('pk_test_51Oml5cGAwoXiNtjJgPPyQngDj9WTjawya4zCsqTn3LPFhl4VvLZZJIh9fW9wqVweFYC5f0YEb9zjUqRpXbkEKT7T00eU1xQvjp')
+import { stripePromise } from '../utils/stripe';
 
 const Stripe = ({ price, orderId }) => {
     const [clientSecret, setClientSecret] = useState('')
-    const apperance = {
-        theme: 'stripe'
-    }
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+
     const options = {
-        apperance,
+        appearance: { theme: 'stripe' },
         clientSecret
     }
 
     const create_payment = async () => {
+        setError('')
+        setLoading(true)
         try {
-            const { data } = await api.post('/order/create-payment',{price})
+            const { data } = await api.post('/order/create-payment', { price })
+            if (!data?.clientSecret) {
+                setError('Could not start the payment. Please try again.')
+                return
+            }
             setClientSecret(data.clientSecret)
-        } catch (error) {
-            console.log(error.response.data)
+        } catch (err) {
+            console.log(err.response?.data || err.message)
+            setError(
+                err.response?.data?.message ||
+                (err.response
+                    ? 'Could not start the payment. Please try again.'
+                    : 'Cannot reach the server. Please check your connection and try again.')
+            )
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -31,10 +44,21 @@ const Stripe = ({ price, orderId }) => {
                     <Elements options={options} stripe={stripePromise}>
                         <CheckoutForm orderId={orderId} />
                     </Elements>
-                ) : <button onClick={create_payment} className='px-10 py-2.5 rounded-lg hover:shadow-[#F26627]/30 hover:shadow-lg bg-[#F26627] hover:bg-[#C24A16] transition-all text-white font-semibold text-sm'>Start Payment</button>
+                ) : (
+                    <>
+                        <button
+                            onClick={create_payment}
+                            disabled={loading}
+                            className='px-10 py-2.5 rounded-lg hover:shadow-[#F5B301]/30 hover:shadow-lg bg-[#F5B301] hover:brightness-95 disabled:opacity-60 disabled:cursor-not-allowed transition-all text-slate-900 font-semibold text-sm'
+                        >
+                            {loading ? 'Starting...' : 'Start Payment'}
+                        </button>
+                        {error && <div className='mt-3 text-sm text-red-500 font-medium'>{error}</div>}
+                    </>
+                )
             }
         </div>
     );
-}; 
+};
 
 export default Stripe;

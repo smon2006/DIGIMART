@@ -11,7 +11,7 @@ const CustomRightArrow = ({ onClick }) => (
         onClick={onClick}
         aria-label='Next'
         title='Next'
-        className='absolute right-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-[#F26627] text-white shadow-xl transition-all duration-300 hover:scale-110'
+        className='absolute right-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-[#F5B301] text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'
     >
         <MdArrowForwardIos size={22} />
     </button>
@@ -22,7 +22,7 @@ const CustomLeftArrow = ({ onClick }) => (
         onClick={onClick}
         aria-label='Previous'
         title='Previous'
-        className='absolute left-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-[#F26627] text-white shadow-xl transition-all duration-300 hover:scale-110'
+        className='absolute left-0 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-[#F5B301] text-slate-900 shadow-xl transition-all duration-300 hover:scale-110'
     >
         <MdArrowBackIos size={22} className='ml-1.5' />
     </button>
@@ -64,13 +64,13 @@ const Categorys = () => {
     }
 
     return (
-        <div className='w-full pt-6 pb-10 bg-[#9BD7D1]'>
+        <div className='w-full pt-6 pb-10 bg-[#D4D4D4]'>
             <div className='w-[87%] mx-auto relative'>
                 <div className='w-full'>
                     {/* Reduced bottom padding from pb-[40px] to pb-3 */}
-                    <div className='text-center flex justify-center items-center flex-col text-3xl text-slate-900 font-bold relative pb-3'>
+                    <div className='text-center flex justify-center items-center flex-col text-3xl text-black font-bold relative pb-3'>
                         <h2>Top Category</h2>
-                        <div className='w-[70px] h-[3px] rounded-full bg-[#F26627] mt-3'></div>
+                        <div className='w-[70px] h-[3px] rounded-full bg-[#F5B301] mt-3'></div>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@ const Categorys = () => {
                                 </div>
                                 <div className='px-4 py-3 flex items-center justify-between border-t border-slate-100 rounded-b-2xl'>
                                     <span className='font-semibold text-slate-700 capitalize truncate'>{c.name}</span>
-                                    <span className='w-7 h-7 shrink-0 rounded-full bg-slate-100 group-hover:bg-[#F26627] flex items-center justify-center text-slate-400 group-hover:text-white transition-colors duration-300'>
+                                    <span className='w-7 h-7 shrink-0 rounded-full bg-slate-100 group-hover:bg-[#F5B301] flex items-center justify-center text-slate-400 group-hover:text-slate-900 transition-colors duration-300'>
                                         <FaArrowRight size={11} />
                                     </span>
                                 </div>

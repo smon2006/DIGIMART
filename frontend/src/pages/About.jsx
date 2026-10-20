@@ -20,7 +20,7 @@ const About = () => {
     ];
 
     return (
-        <div className='min-h-screen bg-[#325D79] w-full'>
+        <div className='min-h-screen bg-[#8A8A8A] w-full'>
             <Header />
             <PageHeader title='About Us' crumbs={[{ label: 'About Us' }]} />
 
@@ -53,7 +53,7 @@ const About = () => {
                 <div className='grid grid-cols-4 md-lg:grid-cols-2 gap-6 mt-16'>
                     {stats.map((s, i) => (
                         <div key={i} className='bg-slate-50 border border-slate-200 rounded-lg py-8 flex flex-col items-center justify-center'>
-                            <span className='text-3xl font-bold text-[#F26627]'>{s.value}</span>
+                            <span className='text-3xl font-bold text-slate-900'>{s.value}</span>
                             <span className='text-slate-600 text-sm mt-2'>{s.label}</span>
                         </div>
                     ))}
@@ -64,7 +64,7 @@ const About = () => {
                     <div className='grid grid-cols-4 md-lg:grid-cols-2 sm:grid-cols-1 gap-6'>
                         {features.map((f, i) => (
                             <div key={i} className='bg-white border border-slate-200 rounded-lg p-6 hover:shadow-md transition-shadow'>
-                                <div className='w-12 h-12 flex items-center justify-center rounded-full bg-[#F26627]/10 text-[#F26627] text-xl mb-4'>
+                                <div className='w-12 h-12 flex items-center justify-center rounded-full bg-[#F5B301]/25 text-slate-900 text-xl mb-4'>
                                     {f.icon}
                                 </div>
                                 <h3 className='font-semibold text-slate-800 mb-2'>{f.title}</h3>

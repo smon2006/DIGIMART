@@ -30,10 +30,10 @@ const Products = ({title,products}) => {
             <div className='flex justify-between items-center mb-3'>
                 <div className='text-xl font-bold text-slate-700'> {title} </div>
                 <div className='flex justify-center items-center gap-2 text-slate-600'>
-                    <button title="Previous" onClick={()=>previous()} className='w-[30px] h-[30px] rounded-full flex justify-center items-center bg-slate-100 hover:bg-[#F26627] hover:text-white transition-colors'>
+                    <button title="Previous" onClick={()=>previous()} className='w-[30px] h-[30px] rounded-full flex justify-center items-center bg-slate-100 hover:bg-[#F5B301] hover:text-slate-900 transition-colors'>
                         <IoIosArrowBack size={13} />
                     </button>
-                    <button title="Next" onClick={()=>next()} className='w-[30px] h-[30px] rounded-full flex justify-center items-center bg-slate-100 hover:bg-[#F26627] hover:text-white transition-colors'>
+                    <button title="Next" onClick={()=>next()} className='w-[30px] h-[30px] rounded-full flex justify-center items-center bg-slate-100 hover:bg-[#F5B301] hover:text-slate-900 transition-colors'>
                     <IoIosArrowForward size={13} /> 
 
                     </button>
@@ -66,13 +66,13 @@ const Products = ({title,products}) => {
                     <h2 className='text-base font-medium truncate w-full'>{pl.name} </h2>
                     {
                         pl.discount > 0 ? (
-                            <span className='text-lg font-bold text-[#F26627]'>
+                            <span className='text-lg font-bold text-slate-900'>
                                 ₹{pl.price - Math.floor((pl.price * pl.discount) / 100)}{' '}
                                 <span className='text-sm font-medium text-slate-400 line-through'>₹{pl.price}</span>{' '}
                                 <span className='text-sm font-semibold text-red-500'>({pl.discount}% off)</span>
                             </span>
                         ) : (
-                            <span className='text-lg font-bold text-[#F26627]'>₹{pl.price}</span>
+                            <span className='text-lg font-bold text-slate-900'>₹{pl.price}</span>
                         )
                     }
                 </div>  

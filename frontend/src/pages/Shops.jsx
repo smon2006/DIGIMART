@@ -46,20 +46,11 @@ const Shops = () => {
         productSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
 
-    // Kick off category list + price range on mount. Nothing else depends on
-    // this effect, so it only ever runs once.
     useEffect(() => {
         dispatch(reset_products())
         dispatch(price_range_product())
     },[])
 
-    // Fires exactly once, the moment the price range comes back from the API.
-    // This both seeds the slider's local state AND performs the single
-    // initial product fetch. Seeding the slider changes state.values, which
-    // is also the debounce effect's dependency below - skipNextRangeEffect
-    // tells that effect to ignore this particular change instead of firing
-    // a second, redundant request a moment later (that second request was
-    // the actual cause of the loading flicker/glitch).
     useEffect(() => {
         if (!priceRangeLoaded || !isFirstRun.current) return
         isFirstRun.current = false
@@ -134,14 +125,14 @@ const Shops = () => {
     }
     
     return (
-        <div className='min-h-screen bg-[#325D79]'>
+        <div className='min-h-screen bg-[#8A8A8A]'>
            <Header/>
            <PageHeader title='Shop' crumbs={[{ label: 'Shop' }]} />
 
            <section className='py-16'>
             <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
             <div className={` md:block hidden ${!filter ? 'mb-6' : 'mb-0'} `}>
-                <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F26627] hover:bg-[#C24A16] transition-colors text-white rounded-lg font-semibold text-sm'>Filter Product</button> 
+                <button onClick={() => setFilter(!filter)} className='text-center w-full py-3 px-3 bg-[#F5B301] hover:brightness-95 transition-colors text-slate-900 rounded-lg font-semibold text-sm'>Filter Product</button> 
             </div>
 
             <div className='w-full flex flex-wrap items-start gap-y-8'>
@@ -150,8 +141,8 @@ const Shops = () => {
                     <h2 className='text-lg font-bold mb-3 text-slate-700 pb-3 border-b border-slate-100'>Category</h2>
         <div className='py-1 flex flex-col gap-1 max-h-[280px] overflow-y-auto pr-1'>
             {
-                categorys.map((c,i) => <div key={i} className='flex justify-start items-center gap-2 py-1.5 hover:text-[#F26627] transition-colors'>
-                    <input className='accent-[#F26627] w-4 h-4 cursor-pointer' checked={category === c.name ? true : false} onChange={(e)=>queryCategory(e,c.name)} type="checkbox" id={c.name} />
+                categorys.map((c,i) => <div key={i} className='flex justify-start items-center gap-2 py-1.5 hover:text-slate-900 transition-colors'>
+                    <input className='accent-[#F5B301] w-4 h-4 cursor-pointer' checked={category === c.name ? true : false} onChange={(e)=>queryCategory(e,c.name)} type="checkbox" id={c.name} />
                     <label className='text-slate-600 text-sm block cursor-pointer w-full' htmlFor={c.name}>{c.name}</label>
                 </div>)
             }
@@ -172,7 +163,7 @@ const Shops = () => {
                     </div>
                 )}
                 renderThumb={({ props }) => (
-                    <div className='w-[16px] h-[16px] bg-[#F26627] rounded-full shadow-md ring-2 ring-white' {...props} />
+                    <div className='w-[16px] h-[16px] bg-[#F5B301] rounded-full shadow-md ring-2 ring-white' {...props} />
     
                 )} 
              />  
@@ -184,7 +175,7 @@ const Shops = () => {
          <div className='py-4 flex flex-col gap-3 border-t border-slate-100 mt-2'>
             <h2 className='text-lg font-bold text-slate-700 mb-1'>Rating</h2>
             <div className='flex flex-col gap-2.5'>
-                 <div onClick={() => changeRating(5)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                 <div onClick={() => changeRating(5)} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -192,7 +183,7 @@ const Shops = () => {
                     <span><AiFillStar/> </span>
                   </div>
 
-                  <div onClick={() => changeRating(4)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(4)} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -200,7 +191,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => changeRating(3)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(3)} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
@@ -208,7 +199,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => changeRating(2)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(2)} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
@@ -216,7 +207,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={() => changeRating(1)} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={() => changeRating(1)} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                     <span><AiFillStar/> </span>
                     <span><CiStar/> </span>
                     <span><CiStar/> </span>
@@ -224,7 +215,7 @@ const Shops = () => {
                     <span><CiStar/> </span>
                   </div>
 
-                  <div onClick={resetRating} className='text-[#F26627] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
+                  <div onClick={resetRating} className='text-[#F5B301] flex justify-start items-start gap-1 text-lg cursor-pointer hover:opacity-70 transition-opacity'>
                   <span><CiStar/> </span>
                   <span><CiStar/> </span>
                   <span><CiStar/> </span>
@@ -243,18 +234,18 @@ const Shops = () => {
         <div ref={productSectionRef} className='w-9/12 md-lg:w-8/12 md:w-full scroll-mt-24'>
             <div className='pl-8 md:pl-0'>
                 <div className='py-4 bg-white mb-8 px-5 rounded-2xl flex justify-between items-center border border-slate-200 shadow-sm flex-wrap gap-3'>
-                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-[#F26627] font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
+                    <h2 className='text-sm font-semibold text-slate-600'> <span className='text-slate-900 font-bold'>{ready ? totalProduct : 0}</span> Products Found </h2>
         <div className='flex justify-center items-center gap-3'>
-            <select onChange={(e)=>changeSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F26627] transition-colors' name="" id="">
+            <select onChange={(e)=>changeSortPrice(e.target.value)} className='p-2 rounded-lg border border-slate-300 outline-0 text-slate-600 text-sm font-medium focus:border-[#F5B301] transition-colors' name="" id="">
                 <option value="">Sort By</option>
                 <option value="low-to-high">Price: Low to High</option>
                 <option value="high-to-low">Price: High to Low</option>
             </select>
         <div className='flex justify-center items-center gap-2 md-lg:hidden'>
-            <div onClick={()=> setStyles('grid')} className={`p-2.5 rounded-lg ${styles === 'grid' ? 'bg-[#F26627] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
+            <div onClick={()=> setStyles('grid')} className={`p-2.5 rounded-lg ${styles === 'grid' ? 'bg-[#F5B301] text-slate-900' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
                   <BsFillGridFill/>  
             </div>
-            <div onClick={()=> setStyles('list')} className={`p-2.5 rounded-lg ${styles === 'list' ? 'bg-[#F26627] text-white' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
+            <div onClick={()=> setStyles('list')} className={`p-2.5 rounded-lg ${styles === 'list' ? 'bg-[#F5B301] text-slate-900' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'} cursor-pointer transition-colors `} >
                   <FaThList/>  
             </div> 
         </div> 
@@ -265,7 +256,7 @@ const Shops = () => {
                   {
                     (!ready || loader) ? (
                         <div className='w-full py-20 flex justify-center items-center'>
-                            <div className='w-12 h-12 border-4 border-[#F26627] border-t-transparent rounded-full animate-spin'></div>
+                            <div className='w-12 h-12 border-4 border-[#F5B301] border-t-transparent rounded-full animate-spin'></div>
                         </div>
                     ) : (
                         <div key={ready ? 'loaded' : 'loading'} className={ready ? 'animate-fadeIn' : ''}>
