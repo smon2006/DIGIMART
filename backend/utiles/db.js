@@ -21,7 +21,7 @@ module.exports.connectOnce = async () => {
     try {
         cached.conn = await cached.promise
     } catch (e) {
-        cached.promise = null   // allow a retry on the next request
+        cached.promise = null
         throw e
     }
     return cached.conn
